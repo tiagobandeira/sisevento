@@ -8,10 +8,10 @@
 	*/
 	function dataConnect(){
 		
-		$host = "127.0.0.1";
-		$db = "sisevento";
-		$user = "root";
-		$password = "tiagoadmin";
+		$host = "mysql.hostinger.com.br";
+		$db = "u599766642_even";
+		$user = "u599766642_tiago";
+		$password = "i6d3tUWfH5Ax";
 
 		
 		$data = array();
