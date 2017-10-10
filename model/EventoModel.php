@@ -125,7 +125,7 @@
 				$sql = "SELECT * FROM evento WHERE nome LIKE '$nome%' or '%$nome'";
 
 			}else{
-				$sql = "SELECT * FROM evento";
+				$sql = "SELECT * FROM evento ORDER BY id DESC";
 			}
 			$eventos = array();
 			try{
