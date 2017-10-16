@@ -6,17 +6,16 @@ require_once '../model/EventoModel.php';
 require_once '../model/CertificadoModel.php';
 require_once '../model/TipoCertificadoModel.php';
 
-$eve = new EventoModel();
-$eves = $eve->list("");
-$eve->closeCon();
+@$eve = new EventoModel();
+@$eves = $eve->list("");
 #tipo
-$tipo = new TipoCertificadoModel();
-$tipos = $tipo->list();
+@$tipo = new TipoCertificadoModel();
+@$tipos = $tipo->list();
 #certificado
-$cert = new CertificadoModel();
+@$cert = new CertificadoModel();
 #tipo de usuario
-$tipoUserModel = new TipoUsuarioModel();
-$tiposUsuarios = $tipoUserModel->list();
+@$tipoUserModel = new TipoUsuarioModel();
+@$tiposUsuarios = $tipoUserModel->list();
 
 
 ?>
