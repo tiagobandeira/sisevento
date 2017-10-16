@@ -153,6 +153,7 @@
 					$evento->setCargaHoraria($value['cargahoraria']);
 					
 					array_push($eventos, $evento);
+					$evento->closeCon();
 				}
 				return $eventos;
 			}catch(PDOEcxeption $e){
