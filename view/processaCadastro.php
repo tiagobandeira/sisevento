@@ -12,8 +12,8 @@
 			require_once '../model/TipoEventoModel.php';
 			$tipouser = new TipoUsuarioModel();
 			$tipouser->init();
-			$tipoevento = new TipoEventoModel();
-			$tipoevento->init();
+			#$tipoevento = new TipoEventoModel();
+			#$tipoevento->init();
 
 			$user = new UsuarioModel();
 			$user->setNome($_POST['user']);
