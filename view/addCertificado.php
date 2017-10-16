@@ -8,6 +8,7 @@ require_once '../model/TipoCertificadoModel.php';
 
 $eve = new EventoModel();
 $eves = $eve->list("");
+$eve->closeCon();
 #tipo
 $tipo = new TipoCertificadoModel();
 $tipos = $tipo->list();
@@ -260,6 +261,6 @@ $tiposUsuarios = $tipoUserModel->list();
 </div>
 <?php  
   $tipoUserModel->closeCon();
-  $eve->closeCon();
+  
   $tipo->closeCon();
 ?>
