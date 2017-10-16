@@ -22,7 +22,7 @@
     	private $endereco;
     	private $usuario;
     	private $cargahoraria;
-    	private $con =  null;
+    	private $con;
 
     	function __construct($id = null, $nome = null, $dataInicio = null, $dataFim = null, $tipo = null, $endereco = null, $usuario = 1, $cargahoraria = 0, $con = null)
 		{
@@ -34,10 +34,12 @@
 			$this->endereco = $endereco;
 			$this->usuario = $usuario;
 			$this->cargahoraria = $cargahoraria;
-			
-				$connect = new Connect($this->con);
+			if ($con == null) {
+				$connect = new Connect();
 				$this->con = $connect->getConnect();	
-			
+			}else{
+				$this->con = $con;
+			}
 				
 		}
 
@@ -150,7 +152,7 @@
 				$query = $conexao->prepare($sql);
 				$query->execute();
 				foreach ($query as $value) {
-					$evento = new EventoModel();#ganbirra
+					$evento = new EventoModel(null,null,null,null,null,null,0,0,$this->con);#ganbirra
 					$evento->setId($value['id']);
 					$evento->setNome($value['nome']);
 					$evento->setDataInicio($value['data_inicio']);

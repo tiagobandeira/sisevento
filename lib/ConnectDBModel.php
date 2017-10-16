@@ -15,7 +15,7 @@ require_once '../database/install.php';
 		Guarda os dados da conexão
 	*/
 	public  $con;
-	function __construct($con = null)
+	function __construct()
 	{
 		$data = dataConnect();
 		$host = $data[0];
@@ -23,9 +23,8 @@ require_once '../database/install.php';
 		$user = $data[2];
 		$password = $data[3];
 		try{
-			if ($con == null) {
-				$this->con = new PDO("mysql:host=$host;dbname=$db", $user, $password);	
-			}
+			$this->con = new PDO("mysql:host=$host;dbname=$db", $user, $password);	
+			
 		}catch(PDOException $e){
 			echo "Não foi possível conectar com a base de dados. " . $e->getMessage();
 		}
