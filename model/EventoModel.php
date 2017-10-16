@@ -216,8 +216,5 @@
 		public function init(){
 			
 		}
-		public function closeCon(){
-			$this->con->close();
-		}
 	}
 ?>
