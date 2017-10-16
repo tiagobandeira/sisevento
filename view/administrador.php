@@ -7,8 +7,8 @@
   Versão: 1.0
 */
   session_start();
-  #$id = $_SESSION['id'];
-  #$type = $_SESSION['type'];
+  $id = $_SESSION['id'];
+  $type = $_SESSION['type'];
   require_once '../model/UsuarioModel.php';
   require_once 'itemFunction.php';
   $o_user = new UsuarioModel();
@@ -70,7 +70,8 @@
             </div>
             <div class="top-menu">
               <ul class="nav pull-right top-menu">
-                    <li><a class="logout" href="../view">Logout</a></li>
+                    <li><a class="logout hidden-phone" href="../view">Logout</a></li>
+                    <li><a class="logout visible-xs" href="../view"><span class="fa fa-sign-out"></span></a></li>
               </ul>
             </div>
         </header>
@@ -134,6 +135,7 @@
                       </a>
                       <ul class="sub">
                           <li><a href="?view=listaCertificados&sub=listcert&item=listC">Todos</a></li>
+                            <li><a href="?view=altenticarCertificados&sub=listcert&item=listC">Altenticar</a></li>
                       </ul>
                      
                   </li>
@@ -159,8 +161,8 @@
       <section id="main-content">
           <section class="wrapper site-min-height">
            <!-- <h3><i class="fa fa-angle-right"></i><?php echo getItem() ?></h3> -->
-            <div class="row mt">
-              <div class="col-lg-12">
+            <div class="row">
+              <div class="col-lg-12 ">
 
                 <?php
                     

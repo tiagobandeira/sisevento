@@ -58,7 +58,7 @@
                         
                        </form><!-- end forme add participante -->
                        <hr style="border:0.1px solid #ccc;">
-                          
+                      
                   </div>
 </div>
     </div>

@@ -51,15 +51,7 @@
 }
 
 </style>
-<style type="text/css">
-  
-  .modalStyle{
-      background: #5F7EC8;
-  }
-  .modalBtn{
-      background: #5F7EC8;
-  }
-</style>
+
 <?php  
 
 require_once '../model/TipoEventoModel.php';
@@ -100,7 +92,7 @@ $usuario = $user->readById($_SESSION['id']);
 	?>
 							<! -- Spotify Panel -->
 					<!-- form -->
- 					<form method="post"  action="gerarCertificado.php">
+ 					<form method="post"  action="gerarCertificado2.php">
 						<div class="col-lg-4 col-md-4 col-sm-4 mb">
 							<div class="content-panel pn">
 								<div id="spotify" style="<?php echo 
@@ -146,12 +138,13 @@ $usuario = $user->readById($_SESSION['id']);
     					<input type="hidden" name="idcert" value="<?php echo $valueCertificado->getId();?>">
     					<input type="hidden" name="idtipo" value="<?php echo $valueCertificado->getTipo();?>">
     					<input type="hidden" name="codigo" value="<?php echo $valueCodigo->getCodigo();?>">
-    					<input type="hidden" name="nomeuser" value="<?php echo $usuario->getNome();?>">	
+    					<input type="hidden" name="nomeuser" value="<?php echo $usuario->getNomeCompleto();?>">	
+    					
     				<!-- form -->
 		        </form>
 
 		         <!-- form Modal -->
-				  <form method="POST" action="gerarCertificado.php">
+				  <form method="POST" action="gerarCertificado2.php">
 		          <div aria-hidden="true" aria-labelledby="myModalLabel" 
 		          		role="dialog" tabindex="-1" id="<?php echo $valueCodigo->getId() ?>" class="modal fade">
 		              <div class="modal-dialog">
@@ -231,6 +224,7 @@ $usuario = $user->readById($_SESSION['id']);
 <?php  
 	if(isset($_SESSION['error'])){
 		require_once 'popup.php';
+		echo "<meta HTTP-EQUIV='refresh' CONTENT='1;URL=?view=certificado&sub=cert&item=addE'>";
 		unset($_SESSION['error']);
 	}
 

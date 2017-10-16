@@ -126,7 +126,7 @@
 			if($tipo2->list($tipo2->getTipo()) == null){
 				$tipo2->save();
 			}
-			if($tipo3->list($tipo2->getTipo()) == null){
+			if($tipo3->list($tipo3->getTipo()) == null){
 				$tipo3->save();
 			}
 			if($tipo4->list($tipo4->getTipo()) == null){

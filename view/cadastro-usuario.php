@@ -2,21 +2,6 @@
 	session_start();
 
 
-	if(isset($_POST['user']) && isset($_POST['password']) && isset($_POST['email'])){
-		require_once '../model/UsuarioModel.php';
-		require_once '../model/TipoUsuarioModel.php';
-
-		$user = new UsuarioModel();
-		$user->setNome($_POST['user']);
-		$user->setSenha($_POST['password']);
-		$user->setEmail($_POST['email']);
-		$user->setTipo(2);
-		$user->save();
-		$_SESSION['user'] = $user->getNome();
-		$_SESSION['password'] = $user->getSenha();
-		header('Location: usuario.php');
-
-	}
 ?>
 
 <!DOCTYPE html>
@@ -54,34 +39,95 @@
 
 	  <div id="login-page">
 	  	<div class="container">
-	  	
-		      <form class="form-login" method="POST">
-		        <h2 class="form-login-heading">Participante</h2>
+	  		<div class="row">
+	  			<div class="col-md-6 col-md-offset-3">
+	  				<h1 align="center"><span class="fa fa-calendar" style=""></span> SisEvento</h1>
+	  				<form class="" method="POST" style="background-color: #fff; padding: 3px; ">
+		        
+		        
+
 		        <div class="login-wrap">
+		        	<?php  
+
+						if(isset($_POST['user']) && isset($_POST['password']) && isset($_POST['email'])){
+							require_once '../model/UsuarioModel.php';
+							require_once '../model/TipoUsuarioModel.php';
+							$nomeCompleto = $_POST['pNome'] . " " . $_POST['sNome'];
+
+							$user = new UsuarioModel();
+							$user->setNome($_POST['user']);
+							$user->setSenha($_POST['password']);
+							$user->setEmail($_POST['email']);
+							$user->setNomeCompleto($nomeCompleto);
+							$user->setTipo(2);
+							$flag = true;
+							$listaNome = $user->listByNameUser($user->getNome());
+							foreach ($listaNome as $value) {
+								if ($value->getNome() == $user->getNome() && $value->getSenha() == $user->getSenha()) {
+									$flag = false;
+								}
+							}
+							if($flag){
+								$user->save();
+								$idUser = 0;
+								$listaNome = $user->listByNameUser($user->getNome());
+								foreach ($listaNome as $value) {
+									if ($value->getNome() == $user->getNome() && $value->getSenha() == $user->getSenha()) {
+										$idUser = $value->getId();
+									}
+								}
+								$_SESSION['id'] = $idUser;
+								$_SESSION['type'] = $user->getTipo();
+								$_SESSION['user'] = $user->getNome();
+								$_SESSION['password'] = $user->getSenha();
+								header('Location: usuario.php');
+							}else{
+								echo "<p class='alert alert-danger'  align='center'>Nome de usuario já está sendo usado</p>";
+							}
+							
+
+					}
+		      	?>
 		        	<label class="checkbox">
-		        		Nome do participante
+		        		Nome de Usuario
 		        	</label>
-		            <input type="text" name="user" class="form-control" placeholder="Nome de Usuário" required="user" autofocus>
+		            <input type="text" name="user" class="form-control"  required="user" autofocus>
+		            <br>
+		            <label class="checkbox">
+		        		Primeiro Nome
+		        	</label>
+		            <input type="text" name="pNome" class="form-control"  required="user" autofocus>
+		            <br>
+		            <label class="checkbox">
+		        		Sobrenome
+		        	</label>
+		            <input type="text" name="sNome" class="form-control"   autofocus>
 		            <br>
 		            <label class="checkbox">
 		        		Senha
 		        	</label>
-		            <input type="password" name="password" class="form-control" placeholder="senha" required="password"><br>
+		            <input type="password" name="password" class="form-control"  required="password"><br>
 		            <label class="checkbox">
 		        		Email
 		        	</label>
-		            <input type="email" name="email" class="form-control" placeholder="email" required="email"><br>
-		            <button class="btn btn-theme btn-block"  type="submit"><i class="fa fa-lock"></i> SIGN IN</button>
+		            <input type="email" name="email" class="form-control"  required="email"><br>
+		            <button class="btn btn-theme btn-block"  type="submit"><i class="fa fa-lock"></i> Entrar</button>
 
 		           
 		
 		        </div>
-		
-		          <!-- Modal -->
-		          <!-- modal -->
+
 		
 		      </form>	  	
+		      <div>
+		      	
+		      	
+		      </div>
 	  	
+	  			</div>
+	  			
+	  		</div>
+		      
 	  	</div>
 	  </div>
 
@@ -92,9 +138,11 @@
     <!--BACKSTRETCH-->
     <!-- You can use an image of whatever size. This script will stretch to fit in any screen size.-->
     <script type="text/javascript" src="componentes/assets/js/jquery.backstretch.min.js"></script>
+    <!--
     <script>
         $.backstretch("componentes/assets/img/bg-sisevento5.png", {speed: 500});
     </script>
+    -->
 
 
   </body>

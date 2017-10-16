@@ -21,9 +21,10 @@
     	private $tipo;
     	private $endereco;
     	private $usuario;
+    	private $cargahoraria;
     	private $con;
 
-    	function __construct($id = null, $nome = null, $dataInicio = null, $dataFim = null, $tipo = null, $endereco = null, $usuario = 1)
+    	function __construct($id = null, $nome = null, $dataInicio = null, $dataFim = null, $tipo = null, $endereco = null, $usuario = 1, $cargahoraria = 0)
 		{
 			$this->id = $id;
 			$this->nome = $nome;
@@ -32,6 +33,7 @@
 			$this->tipo = $tipo;
 			$this->endereco = $endereco;
 			$this->usuario = $usuario;
+			$this->cargahoraria = $cargahoraria;
 			$connect = new Connect();
 			$this->con = $connect->getConnect();		
 		}
@@ -78,6 +80,12 @@
 		public function getUsuario(){
 			return $this->usuario;
 		}
+		public function setCargaHoraria($cargahoraria){
+			$this->cargahoraria = $cargahoraria;
+		}
+		public function getCargaHoraria(){
+			return $this->cargahoraria;
+		}
 
     	/*
 			Manipulação de dados 
@@ -93,7 +101,8 @@
 							data_fim,
 							tipo,
 							endereco,
-							usuario
+							usuario,
+							cargahoraria
 						)
 						VALUES 
 						(
@@ -103,7 +112,8 @@
 							'$this->dataFim',
 							'$this->tipo',
 							'$this->endereco',
-							'$this->usuario'
+							'$this->usuario',
+							'$this->cargahoraria'
 						)";
 			}else{
 				$sql = "UPDATE 
@@ -114,7 +124,8 @@
 							data_fim = '$this->dataFim',
 							tipo = '$this->tipo',
 							endereco = '$this->endereco',
-							usuario = '$this->usuario'
+							usuario = '$this->usuario',
+							cargahoraria = '$this->cargahoraria'
 						WHERE id = $this->id";
 			}
 			$query = $this->con->prepare($sql);
@@ -139,7 +150,7 @@
 					$evento->setDataFim($value['data_fim']);
 					$evento->setTipo($value['tipo']);
 					$evento->setEndereco($value['endereco']);
-					$evento->setUsuario($value['usuario']);
+					$evento->setCargaHoraria($value['cargahoraria']);
 					
 					array_push($eventos, $evento);
 				}
@@ -163,6 +174,7 @@
 				$evento->setTipo($value['tipo']);
 				$evento->setEndereco($value['endereco']);
 				$evento->setUsuario($value['usuario']);
+				$evento->setCargaHoraria($value['cargahoraria']);
 			}
 			return $evento;
 		}
@@ -199,6 +211,10 @@
 			}catch(PDOEcxeption $e){
 				echo "Não foi possível listar" . $e->getMesage();
 			}
+		}
+
+		public function init(){
+			
 		}
 	}
 ?>

@@ -23,6 +23,7 @@
 					$_SESSION['id'] = $value->getId();
 					$_SESSION['type'] = $value->getTipo();
 					$flag = true;
+					unset($_SESSION['error']);
 					break;
 				}
 			}
@@ -31,16 +32,15 @@
 					header("Location: administrador.php");
 				}else if($_SESSION['type'] == 2){
 					header("Location: usuario.php");
-				}else if($_SESSION['type'] == 3){
-					header("Location: participante.php");
 				}else{
-					header('Location: ../view');
+					header("Location: participante.php");
 				}
+			}else{
+				$_SESSION['error'] = 'userexists';
+				header('Location: ../view');
 			}
 			
 			
-		}else{
-			header('Location: ../view');
 		}
 	}else if($_POST['btn'] == "cadastrar"){
 		header("Location: cadastro-usuario.php");

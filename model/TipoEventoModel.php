@@ -107,6 +107,19 @@
 		public function desabled(){
 
 		}
+
+		public function init(){
+			$tipo1 = new TipoEventoModel(null, "Informática");
+			$tipo2 = new TipoEventoModel(null, "Outro");	
+
+			if ($tipo1->list($tipo1->getTipo()) == null) {
+				$tipo1->save();
+			}
+			if ($tipo2->list($tipo2->getTipo()) == null) {
+				$tipo2->save();
+			}
+
+		}
 	}
 
 ?>

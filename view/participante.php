@@ -16,7 +16,7 @@
   $username = $user->getNome();
   $usertype = $user->getTipo();
   $_SESSION[$username] = $username;
-  if(isset($id) && isset($_SESSION[$username]) && $usertype == 3){
+  if(isset($id) && isset($_SESSION[$username]) && $usertype > 2){
 
 
 ?>
@@ -119,7 +119,7 @@
                           <span>Configuração</span>
                       </a>
                       <ul class="sub">
-                          <li><a  href="?view=certificado&sub=cog&item=addE">Conta</a></li>
+                          <li><a  href="?view=configContaUser&sub=cog&item=addE">Conta</a></li>
                       </ul>
                   </li>
               </ul>

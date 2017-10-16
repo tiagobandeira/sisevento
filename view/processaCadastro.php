@@ -9,8 +9,11 @@
 		if(isset($_POST['user']) && isset($_POST['password'])){
 			require_once '../model/UsuarioModel.php';
 			require_once '../model/TipoUsuarioModel.php';
+			require_once '../model/TipoEventoModel.php';
 			$tipouser = new TipoUsuarioModel();
 			$tipouser->init();
+			$tipoevento = new TipoEventoModel();
+			$tipoevento->init();
 
 			$user = new UsuarioModel();
 			$user->setNome($_POST['user']);
@@ -19,7 +22,14 @@
 			$user->setTipo(1);
 			$user->save();
 
-			
+			$users = $user->list();
+			foreach ($users as $value) {
+				if($value->getNome() == $user->getNome()){
+					$id = $value->getId();
+					$type = $value->getTipo();
+					break;
+				}
+			}
 			$_SESSION['id'] = $id;
 			$_SESSION['type'] = $type;
 			header('Location: administrador.php');

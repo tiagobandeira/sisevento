@@ -7,8 +7,8 @@ $lista = $eve->list("");
 $i = 0;
 $j = 0;
 $linha = 0;
-if (!isset($_SESSION['cont'])) {
-  $_SESSION['cont'] = 4; 
+if (!isset($_SESSION['contEvento'])) {
+  $_SESSION['contEvento'] = 4; 
 }
 $cores = ['#f5f6f8', '#FFFFFF'];
 
@@ -34,13 +34,14 @@ $cores = ['#f5f6f8', '#FFFFFF'];
                             <br>
                           
 	                 	</div>
-                           <form method="POST">
+                           
                           <div class="panel-body">
                               <div class="task-content">
+                              <form method="POST">
                                   <ul id="sortable" class="task-list">
                                   	<?php foreach ($lista as $value) {  
                                           $linha++;
-                                          if ($j <= $_SESSION['cont']) {
+                                          if ($j <= $_SESSION['contEvento']) {
                                               $j++;
                                          
                                     ?>
@@ -88,16 +89,16 @@ $cores = ['#f5f6f8', '#FFFFFF'];
 
                                   </ul>
                             </form>
-                        
+                            </div>
                               <form method="POST">
-                              </div>
+                              
                               <div class=" add-task-row">
                                   <a class="btn btn-success btn-sm pull-left" href="?view=addEvento&sub=part&item=addE">Novo Evento</a>
                                   <button class="btn btn-default btn-sm pull-right" type="submit" 
                                       name="mais" value="<?php ?>">
                                     <?php  
                                       
-                                        if ($_SESSION['cont'] <= $linha) {
+                                        if ($_SESSION['contEvento'] <= $linha) {
                                           echo "Ver mais";
                                         }else{
                                           echo "Recolher";
@@ -113,12 +114,12 @@ $cores = ['#f5f6f8', '#FFFFFF'];
 
                             if (isset($_POST['mais'])) {
 
-                                if($_SESSION['cont'] <= $linha){
-                                    $_SESSION['cont'] += 4;
+                                if($_SESSION['contEvento'] <= $linha){
+                                    $_SESSION['contEvento'] += 4;
                                 }else{
                                   $flag = true;
                                   echo "<p class='alert alert-success'  align='center'>Sem mais registros</p>";
-                                  unset($_SESSION['cont']);
+                                  unset($_SESSION['contEvento']);
                                 }
                                 
                                 #unset($_SESSION['cont']);

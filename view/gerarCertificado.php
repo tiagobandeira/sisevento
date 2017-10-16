@@ -8,7 +8,7 @@ session_start();
 	
     
 
-	include_once '../lib/mpdf60/mpdf.php';
+	#include_once '../lib/mpdf60/mpdf.php';
 	include_once '../model/UsuarioModel.php';
 	include_once '../model/TipoEventoModel.php';
 	include_once '../model/EventoModel.php';

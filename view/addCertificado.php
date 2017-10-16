@@ -27,7 +27,8 @@ $tiposUsuarios = $tipoUserModel->list();
   </div>
 </div>
 -->
-<div class="col-lg-8">
+<div class="row">
+    <div class="col-lg-8 no-padding">
                   <div class="form-panel">
                       <h4 class="mb"> Certificado</h4>
                       <form class="form-horizontal style-form"  method="POST" enctype="multipart/form-data">
@@ -148,7 +149,7 @@ $tiposUsuarios = $tipoUserModel->list();
                   </div>
                   
 </div>
-<div class="col-lg-4">
+<div class="col-lg-4 no-padding">
                   <div class="form-panel" >
                       <!-- forme add tipo evento -->
                       <form class="form-horizontal style-form" method="POST">
@@ -253,4 +254,6 @@ $tiposUsuarios = $tipoUserModel->list();
                          
                        </form> <!-- end forme del participante -->
                   </div>
+</div>
+
 </div>

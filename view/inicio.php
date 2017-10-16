@@ -9,15 +9,19 @@ $eventos = $evento->list("");
 
 ?>
 <!--<h3><i class="fa fa-angle-right"></i> Eventos Cadastrados</h3>-->
-<div class="showback">
-<h3><i class="fa fa-calendar-o"></i> Eventos Cadastrados</h3>
-</div>
-<div class="row">
+
+<div class="row mt-default">
+	<div class="col-lg-12 col-md-12 col-sm-12 ">
+		<div class="showback" >
+			<h3><i class="fa fa-calendar-o" ></i> Eventos Cadastrados</h3>
+		</div>
+	</div>
 	<?php  
 		foreach ($eventos as $value) {
 
 	?>
-	<div class="col-lg-4 col-md-4 col-sm-4 mb">
+	
+	<div class="col-lg-4 col-md-4 col-sm-4 mb" >
 		<div class="product-panel-2 pn">
 		<!--<div class="badge badge-hot">HOT</div>-->
 		<!--<img src="componentes/assets/img/product.jpg" width="200" alt="">-->

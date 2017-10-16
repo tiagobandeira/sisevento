@@ -2,6 +2,7 @@
 	require_once '../control/controllerIndex.php';
 	$ci = new ControllerIndex();
 	$ci->redirect();
+	
 ?>
 
 <!DOCTYPE html>
@@ -43,10 +44,15 @@
 		      <form class="form-login" method="POST" action="processa.php">
 		        <h2 class="form-login-heading">Login</h2>
 		        <div class="login-wrap">
+		        	<?php  
+		        		if (isset($_SESSION['error'])) {
+		        			echo "<p class='alert alert-danger'  align='center'>Nome de usuario ou senha incorretos</p>";
+		        		}	
+		        	?>
 		        	<label class="checkbox">
 		        		Nome de usuário
 		        	</label>
-		            <input type="text" name="user" class="form-control" placeholder="User ID"  autofocus>
+		            <input type="text" name="user" class="form-control" placeholder="Nome de Usuario"  autofocus>
 		            <br>
 		            <label class="checkbox">
 		        		Senha
@@ -98,9 +104,11 @@
     <!--BACKSTRETCH-->
     <!-- You can use an image of whatever size. This script will stretch to fit in any screen size.-->
     <script type="text/javascript" src="componentes/assets/js/jquery.backstretch.min.js"></script>
+    <!--
     <script>
-        $.backstretch("componentes/assets/img/bg-sisevento4.png", {speed: 500});
+        $.backstretch("componentes/assets/img/bbg-sisevento6.jpg", {speed: 500});
     </script>
+    -->
 
 
   </body>
