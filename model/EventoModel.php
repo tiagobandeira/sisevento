@@ -35,7 +35,7 @@
 			$this->usuario = $usuario;
 			$this->cargahoraria = $cargahoraria;
 			
-				$connect = new Connect();
+				$connect = new Connect($this->con);
 				$this->con = $connect->getConnect();	
 			
 				
