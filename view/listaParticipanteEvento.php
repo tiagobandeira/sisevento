@@ -2,12 +2,14 @@
 require_once '../model/UsuarioModel.php';
 require_once '../model/EventoModel.php';
 require_once '../model/CodigoUsuarioModel.php';
+require_once '../model/TipoUsuarioModel.php';
 
 $user = new UsuarioModel();
 $code = new CodigoUsuarioModel();
 $even = new EventoModel();
 $code->setCodigo($_POST['id']);
 $lista = $code->list($_POST['id']);
+$tipoUsuarioModel = new TipoUsuarioModel();
 ?>
 
 <div class="row mt-default">
@@ -19,7 +21,7 @@ $lista = $code->list($_POST['id']);
 			<table class="table table-striped table-advance table-hover">
 				<thead>
 					<tr>
-				    	<th>id</th>
+				    	<th class="hidden-phone">id</th>
 				    	<th>Nome</th>
 				   		<th class="hidden-phone">Email</th>
 				    	<th>Tipo</th>
@@ -38,10 +40,10 @@ $lista = $code->list($_POST['id']);
 							
 					?>
 					<tr>
-				    	<td><?php echo  $usuario->getid() ?></td>
+				    	<td class="hidden-phone"><?php echo  $usuario->getid() ?></td>
 				    	<td><?php echo $usuario->getNome() ?></td>
 				    	<td class="hidden-phone"><?php echo $usuario->getEmail() ?></td>
-				    	<td><?php echo $usuario->getTipo() ?></td>
+				    	<td><?php echo  $tipoUsuarioModel->readById($usuario->getTipo())->getTipo() ?></td>
 				    	<td class="hidden-phone"><?php echo $evento->getNome() ?></td>
 				    	<td><?php echo $value->getCodigo() ?></td>
 					</tr>
