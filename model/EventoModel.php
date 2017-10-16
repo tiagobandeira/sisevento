@@ -22,7 +22,7 @@
     	private $endereco;
     	private $usuario;
     	private $cargahoraria;
-    	private $con;
+    	private $con =  null;
 
     	function __construct($id = null, $nome = null, $dataInicio = null, $dataFim = null, $tipo = null, $endereco = null, $usuario = 1, $cargahoraria = 0, $con = null)
 		{
