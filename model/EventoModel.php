@@ -24,7 +24,7 @@
     	private $cargahoraria;
     	private $con;
 
-    	function __construct($id = null, $nome = null, $dataInicio = null, $dataFim = null, $tipo = null, $endereco = null, $usuario = 1, $cargahoraria = 0)
+    	function __construct($id = null, $nome = null, $dataInicio = null, $dataFim = null, $tipo = null, $endereco = null, $usuario = 1, $cargahoraria = 0, $con = null)
 		{
 			$this->id = $id;
 			$this->nome = $nome;
@@ -34,8 +34,13 @@
 			$this->endereco = $endereco;
 			$this->usuario = $usuario;
 			$this->cargahoraria = $cargahoraria;
-			$connect = new Connect();
-			$this->con = $connect->getConnect();		
+			if ($con == null) {
+				$connect = new Connect();
+				$this->con = $connect->getConnect();	
+			}else{
+				$this->con = $con;
+			}
+				
 		}
 
 		public function getId(){
@@ -86,7 +91,9 @@
 		public function getCargaHoraria(){
 			return $this->cargahoraria;
 		}
-
+		public function getCon(){
+			return $this->con;
+		}
     	/*
 			Manipulação de dados 
 		*/
@@ -140,10 +147,12 @@
 			}
 			$eventos = array();
 			try{
-				$query = $this->con->prepare($sql);
+				$connect = new Connect();
+				$conexao = $connect->getConnect();
+				$query = $conexao->prepare($sql);
 				$query->execute();
 				foreach ($query as $value) {
-					$evento = new EventoModel();
+					$evento = new EventoModel(null,null,null,null,null,null,0,0,$this->con);#ganbirra
 					$evento->setId($value['id']);
 					$evento->setNome($value['nome']);
 					$evento->setDataInicio($value['data_inicio']);
@@ -153,7 +162,7 @@
 					$evento->setCargaHoraria($value['cargahoraria']);
 					
 					array_push($eventos, $evento);
-					$evento->closeCon();
+					
 				}
 				return $eventos;
 			}catch(PDOEcxeption $e){
@@ -217,8 +226,6 @@
 		public function init(){
 			
 		}
-		public function closeCon(){
-			$this->con->close();
-		}
+		
 	}
 ?>
