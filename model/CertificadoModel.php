@@ -223,7 +223,10 @@
 				echo "Não foi possível listar" . $e->getMesage();
 			}
 
-}
+		}
+		public function closeCon(){
+			$this->con->close();
+		}
 	}
 	
 ?>

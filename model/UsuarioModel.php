@@ -227,6 +227,9 @@
 		public function desabled(){
 
 		}
+		public function closeCon(){
+			$this->con->close();
+		}
 		
 		
 	}

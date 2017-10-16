@@ -125,6 +125,9 @@
 			$this->con->close();
 
 		}
+		public function closeCon(){
+			$this->con->close();
+		}
 	}
 
 ?>

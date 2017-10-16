@@ -136,5 +136,8 @@
 
 
 		}
+		public function closeCon(){
+			$this->con->close();
+		}
 	}
 ?>

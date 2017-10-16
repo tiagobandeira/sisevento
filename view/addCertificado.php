@@ -8,14 +8,17 @@ require_once '../model/TipoCertificadoModel.php';
 
 $eve = new EventoModel();
 $eves = $eve->list("");
+$eve->closeCon();
 #tipo
 $tipo = new TipoCertificadoModel();
 $tipos = $tipo->list();
+$tipo->closeCon();
 #certificado
 $cert = new CertificadoModel();
 #tipo de usuario
 $tipoUserModel = new TipoUsuarioModel();
 $tiposUsuarios = $tipoUserModel->list();
+
 
 ?>
 <!--
