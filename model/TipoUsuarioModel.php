@@ -64,7 +64,6 @@
 			}
 			$query = $this->con->prepare($sql);
 			$query->execute();
-			$this->con->close();
 		}
 		public function list($tipo = null){
 			if(!empty($tipo)){
@@ -84,7 +83,6 @@
 					
 					array_push($tipos, $tipo);
 				}
-				$this->con->close();
 				return $tipos;
 			}catch(PDOEcxeption $e){
 				echo "Não foi possível listar" . $e->getMesage();
@@ -100,7 +98,6 @@
 				$tipo->setId($value['id']);
 				$tipo->setTipo($value['tipo']);
 			}
-			$this->con->close();
 			return $tipo;
 		}
 		public function delete(){
@@ -108,7 +105,6 @@
 			$query = $this->con->prepare($sql);
 			$query->bindValue(":id", $this->getId());
 			$query->execute();
-			$this->con->close();
 		}
 		public function desabled(){
 
@@ -136,7 +132,6 @@
 			if($tipo4->list($tipo4->getTipo()) == null){
 				$tipo4->save();
 			}
-			$this->con->close();
 			
 
 

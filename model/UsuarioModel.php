@@ -140,7 +140,6 @@
 			}
 			$query = $this->con->prepare($sql);
 			$query->execute();
-			$this->con->close();
 		}
 		public function list($nome = null){
 			if(!empty($nome)){
@@ -166,7 +165,6 @@
 					
 					array_push($usuarios, $usuario);
 				}
-				$this->con->close();
 				return $usuarios;
 			}catch(PDOEcxeption $e){
 				echo "Não foi possível listar" . $e->getMesage();
@@ -196,7 +194,6 @@
 					
 					array_push($usuarios, $usuario);
 				}
-				$this->con->close();
 				return $usuarios;
 			}catch(PDOEcxeption $e){
 				echo "Não foi possível listar" . $e->getMesage();
@@ -219,7 +216,6 @@
 				$usuario->setCargo($value['cargo']);
 				$usuario->setSiape($value['siape']);
 			}
-			$this->con->close();
 			return $usuario;
 		}
 		public function delete(){
@@ -227,7 +223,6 @@
 			$query = $this->con->prepare($sql);
 			$query->bindValue(":id", $this->getId());
 			$query->execute();
-			$this->con->close();
 		}
 		public function desabled(){
 

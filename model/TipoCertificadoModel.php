@@ -87,7 +87,6 @@
 			}
 			$query = $this->con->prepare($sql);
 			$query->execute();
-			$this->con->close();
 		}
 		public function list($nome = null){
 			if(!empty($tipo)){
@@ -109,7 +108,6 @@
 					
 					array_push($tipos, $tipo);
 				}
-				$this->con->close();
 				return $tipos;
 			}catch(PDOEcxeption $e){
 				echo "Não foi possível listar" . $e->getMesage();
@@ -127,7 +125,6 @@
 				$tipo->setTexto($value['texto']);
 				$tipo->setCorTexto($value['cortexto']);
 			}
-			$this->con->close();
 			return $tipo;
 		}
 		public function delete(){
@@ -135,7 +132,6 @@
 			$query = $this->con->prepare($sql);
 			$query->bindValue(":id", $this->getId());
 			$query->execute();
-			$this->con->close();
 		}
 		public function desabled(){
 

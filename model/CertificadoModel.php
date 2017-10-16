@@ -121,7 +121,6 @@
 			}
 			$query = $this->con->prepare($sql);
 			$query->execute();
-			$this->con->close();
 		}
 		public function list($nome = null){
 			if(!empty($nome)){
@@ -146,7 +145,6 @@
 					
 					array_push($certificados, $certificado);
 				}
-				$this->con->close();
 				return $certificados;
 			}catch(PDOEcxeption $e){
 				echo "Não foi possível listar" . $e->getMesage();
@@ -167,7 +165,6 @@
 				$certificado->setImagem($value['imagem']);
 				$certificado->setTipoUsuario($value['tipousuario']);
 			}
-			$this->con->close();
 			return $certificado;
 		}
 		public function delete(){
@@ -175,7 +172,6 @@
 			$query = $this->con->prepare($sql);
 			$query->bindValue(":id", $this->getId());
 			$query->execute();
-			$this->con->close();
 		}
 		public function desabled(){
 
@@ -222,7 +218,6 @@
 					
 					array_push($certificados, $certificado);
 				}
-				$this->con->close();
 				return $certificados;
 			}catch(PDOEcxeption $e){
 				echo "Não foi possível listar" . $e->getMesage();
