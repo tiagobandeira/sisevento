@@ -21,9 +21,9 @@ $lista = $code->list($_POST['id']);
 					<tr>
 				    	<th>id</th>
 				    	<th>Nome</th>
-				   		<th>Email</th>
+				   		<th class="hidden-phone">Email</th>
 				    	<th>Tipo</th>
-				    	<th>Evento</th>
+				    	<th class="hidden-phone">Evento</th>
 				    	<th>Codigo</th>
 				    	
 					</tr>
@@ -40,9 +40,9 @@ $lista = $code->list($_POST['id']);
 					<tr>
 				    	<td><?php echo  $usuario->getid() ?></td>
 				    	<td><?php echo $usuario->getNome() ?></td>
-				    	<td><?php echo $usuario->getEmail() ?></td>
+				    	<td class="hidden-phone"><?php echo $usuario->getEmail() ?></td>
 				    	<td><?php echo $usuario->getTipo() ?></td>
-				    	<td><?php echo $evento->getNome() ?></td>
+				    	<td class="hidden-phone"><?php echo $evento->getNome() ?></td>
 				    	<td><?php echo $value->getCodigo() ?></td>
 					</tr>
 					<?php  } } ?>
