@@ -34,12 +34,10 @@
 			$this->endereco = $endereco;
 			$this->usuario = $usuario;
 			$this->cargahoraria = $cargahoraria;
-			if ($con == null) {
+			
 				$connect = new Connect();
 				$this->con = $connect->getConnect();	
-			}else{
-				$this->con = $con;
-			}
+			
 				
 		}
 
@@ -152,7 +150,7 @@
 				$query = $conexao->prepare($sql);
 				$query->execute();
 				foreach ($query as $value) {
-					$evento = new EventoModel(null,null,null,null,null,null,0,0,$this->con);#ganbirra
+					$evento = new EventoModel();#ganbirra
 					$evento->setId($value['id']);
 					$evento->setNome($value['nome']);
 					$evento->setDataInicio($value['data_inicio']);

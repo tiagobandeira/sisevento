@@ -23,8 +23,9 @@ require_once '../database/install.php';
 		$user = $data[2];
 		$password = $data[3];
 		try{
-
-			$this->con = new PDO("mysql:host=$host;dbname=$db", $user, $password);
+			if ($this->con == null) {
+				$this->con = new PDO("mysql:host=$host;dbname=$db", $user, $password);	
+			}
 		}catch(PDOException $e){
 			echo "Não foi possível conectar com a base de dados. " . $e->getMessage();
 		}
