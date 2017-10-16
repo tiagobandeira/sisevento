@@ -24,7 +24,7 @@
     	private $siape;
     	private $con;
 
-    	function __construct($id = null, $nome = null, $nomeCompleto = null, $senha = null, $email = null, $tipo = null, $fone = 0, $cargo = null, $siape = 0)
+    	function __construct($con = null)
 		{
 			$this->id = $id;
 			$this->nome = $nome;
@@ -35,8 +35,12 @@
 			$this->fone = $fone;
 			$this->cargo = $cargo;
 			$this->siape = $siape;
-			$connect = new Connect();
-			$this->con = $connect->getConnect();		
+			if ($con == null) {
+				$connect = new Connect();
+				$this->con = $connect->getConnect();	
+			}else{
+				$this->con = $con;
+			}
 		}
 
 		public function getId(){
@@ -152,7 +156,7 @@
 				$query = $this->con->prepare($sql);
 				$query->execute();
 				foreach ($query as $value) {
-					$usuario = new UsuarioModel();
+					$usuario = new UsuarioModel($this->con);
 					$usuario->setId($value['id']);
 					$usuario->setNome($value['nome']);
 					$usuario->setNomeCompleto($value['nomecompleto']);
@@ -181,7 +185,7 @@
 				$query = $this->con->prepare($sql);
 				$query->execute();
 				foreach ($query as $value) {
-					$usuario = new UsuarioModel();
+					$usuario = new UsuarioModel($this->con);
 					$usuario->setId($value['id']);
 					$usuario->setNome($value['nome']);
 					$usuario->setNomeCompleto($value['nomecompleto']);
@@ -204,7 +208,7 @@
 			$query = $this->con->prepare($sql);
 			$query->bindValue(":id", $id);
 			$query->execute();
-			$usuario = new UsuarioModel();
+			$usuario = new UsuarioModel($this->con);
 			foreach ($query as $value) {
 				$usuario->setId($value['id']);
 				$usuario->setNome($value['nome']);

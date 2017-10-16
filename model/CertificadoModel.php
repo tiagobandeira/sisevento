@@ -24,7 +24,7 @@
     	private $imagem;
     	private $con;
 
-    	function __construct($id = null, $nome = null, $evento = null, $usuario = null, $tipo = null, $imagem = null, $tipousuario = null)
+    	function __construct($con = null)
 		{
 			$this->id = $id;
 			$this->nome = $nome;
@@ -33,8 +33,12 @@
 			$this->tipo = $tipo;
 			$this->imagem = $imagem;
 			$this->tipousuario = $tipousuario;
-			$connect = new Connect();
-			$this->con = $connect->getConnect();		
+			if ($con == null) {
+				$connect = new Connect();
+				$this->con = $connect->getConnect();	
+			}else{
+				$this->con = $con;
+			}		
 		}
 
 		public function getId(){
@@ -134,7 +138,7 @@
 				$query = $this->con->prepare($sql);
 				$query->execute();
 				foreach ($query as $value) {
-					$certificado = new CertificadoModel();
+					$certificado = new CertificadoModel($this->con);
 					$certificado->setId($value['id']);
 					$certificado->setNome($value['nome']);
 					$certificado->setEvento($value['evento']);
@@ -155,7 +159,7 @@
 			$query = $this->con->prepare($sql);
 			$query->bindValue(":id", $id);
 			$query->execute();
-			$certificado = new CertificadoModel();
+			$certificado = new CertificadoModel($this->con);
 			foreach ($query as $value) {
 				$certificado->setId($value['id']);
 				$certificado->setNome($value['nome']);
@@ -184,7 +188,7 @@
 			$query = $this->con->prepare($sql);
 			$query->bindValue(":evento", $evento);
 			$query->execute();
-			$certificado = new CertificadoModel();
+			$certificado = new CertificadoModel($this->con);
 			foreach ($query as $value) {
 				$certificado->setId($value['id']);
 				$certificado->setNome($value['nome']);
@@ -207,7 +211,7 @@
 				$query->bindValue(":idevento", $idevento);
 				$query->execute();
 				foreach ($query as $value) {
-					$certificado = new CertificadoModel();
+					$certificado = new CertificadoModel($this->con);
 					$certificado->setId($value['id']);
 					$certificado->setNome($value['nome']);
 					$certificado->setEvento($value['evento']);
