@@ -26,6 +26,9 @@
 
     	function __construct($con = null)
 		{
+			
+			$this->fone = 0;
+			$this->siape = 0;
 			if ($con == null) {
 				$connect = new Connect();
 				$this->con = $connect->getConnect();	

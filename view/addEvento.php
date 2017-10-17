@@ -42,10 +42,11 @@ $organizador2 = new OrganizadorModel();
                               <label class="col-sm-2 col-sm-2 control-label">Organizador 1</label>
                               <div class="col-sm-10">
                                   <select class="form-control" name="org1">
+                                        
                                        <option>Selecione um organizador</option> 
                                       <?php  
                                         foreach ($usuarios as $value) {
-                                          if ($value->getTipo() != 2) {
+                                          if ($value->getTipo() > 2) {
                                       ?>
                                       <option value="<?php echo $value->getId();?>">
                                         <?php echo $value->getNomeCompleto();?>                                       
@@ -65,7 +66,7 @@ $organizador2 = new OrganizadorModel();
                                       <option>Selecione um organizador</option>
                                       <?php  
                                         foreach ($usuarios as $value) {
-                                          if ($value->getTipo() != 2) {
+                                          if ($value->getTipo() > 2) {
                                       ?>
                                       <option value="<?php echo $value->getId();?>">
                                         <?php echo $value->getNomeCompleto();?>                                       
@@ -193,7 +194,8 @@ $organizador2 = new OrganizadorModel();
                           </div>
                           <?php  
                               if (isset($_POST['tipoEvento'])) {
-                            $tipoE = new TipoEventoModel(null, $_POST['tipoEvento']);
+                            $tipoE = new TipoEventoModel();
+                            $tipoE->setTipo($_POST['tipoEvento']);
                             $tipos = $tipoE->list($_POST['tipoEvento']);
                             if (empty($_POST['tipoEvento'])) {
                               echo "<div class='alert alert-danger'><b>Não salvou </b> Preencha os campos</div>";
@@ -238,7 +240,8 @@ $organizador2 = new OrganizadorModel();
                           </div>
                            <?php  
                             if (isset($_POST['tipoDel'])) {
-                                $tipoD = new TipoEventoModel($_POST['tipoDel'],null );
+                                $tipoD = new TipoEventoModel();
+                                $tipoD->setId($_POST['tipoDel']);
                                 if (empty($_POST['tipoDel'])) {
                                   echo "<div class='alert alert-danger'><b>Não excluiodo </b> Selecione um item </div>";
 

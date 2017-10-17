@@ -3,10 +3,12 @@ require_once '../model/UsuarioModel.php';
 require_once '../model/TipoUsuarioModel.php';
 require_once '../model/TipoEventoModel.php';
 require_once '../model/EventoModel.php';
+require_once '../model/OrganizadorModel.php';
 $eve = new EventoModel();
 
 $tipouser = new TipoEventoModel();
 $tipos = $tipouser->list();
+$userModel = new UsuarioModel();
 
 if (isset($_GET['evento'])) {
   $eventoEdit = $eve->readById($_GET['evento']);
@@ -18,13 +20,23 @@ if (isset($_GET['evento'])) {
   $usuarioEvento = $eventoEdit->getUsuario();
   $enderecoEvento = $eventoEdit->getEndereco();
   $tipoNomeEvento = $tipouser->readById($tipoEvento)->getTipo();
+  #organizadores
+  $organizador1 = new OrganizadorModel();
+  $organizador2 = new OrganizadorModel();
+  $orgnizadores = $organizador1->list($idEvento); 
+  @$organizadorUsuario1 = $userModel->readById($orgnizadores[0] != null?$orgnizadores[0]->getUsuario():0);
+  @$organizadorusuario2 = $userModel->readById($orgnizadores[1] != null?$orgnizadores[1]->getUsuario():0);
+  #usuarios
+  $usuarios = $userModel->list();
+
 
 }
 
 
 
 ?>
-<div class="col-lg-8">
+<div class="row">
+    <div class="col-lg-8 no-padding">
                   <div class="form-panel">
                       <h4 class="mb"> Evento</h4>
                       <form class="form-horizontal style-form"  method="POST">
@@ -32,6 +44,73 @@ if (isset($_GET['evento'])) {
                               <label class="col-sm-2 col-sm-2 control-label">Nome</label>
                               <div class="col-sm-10">
                                   <input type="text" value="<?php echo $nomeEvento;?>" name="nome" class="form-control">
+                              </div>
+                          </div>
+                           <div class="form-group">
+
+                              <label class="col-sm-2 col-sm-2 control-label">Organizador 1</label>
+                              <div class="col-sm-10">
+                                  <select class="form-control" name="org1">
+                                      <?php 
+                                            if ($organizadorUsuario1 != null) {
+                                              
+                                      ?>
+                                      <option value="<?php echo $organizadorUsuario1->getId();  ?>">
+                                        <?php  echo $organizadorUsuario1->getNomeCompleto();  ?>
+                                      </option> 
+                                      <?php
+                                            }
+                                      ?>
+                                      <option value="">
+                                        Selecionar um organizador
+                                      </option> 
+                                      <?php  
+                                        foreach ($usuarios as $value) {
+                                          if ($value->getTipo() > 2) {
+                                      ?>
+                                      <option value="<?php echo $value->getId();?>">
+                                        <?php echo $value->getNomeCompleto();?>                                       
+                                      </option>
+                                      <?php
+                                          }
+                                        }
+
+                                      ?>
+                                  </select><br>
+
+                              </div>
+
+                              <label class="col-sm-2 col-sm-2 control-label">Organizador 2</label>
+                              <div class="col-sm-10">
+                                  <select class="form-control" name="org2">
+                                     <?php 
+                                            if ($organizadorUsuario2 != null) {
+
+                                      ?>
+                                      <option value="<?php echo $organizadorUsuario2->getId();  ?>">
+                                        <?php  echo $organizadorUsuario2->getNomeCompleto();  ?>
+                                      </option> 
+                                      <?php
+                                            }
+                                      ?>
+                                      
+                                      <option value="">
+                                        Selecionar um organizador
+                                      </option> 
+                                      <?php  
+                                        foreach ($usuarios as $value) {
+                                          if ($value->getTipo() > 2 ) {
+                                      ?>
+                                      <option value="<?php echo $value->getId();?>">
+                                        <?php echo $value->getNomeCompleto();?>                                       
+                                      </option>
+                                      <?php
+                                          }
+                                        }
+
+                                      ?>
+                                  </select>
+                                  
                               </div>
                           </div>
                           <div class="form-group">
@@ -95,6 +174,19 @@ if (isset($_GET['evento'])) {
                             echo "<div class='alert alert-danger' ><b>Não salvou </b> Evento já existe.</div>";
                           }else{
                             $eve->save();
+                            if (isset($_POST['org1']) || isset($_POST['org2'])) {
+                                  if(!empty($_POST['org1'])){
+                                     $organizador1->setUsuario($_POST['org1']);
+                                     $organizador1->setEvento($idEvento);
+                                     $organizador1->save();
+                                  }
+                                  if(!empty($_POST['org2'])){
+                                      $organizador2->setUsuario($_POST['org2']);
+                                      $organizador2->setEvento($idEvento);
+                                      $organizador2->save();
+                                  }
+                            }
+                           
                             echo "<div class='alert alert-success' ><b>Evento cadastrado!</b> Operação realizada com sucesso.</div>";
                             echo "<meta HTTP-EQUIV='refresh' CONTENT='0;
                               URL=administrador.php?view=editEvento&sub=listeve&item=list&evento=$idEvento'>";
@@ -110,7 +202,7 @@ if (isset($_GET['evento'])) {
                   </div>
                   
 </div>
-<div class="col-lg-4">
+<div class="col-lg-4 no-padding">
                   <div class="form-panel" >
                       <!-- forme add tipo evento -->
                       <form class="form-horizontal style-form" method="POST">
@@ -191,4 +283,6 @@ if (isset($_GET['evento'])) {
                          
                        </form> <!-- end forme del participante -->
                   </div>
+</div>
+  
 </div>

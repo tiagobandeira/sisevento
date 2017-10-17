@@ -164,9 +164,15 @@ $tiposUsuarios = $tipoUserModel->list();
                            <div class="form-group">
                               <label class="col-sm-2 col-sm-2 control-label">Texo</label>
                               <div class="col-sm-10">
-                                  <textarea class="form-control" name="texto">Ex: Certificamos que --u participou do evento --e nas datas de --d e d-- . 
+                                  <textarea class="form-control" name="texto">Ex: Certificamos que #nome participou do evento, com carga horária de #horas, no dia #data em Bom Princípio. 
                                   </textarea>
                               </div>
+                              
+                          </div>
+                          <div class="form-group">
+                              <label class="col-sm-12 col-sm-12 control-label">#nome para mostrar o nome do usuario</label>
+                              <label class="col-sm-12 col-sm-12 control-label">#horas para mostrar a carga horária</label>
+                              <label class="col-sm-12 col-sm-12 control-label">#data para mostrar a data inicial</label>
                               
                           </div>
                           <div class="form-group">
@@ -176,13 +182,7 @@ $tiposUsuarios = $tipoUserModel->list();
                               </div>
                           </div>
                           
-                           <div class="form-group">
-                              <label class="col-sm-12 col-sm-12 control-label">--u para mostrar o nome do usuario</label>
-                              <label class="col-sm-12 col-sm-12 control-label">--e para mostrar o nome evento</label>
-                              <label class="col-sm-12 col-sm-12 control-label">--d para mostrar a data inicial</label>
-                              <label class="col-sm-12 col-sm-12 control-label">d-- para mostrar a data final</label>
-                              
-                          </div>
+                           
                           <?php  
                             if (isset($_POST['tipoCertificado'])) {
                              
@@ -236,7 +236,8 @@ $tiposUsuarios = $tipoUserModel->list();
                           </div>
                            <?php  
                             if (isset($_POST['tipoDel'])) {
-                                $tipoD = new TipoCertificadoModel($_POST['tipoDel'],null,null);
+                                $tipoD = new TipoCertificadoModel();
+                                $tipoD->setId($_POST['tipoDel']);
                                 if (empty($_POST['tipoDel'])) {
                                   echo "<div class='alert alert-danger'><b>Não excluiodo </b> Selecione um item </div>";
                                 }else{

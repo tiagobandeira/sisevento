@@ -41,8 +41,8 @@ if (isset($_GET['certificado'])) {
 }
 
 ?>
-
-<div class="col-lg-8">
+<div class="row">
+    <div class="col-lg-8 no-padding">
                   <div class="form-panel">
                       <h4 class="mb"> Certificado</h4>
                       <form class="form-horizontal style-form"  method="POST" enctype="multipart/form-data">
@@ -187,7 +187,7 @@ if (isset($_GET['certificado'])) {
                   </div>
                   
 </div>
-<div class="col-lg-4">
+<div class="col-lg-4 no-padding">
                   <div class="form-panel" >
                       <!-- forme add tipo evento -->
                       <form class="form-horizontal style-form" method="POST">
@@ -206,6 +206,12 @@ if (isset($_GET['certificado'])) {
                               </div>
                               
                           </div>
+                           <div class="form-group">
+                             <label class="col-sm-12 col-sm-12 control-label">#nome para mostrar o nome do usuario</label>
+                              <label class="col-sm-12 col-sm-12 control-label">#horas para mostrar a carga horária</label>
+                              <label class="col-sm-12 col-sm-12 control-label">#data para mostrar a data inicial</label>
+                              
+                          </div>
                           <div class="form-group">
                               <label class="col-sm-8 col-sm-8 control-label">Cor do texto</label>
                               <div class="col-sm-4">
@@ -213,13 +219,7 @@ if (isset($_GET['certificado'])) {
                               </div>
                           </div>
                           
-                           <div class="form-group">
-                              <label class="col-sm-12 col-sm-12 control-label">--u para mostrar o nome do usuario</label>
-                              <label class="col-sm-12 col-sm-12 control-label">--e para mostrar o nome evento</label>
-                              <label class="col-sm-12 col-sm-12 control-label">--d para mostrar a data inicial</label>
-                              <label class="col-sm-12 col-sm-12 control-label">d-- para mostrar a data final</label>
-                              
-                          </div>
+                          
                           <?php  
                             if (isset($_POST['tipoCertificado'])) {
                               $tipoCertificado = new TipoCertificadoModel();
@@ -261,3 +261,5 @@ if (isset($_GET['certificado'])) {
                        
                   </div>
 </div>
+</div>
+
