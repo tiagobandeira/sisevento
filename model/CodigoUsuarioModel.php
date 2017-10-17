@@ -21,15 +21,15 @@
     	private $status;
     	private $con;
 
-    	function __construct($id = null, $codigo = null, $evento = null, $usuario = null, $status = null)
+    	function __construct($con = null)
 		{
-			$this->id = $id;
-			$this->codigo = $codigo;	
-			$this->evento = $evento;
-			$this->usuario = $usuario;
-			$this->status = $status;
-			$connect = new Connect();
-			$this->con = $connect->getConnect();		
+			
+			if ($con == null) {
+				$connect = new Connect();
+				$this->con = $connect->getConnect();	
+			}else{
+				$this->con = $con;
+			}			
 		}
 
 		public function getId(){
@@ -110,7 +110,7 @@
 				$query = $this->con->prepare($sql);
 				$query->execute();
 				foreach ($query as $value) {
-					$codigo = new CodigoUsuarioModel();
+					$codigo = new CodigoUsuarioModel($this->con);
 					$codigo->setId($value['id']);
 					$codigo->setCodigo($value['codigo']);
 					$codigo->setEvento($value['evento']);
@@ -129,7 +129,7 @@
 			$query = $this->con->prepare($sql);
 			$query->bindValue(":id", $id);
 			$query->execute();
-			$codigo = new CodigoUsuarioModel();
+			$codigo = new CodigoUsuarioModel($this->con);
 			foreach ($query as $value) {
 				$codigo->setId($value['id']);
 				$codigo->setCodigo($value['codigo']);
@@ -160,7 +160,7 @@
 				$query = $this->con->prepare($sql);
 				$query->execute();
 				foreach ($query as $value) {
-					$codigo = new CodigoUsuarioModel();
+					$codigo = new CodigoUsuarioModel($this->con);
 					$codigo->setId($value['id']);
 					$codigo->setCodigo($value['codigo']);
 					$codigo->setEvento($value['evento']);

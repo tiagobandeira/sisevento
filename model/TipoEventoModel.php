@@ -18,12 +18,15 @@
     	private $tipo;
     	private $con;
 
-    	function __construct($id = null, $tipo = null)
+    	function __construct($con = null)
 		{
-			$this->id = $id;
-			$this->tipo = $tipo;
-			$connect = new Connect();
-			$this->con = $connect->getConnect();		
+			
+			if ($con == null) {
+				$connect = new Connect();
+				$this->con = $connect->getConnect();	
+			}else{
+				$this->con = $con;
+			}				
 		}
 
 		public function getId(){
@@ -75,7 +78,7 @@
 				$query = $this->con->prepare($sql);
 				$query->execute();
 				foreach ($query as $value) {
-					$tipoevento = new TipoEventoModel();
+					$tipoevento = new TipoEventoModel($this->con);
 					$tipoevento->setId($value['id']);
 					$tipoevento->setTipo($value['tipo']);
 					
@@ -92,7 +95,7 @@
 			$query = $this->con->prepare($sql);
 			$query->bindValue(":id", $id);
 			$query->execute();
-			$tipoevento = new TipoEventoModel();
+			$tipoevento = new TipoEventoModel($this->con);
 			foreach ($query as $value) {
 				
 				$tipoevento->setId($value['id']);
@@ -113,8 +116,10 @@
 		}
 
 		public function init(){
-			$tipo1 = new TipoEventoModel(null, "Informática");
-			$tipo2 = new TipoEventoModel(null, "Outro");	
+			$tipo1 = new TipoEventoModel($this->con);
+			$tipo1->setTipo("Informática");
+			$tipo2 = new TipoEventoModel($this->con);
+			$tipo2->setTipo("Outro");	
 
 			if ($tipo1->list($tipo1->getTipo()) == null) {
 				$tipo1->save();

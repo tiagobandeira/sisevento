@@ -141,7 +141,7 @@ $organizador2 = new OrganizadorModel();
                               }
                             }
 
-                        if(!$flag){
+                          if(!$flag){
                             echo "<div class='alert alert-danger' ><b>Não salvou </b> Evento já existe.</div>";
                           }else{
                             $eve->save();

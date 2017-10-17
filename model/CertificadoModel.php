@@ -26,13 +26,7 @@
 
     	function __construct($con = null)
 		{
-			$this->id = $id;
-			$this->nome = $nome;
-			$this->evento = $evento;
-			$this->usuario = $usuario;
-			$this->tipo = $tipo;
-			$this->imagem = $imagem;
-			$this->tipousuario = $tipousuario;
+			
 			if ($con == null) {
 				$connect = new Connect();
 				$this->con = $connect->getConnect();	

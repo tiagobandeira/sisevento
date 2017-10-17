@@ -26,15 +26,6 @@
 
     	function __construct($con = null)
 		{
-			$this->id = $id;
-			$this->nome = $nome;
-			$this->nomeCompleto = $nome;
-			$this->senha = $senha;
-			$this->email = $email;	
-			$this->tipo = $tipo;
-			$this->fone = $fone;
-			$this->cargo = $cargo;
-			$this->siape = $siape;
 			if ($con == null) {
 				$connect = new Connect();
 				$this->con = $connect->getConnect();	

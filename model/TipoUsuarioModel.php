@@ -18,12 +18,15 @@
     	private $tipo;
     	private $con;
 
-    	function __construct($id = null, $tipo = null)
+    	function __construct($con = null)
 		{
-			$this->id = $id;
-			$this->tipo = $tipo;	
-			$connect = new Connect();
-			$this->con = $connect->getConnect();		
+				
+			if ($con == null) {
+				$connect = new Connect();
+				$this->con = $connect->getConnect();	
+			}else{
+				$this->con = $con;
+			}			
 		}
 
 		public function getId(){
@@ -77,7 +80,7 @@
 				$query = $this->con->prepare($sql);
 				$query->execute();
 				foreach ($query as $value) {
-					$tipo = new TipoUsuarioModel();
+					$tipo = new TipoUsuarioModel($this->con);
 					$tipo->setId($value['id']);
 					$tipo->setTipo($value['tipo']);
 					
@@ -93,7 +96,7 @@
 			$query = $this->con->prepare($sql);
 			$query->bindValue(":id", $id);
 			$query->execute();
-			$tipo = new TipoUsuarioModel();
+			$tipo = new TipoUsuarioModel($this->con);
 			foreach ($query as $value) {
 				$tipo->setId($value['id']);
 				$tipo->setTipo($value['tipo']);
@@ -115,10 +118,14 @@
 			Para inicionar com valores padrões
 		*/
 		public function init(){
-			$tipo1 = new TipoUsuarioModel(null, "Administrador");
-			$tipo2 = new TipoUsuarioModel(null, "Usuário");
-			$tipo3 = new TipoUsuarioModel(null, "Ministrante de minicurso");
-			$tipo4 = new TipoUsuarioModel(null, "Palestrante");
+			$tipo1 = new TipoUsuarioModel($this->con);
+			$tipo1->setTipo("Administrador");
+			$tipo2 = new TipoUsuarioModel($this->con);
+			$tipo2->setTipo("Usuário");
+			$tipo3 = new TipoUsuarioModel($this->con);
+			$tipo3->setTipo("Ministrante de minicurso");
+			$tipo4 = new TipoUsuarioModel($this->con);
+			$tipo4->setTipo("Palestrante");
 
 			if($tipo1->list($tipo1->getTipo()) == null){
 				$tipo1->save();

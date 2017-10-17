@@ -19,13 +19,14 @@
     	private $evento;
     	private $con;
 
-    	function __construct($id = null, $usuario = null, $evento = null)
+    	function __construct($con = null)
 		{
-			$this->id = $id;
-			$this->usuario = $usuario;
-			$this->evento = $evento;	
-			$connect = new Connect();
-			$this->con = $connect->getConnect();		
+			if ($con == null) {
+				$connect = new Connect();
+				$this->con = $connect->getConnect();	
+			}else{
+				$this->con = $con;
+			}				
 		}
 
 		public function getId(){
@@ -89,7 +90,7 @@
 				$query->bindValue(":id", $id);
 				$query->execute();
 				foreach ($query as $value) {
-					$organizador = new OrganizadorModel();
+					$organizador = new OrganizadorModel($this->con);
 					$organizador->setId($value['id']);
 					$organizador->setUsuario($value['usuario']);
 					$organizador->setEvento($value['evento']);
@@ -106,9 +107,8 @@
 			$query = $this->con->prepare($sql);
 			$query->bindValue(":id", $id);
 			$query->execute();
-			$organizador = new TipoUsuarioModel();
+			$organizador = new OrganizadorModel($this->con);
 			foreach ($query as $value) {
-				$organizador = new OrganizadorModel();
 				$organizador->setId($value['id']);
 				$organizador->setUsuario($value['usuario']);
 				$organizador->setEvento($value['evento']);

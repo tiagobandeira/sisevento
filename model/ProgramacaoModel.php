@@ -22,16 +22,14 @@
     	private $evento;
     	private $con;
 
-    	function __construct($id = null, $titulo = null, $descricao = null, $horaInicio = null, $horaFim = null, $evento = null)
+    	function __construct($con = null)
 		{
-			$this->id = $id;
-			$this->titulo = $titulo;
-			$this->descricao = $descricao;
-			$this->horaInicio = $horaInicio;
-			$this->horaFim = $horaFim;
-			$this->evento = $evento;
-			$connect = new Connect();
-			$this->con = $connect->getConnect();		
+			if ($con == null) {
+				$connect = new Connect();
+				$this->con = $connect->getConnect();	
+			}else{
+				$this->con = $con;
+			}				
 		}
 
 		public function getId(){
@@ -110,7 +108,7 @@
 			$query->execute();
 		}
 		public function list($titulo = null){
-			if(!empty($nome)){
+			if(!empty($titulo)){
 				$sql = "SELECT * FROM programacao WHERE titulo LIKE '$titulo%' or '%$titulo'";
 
 			}else{
@@ -121,7 +119,7 @@
 				$query = $this->con->prepare($sql);
 				$query->execute();
 				foreach ($query as $value) {
-					$programacao = new EventoModel();
+					$programacao = new ProgramacaoModel($this->con);
 					$programacao->setId($value['id']);
 					$programacao->setTitulo($value['titulo']);
 					$programacao->setDescricao($value['descricao']);
@@ -142,7 +140,7 @@
 			$query->bindValue(":id", $id);
 			$query->execute();
 
-			$programacao = new EventoModel();
+			$programacao = new ProgramacaoModel($this->con);
 			foreach ($query as $value) {
 				$programacao->setId($value['id']);
 				$programacao->setTitulo($value['titulo']);

@@ -21,14 +21,14 @@
     	private $tipousuario;
     	private $con;
 
-    	function __construct($id = null, $tipo = null, $texto = null, $cortexto = null)
+    	function __construct($con = null)
 		{
-			$this->id = $id;
-			$this->tipo = $tipo;
-			$this->texto = $texto;	
-			$this->cortexto = $cortexto;
-			$connect = new Connect();
-			$this->con = $connect->getConnect();		
+			if ($con == null) {
+				$connect = new Connect();
+				$this->con = $connect->getConnect();	
+			}else{
+				$this->con = $con;
+			}				
 		}
 
 		public function getId(){
@@ -100,7 +100,7 @@
 				$query = $this->con->prepare($sql);
 				$query->execute();
 				foreach ($query as $value) {
-					$tipo = new TipoCertificadoModel();
+					$tipo = new TipoCertificadoModel($this->con);
 					$tipo->setId($value['id']);
 					$tipo->setTipo($value['tipo']);
 					$tipo->setTexto($value['texto']);
@@ -118,7 +118,7 @@
 			$query = $this->con->prepare($sql);
 			$query->bindValue(":id", $id);
 			$query->execute();
-			$tipo = new TipoCertificadoModel();
+			$tipo = new TipoCertificadoModel($this->con);
 			foreach ($query as $value) {
 				$tipo->setId($value['id']);
 				$tipo->setTipo($value['tipo']);
