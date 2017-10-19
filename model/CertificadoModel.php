@@ -126,7 +126,7 @@
 				$sql = "SELECT * FROM certificado WHERE nome LIKE '%$nome%'";
 
 			}else{
-				$sql = "SELECT * FROM certificado";
+				$sql = "SELECT * FROM certificado ORDER BY id DESC";
 			}
 			$certificados = array();
 			try{
