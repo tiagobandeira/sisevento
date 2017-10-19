@@ -4,6 +4,8 @@ require_once '../model/TipoUsuarioModel.php';
 require_once '../model/TipoEventoModel.php';
 require_once '../model/EventoModel.php';
 require_once '../model/OrganizadorModel.php';
+require_once '../model/CodigoUsuarioModel.php';
+require_once 'code.php';
 $eve = new EventoModel();
 
 $tipouser = new TipoEventoModel();
@@ -19,13 +21,16 @@ if (isset($_GET['evento'])) {
   $tipoEvento = $eventoEdit->getTipo();
   $usuarioEvento = $eventoEdit->getUsuario();
   $enderecoEvento = $eventoEdit->getEndereco();
+  $statusEvento = $eventoEdit->getStatus();
+  $cargahoraria = $eventoEdit->getCargaHoraria();
   $tipoNomeEvento = $tipouser->readById($tipoEvento)->getTipo();
   #organizadores
+  $organizadorModel = new OrganizadorModel();
   $organizador1 = new OrganizadorModel();
   $organizador2 = new OrganizadorModel();
-  $orgnizadores = $organizador1->list($idEvento); 
-  @$organizadorUsuario1 = $userModel->readById($orgnizadores[0] != null?$orgnizadores[0]->getUsuario():0);
-  @$organizadorusuario2 = $userModel->readById($orgnizadores[1] != null?$orgnizadores[1]->getUsuario():0);
+  $organizadores = $organizador1->list($idEvento); 
+  @$organizadorUsuario1 = $userModel->readById($organizadores[0] != null?$organizadores[0]->getUsuario():0);
+  @$organizadorUsuario2 = $userModel->readById($organizadores[1] != null?$organizadores[1]->getUsuario():0);
   #usuarios
   $usuarios = $userModel->list();
 
@@ -61,8 +66,8 @@ if (isset($_GET['evento'])) {
                                       <?php
                                             }
                                       ?>
-                                      <option value="">
-                                        Selecionar um organizador
+                                      <option value="del">
+                                        Nenhum
                                       </option> 
                                       <?php  
                                         foreach ($usuarios as $value) {
@@ -94,8 +99,8 @@ if (isset($_GET['evento'])) {
                                             }
                                       ?>
                                       
-                                      <option value="">
-                                        Selecionar um organizador
+                                      <option value="del">
+                                        Nenhum
                                       </option> 
                                       <?php  
                                         foreach ($usuarios as $value) {
@@ -148,6 +153,12 @@ if (isset($_GET['evento'])) {
                               <div class="col-sm-4">
                                   <input type="text" value="<?php echo $dataFimEvento ?>" name="dataFim"  placeholder="ex. aaaa-mm-dd" class="form-control">
                               </div>
+                          </div>
+                           <div class="form-group">
+                              <label class="col-sm-2 col-sm-2 control-label">Carga Horária</label>
+                              <div class="col-sm-4">
+                                  <input type="number" value="<?php echo $cargahoraria ?>" name="cargahoraria" pattern="^d{2}$" maxlength="2"  placeholder="" class="form-control">
+                              </div>
                           </div><!-- end dados -->
                     <?php  
                       if(isset($_POST['nome'])){
@@ -160,7 +171,12 @@ if (isset($_GET['evento'])) {
                             $eve->setTipo($_POST['tipo']);
                             $eve->setDataInicio($_POST['dataInicio']);
                             $eve->setDataFim($_POST['dataFim']);
+                            $eve->setStatus($statusEvento);
                             $eve->setUsuario(1);
+                            if (isset($_POST['cargahoraria'])) {
+                                $eve->setCargaHoraria($_POST['cargahoraria']);
+                                
+                            }
 
                             $lista = $eve->list($_POST['nome']);
                             $flag = true;
@@ -175,16 +191,72 @@ if (isset($_GET['evento'])) {
                           }else{
                             $eve->save();
                             if (isset($_POST['org1']) || isset($_POST['org2'])) {
-                                  if(!empty($_POST['org1'])){
-                                     $organizador1->setUsuario($_POST['org1']);
-                                     $organizador1->setEvento($idEvento);
-                                     $organizador1->save();
+                                  if(!empty($_POST['org1']) ){
+                                    if ($_POST['org1'] == "del") {
+                                        $org = $organizadorModel->readById($organizadores[0]->getId());
+                                        $org->delete();
+                                    }else{
+                                        if ($organizadores[0] != null) {
+                                          $org = $organizadorModel->readById($organizadores[0]->getId());
+                                          $org->setUsuario($_POST['org1']);
+                                          $org->save();
+                                        }else{
+                                          $org = new OrganizadorModel();
+                                          $org->setUsuario($_POST['org1']);
+                                          $org->setEvento($idEvento);
+                                          $org->save();
+                                          $codigoModel = new CodigoUsuarioModel();
+                                          $codigoModel->setCodigo(cod($org->getUsuario()));
+                                          $codigoModel->setUsuario($org->getUsuario());
+                                          $codigoModel->setEvento($org->getEvento());
+                                          $codigoModel->setStatus("B");
+                                          $codigoModel->save();
+                                          $listaCodigos = $codigoModel->listByUsuario($organizadores[0]->getId());
+                                          foreach ($listaCodigos as $valueCodigo) {
+                                              if ($valueCodigo->getEvento() == $org->getEvento()) {
+                                                  $codigoUsuario = $valueCodigo;
+                                                  $codigoUsuario->delete();
+                                                  break;
+                                              }
+                                          }
+                                        }
+                                    }
+                                   
+                                    
                                   }
-                                  if(!empty($_POST['org2'])){
-                                      $organizador2->setUsuario($_POST['org2']);
-                                      $organizador2->setEvento($idEvento);
-                                      $organizador2->save();
+                                  if(!empty($_POST['org2']) ){
+                                    if ($_POST['org2'] == "del") {
+                                        $org = $organizadorModel->readById($organizadores[1]->getId());
+                                        $org->delete();
+                                    }else{
+                                        if ($organizadores[1] != null) {
+                                          $org = $organizadorModel->readById($organizadores[1]->getId());
+                                          $org->setUsuario($_POST['org2']);
+                                          $org->save();
+                                           $codigoModel = new CodigoUsuarioModel();
+                                          $codigoModel->setCodigo(cod($org->getUsuario()));
+                                          $codigoModel->setUsuario($org->getUsuario());
+                                          $codigoModel->setEvento($org->getEvento());
+                                          $codigoModel->setStatus("B");
+                                          $codigoModel->save();
+                                          $listaCodigos = $codigoModel->listByUsuario($organizadores[1]->getId());
+                                          foreach ($listaCodigos as $valueCodigo) {
+                                              if ($valueCodigo->getEvento() == $org->getEvento()) {
+                                                  $codigoUsuario = $valueCodigo;
+                                                  $codigoUsuario->delete();
+                                                  break;
+                                              }
+                                          }
+                                        }else{
+                                          $org = new OrganizadorModel();
+                                          $org->setUsuario($_POST['org2']);
+                                          $org->setEvento($idEvento);
+                                          $org->save();
+                                         
+                                        }
+                                    }
                                   }
+                                 
                             }
                            
                             echo "<div class='alert alert-success' ><b>Evento cadastrado!</b> Operação realizada com sucesso.</div>";

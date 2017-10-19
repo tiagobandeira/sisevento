@@ -18,9 +18,10 @@
     	private $tipo;
     	private $con;
 
-    	function __construct($con = null)
+    	function __construct($id = null, $tipo = null, $con = null)
 		{
-				
+			$this->id = $id;
+			$this->tipo = $tipo;	
 			if ($con == null) {
 				$connect = new Connect();
 				$this->con = $connect->getConnect();	
@@ -80,7 +81,7 @@
 				$query = $this->con->prepare($sql);
 				$query->execute();
 				foreach ($query as $value) {
-					$tipo = new TipoUsuarioModel($this->con);
+					$tipo = new TipoUsuarioModel(null, null, $this->con);
 					$tipo->setId($value['id']);
 					$tipo->setTipo($value['tipo']);
 					
@@ -118,13 +119,13 @@
 			Para inicionar com valores padrões
 		*/
 		public function init(){
-			$tipo1 = new TipoUsuarioModel($this->con);
+			$tipo1 = new TipoUsuarioModel(null, null, $this->con);
 			$tipo1->setTipo("Administrador");
-			$tipo2 = new TipoUsuarioModel($this->con);
+			$tipo2 = new TipoUsuarioModel(null, null, $this->con);
 			$tipo2->setTipo("Usuário");
-			$tipo3 = new TipoUsuarioModel($this->con);
+			$tipo3 = new TipoUsuarioModel(null, null, $this->con);
 			$tipo3->setTipo("Ministrante de minicurso");
-			$tipo4 = new TipoUsuarioModel($this->con);
+			$tipo4 = new TipoUsuarioModel(null, null, $this->con);
 			$tipo4->setTipo("Palestrante");
 
 			if($tipo1->list($tipo1->getTipo()) == null){

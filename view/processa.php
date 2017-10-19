@@ -15,7 +15,7 @@
 			$user = new UsuarioModel();
 			$user->setNome($_POST['user']);
 			$user->setSenha($_POST['password']);
-			$lista = $user->list();
+			$lista = $user->listByNameUser($user->getNome());
 			$flag = false;
 			foreach ($lista as $value) {
 				if($user->getNome() == $value->getNome() && $user->getSenha() == $value->getSenha()){

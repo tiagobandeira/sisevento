@@ -20,7 +20,8 @@
 
     	function __construct($con = null)
 		{
-			
+			$this->id = null;
+			$this->tipo = null;
 			if ($con == null) {
 				$connect = new Connect();
 				$this->con = $connect->getConnect();	

@@ -11,8 +11,7 @@ $eves = $eve->list("");
 #tipo
 $tipo = new TipoCertificadoModel();
 $tipos = $tipo->list();
-#certificado
-$cert = new CertificadoModel();
+
 #usuario 
 $userModel = new UsuarioModel();
 #tipo de usuario
@@ -20,6 +19,8 @@ $tipoUserModel = new TipoUsuarioModel();
 $tiposUsuarios = $tipoUserModel->list();
 
 if (isset($_GET['certificado'])) {
+    #certificado
+    $cert = new CertificadoModel();
     $idCertificado = $_GET['certificado'];
     $certificadoEdit = $cert->readById($_GET['certificado']);
     $idCertificado = $certificadoEdit->getId();
@@ -174,7 +175,8 @@ if (isset($_GET['certificado'])) {
                               }else{
                                   $cert->save();
                                   echo "<div class='alert alert-success' ><b>Certificado atualizado!</b> Operação realizada com sucesso.</div>";
-                                   echo "<meta HTTP-EQUIV='refresh' CONTENT='3;URL=administrador.php?view=editCertificado&sub=listcert&item=list&certificado=$idCertificado'>";
+                                   #echo "<meta HTTP-EQUIV='refresh' CONTENT='0;URL=administrador.php?view=editCertificado&sub=listcert&item=list&certificado=$idCertificado'>";
+
                               } 
                           }
                       }
@@ -235,7 +237,7 @@ if (isset($_GET['certificado'])) {
                                   foreach ($tipos as $value) {
                                     if ($value->getTipo() == $tipoCertificado && $value->getId() != $idTipoCertificado) {
                                       $flag = false;
-                                      break;
+                                      #break;
                                     }
                                   }
                                   if(!$flag){
@@ -243,7 +245,7 @@ if (isset($_GET['certificado'])) {
                                   }else{
                                       $tipoCertificado->save();
                                       echo "<div class='alert alert-success'><b>Tipo cadastrado!</b> Operação realizada com sucesso.</div>";
-                                       echo "<meta HTTP-EQUIV='refresh' CONTENT='2;URL=administrador.php?view=editCertificado&sub=listcert&item=list&certificado=$idCertificado'>";
+                                    #echo "<meta HTTP-EQUIV='refresh'CONTENT='0;URL=administrador.php?view=editCertificado&sub=listcert&item=list&certificado=$idCertificado'>";
                                   }   
                               }
                               

@@ -18,6 +18,9 @@ $eventos = $evento->list("");
 	</div>
 	<?php  
 		foreach ($eventos as $value) {
+			if ($value->getStatus() == "A") {
+			
+			
 
 	?>
 	
@@ -37,5 +40,5 @@ $eventos = $evento->list("");
 		
 		</div>
 	</div><! --/col-md-4 -->
-	<?php } ?>
+	<?php } }?>
 </div>

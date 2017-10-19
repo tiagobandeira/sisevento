@@ -14,14 +14,13 @@ $cores = ['#f5f6f8', '#FFFFFF'];
 
 ?>
 <div class="row">
-  
-                    <?php  
+    <?php  
                         if (isset($_POST['evento'])) {
                             $evento = $eve->readById($_POST['evento']);
-                            $evento->setStatus("D");
+                            $evento->setStatus("A");
                             $evento->save();
                             echo "<div class='alert alert-success'><b>Evento desativado!</b> Operação realizada com sucesso.</div>";
-                            echo "<meta HTTP-EQUIV='refresh' CONTENT='1;URL=administrador.php?view=listaEventos&sub=listeve&item=list'>";
+                            echo "<meta HTTP-EQUIV='refresh' CONTENT='1;URL=administrador.php?view=eventosDesativados&sub=listeve&item=list'>";
                           
                             
                         }
@@ -32,8 +31,7 @@ $cores = ['#f5f6f8', '#FFFFFF'];
                       <section class="task-panel tasks-widget">
                     <div class="panel-heading">
                           <div class="pull-left"><h5><i class="fa fa-tasks"></i> Lista de eventos</h5></div>
-                            <a class="btn btn-success btn-sm pull-right" href="?view=addEvento&sub=part&item=addE">Novo Evento</a>
-                            <br>
+                           <br>
                           
                     </div>
                            
@@ -41,14 +39,14 @@ $cores = ['#f5f6f8', '#FFFFFF'];
                               <div class="task-content">
                               <form method="POST">
                                   <ul id="sortable" class="task-list">
-                                    <?php foreach ($lista as $value) {
-                                          if ($value->getStatus() == "A") {   
+                                    <?php foreach ($lista as $value) { 
+                                          if ($value->getStatus() == "D") { 
                                           $linha++;
                                           if ($j <= $_SESSION['contEvento']) {
                                               $j++;
                                          
                                     ?>
-                                      <li class="list-primary" style="background-color: <?php echo $cores[($i++)%2];?>;">
+                                      <li class="list-danger" style="background-color: <?php echo $cores[($i++)%2];?>;">
                                              <!-- Split button -->
                              
                                           
@@ -58,20 +56,18 @@ $cores = ['#f5f6f8', '#FFFFFF'];
                                                 <?php echo $value->getNome() ?>                                                
                                               </span>
                                               <!--<span class="badge bg-theme">Done</span>-->
-                                              <div class="pull-right">
+                                              <div class="pull-right ">
                                                   <!--
                                                   <button class="btn btn-success btn-xs fa fa-check" ></button>
                                                   <button class="btn btn-primary btn-xs fa fa-pencil"></button>
                                                   <button class="btn btn-danger btn-xs fa fa-trash-o"></button>
                                                   -->
                                                 
-                                                  <a href="?view=editEvento&sub=listeve&item=list&evento=<?php echo $value->getId();?>">
-                                                      <span class="btn btn-primary btn-xs fa fa-pencil"></span>
-                                                  </a>
+                                                
                                                   <button data-toggle="modal" 
                                                           type="submit"
                                                           data-target="#del" 
-                                                          class="btn btn-danger btn-xs fa fa-trash-o"
+                                                          class="btn btn-danger btn-xs fa fa-refresh"
                                                           name="evento"
                                                           value="<?php echo $value->getId();?>">
                                                   </button>
@@ -88,7 +84,7 @@ $cores = ['#f5f6f8', '#FFFFFF'];
                       
                         <!-- modal -->
                        
-                                     <?php }} } ?>
+                                     <?php }} }?>
 
                                   </ul>
                             </form>
@@ -132,9 +128,10 @@ $cores = ['#f5f6f8', '#FFFFFF'];
                       ?>
                       </section>
 
+
 </div>
           
-
+                  
 
               
 

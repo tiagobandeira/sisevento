@@ -26,7 +26,13 @@
 
     	function __construct($con = null)
 		{
-			
+			$this->id = null;
+			$this->nome = null;
+			$this->nomeCompleto = null;
+			$this->senha = null;
+			$this->email = null;	
+			$this->tipo = null;
+			$this->fone = null;
 			$this->fone = 0;
 			$this->siape = 0;
 			if ($con == null) {

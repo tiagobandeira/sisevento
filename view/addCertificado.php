@@ -30,6 +30,50 @@ $tiposUsuarios = $tipoUserModel->list();
 <div class="row">
     <div class="col-lg-8 no-padding">
                   <div class="form-panel">
+                       <?php  
+                      if(isset($_POST['nome']) && isset($_POST['tipoC']) && isset($_POST['tipoE'])){
+                          if(empty($_POST['nome'])){
+                              echo "<div class='alert alert-danger'><b>Não salvou </b> Preencha os campos</div>";
+                          }else{
+                              $cert->setNome($_POST['nome']);
+                              $cert->setTipo($_POST['tipoC']);
+                              $cert->setEvento($_POST['tipoE']);
+                              $cert->setTipoUsuario($_POST['tipoUsuario']);
+                              $imagem = $_FILES['imagem']['name'];
+
+                              
+
+                              $cert->setUsuario($_SESSION['id']);
+                              $lista = $cert->list($_POST['nome']);
+                              $flag = true;
+                              foreach ($lista as $value) {
+                                if($value->getNome() == $cert->getNome()){
+                                  $flag = false;
+                                  break;
+                                }
+                              }
+                              if(!$flag){
+                                  echo "<div class='alert alert-danger'><b>Não salvou </b> Certifica já existe.</div>";
+                              }else{
+                                  
+                                  require_once '../lib/upload.php';
+                                  if ($imagem == null) {
+                                      #chamar a function upload
+                                      $imagem = "certificado_default.png";
+                                  }
+
+                                  $cert->setImagem($imagem);
+                                  if ($cert->save()) {
+                                        moveImage($_FILES['imagem']);#salva a imagem em midia/
+                                         
+                                  }
+                                  echo "<div class='alert alert-success' ><b>Certificado cadastrado!</b> Operação realizada com sucesso.</div>";
+                                  echo "<meta HTTP-EQUIV='refresh' CONTENT='10;URL=administrador.php?view=addCertificado&sub=part&item=add'>";
+                              } 
+                          }
+                      }
+
+                    ?>
                       <h4 class="mb"> Certificado</h4>
                       <form class="form-horizontal style-form"  method="POST" enctype="multipart/form-data">
                           <div class="form-group">
@@ -94,54 +138,7 @@ $tiposUsuarios = $tipoUserModel->list();
                                </label>
                           </div><!-- end dados -->
 
-                    <?php  
-                      if(isset($_POST['nome']) && isset($_POST['tipoC']) && isset($_POST['tipoE'])){
-                          if(empty($_POST['nome'])){
-                              echo "<div class='alert alert-danger'><b>Não salvou </b> Preencha os campos</div>";
-                          }else{
-                              $cert->setNome($_POST['nome']);
-                              $cert->setTipo($_POST['tipoC']);
-                              $cert->setEvento($_POST['tipoE']);
-                              $cert->setTipoUsuario($_POST['tipoUsuario']);
-
-                              if (!empty($_FILES['imagem']['name'])) {
-                                  #chamar a function upload
-                                  require_once '../lib/upload.php';
-                                  if (imageIsEmpty($_FILES['imagem']['name']) === TRUE) {
-
-                                      $imagem = "certificado_default.png";
-                                      $_FILES['imagem']['name'] = $imagem;
-                                  }
-                                  if (isImage($_FILES['imagem']) === TRUE) {
-                                      echo "é uma imagem. ";
-                                  }else{
-
-                                  }
-                                  moveImage($_FILES['imagem']);#salva a imagem em midia/
-                                  $cert->setImagem($_FILES['imagem']['name']);
-
-                              }
-
-                              $cert->setUsuario($_SESSION['id']);
-                              $lista = $cert->list($_POST['nome']);
-                              $flag = true;
-                              foreach ($lista as $value) {
-                                if($value->getNome() == $cert->getNome()){
-                                  $flag = false;
-                                  break;
-                                }
-                              }
-                              if(!$flag){
-                                  echo "<div class='alert alert-danger'><b>Não salvou </b> Certifica já existe.</div>";
-                              }else{
-                                  $cert->save();
-                                  echo "<div class='alert alert-success' ><b>Certificado cadastrado!</b> Operação realizada com sucesso.</div>";
-                                  # echo "<meta HTTP-EQUIV='refresh' CONTENT='10;URL=administrador.php?view=addCertificado&sub=part&item=add'>";
-                              } 
-                          }
-                      }
-
-                    ?>
+                   
                          <div align="right">
                            <button type="submit" class="btn btn-info" >Salvar</button>
                          </div>
@@ -206,7 +203,7 @@ $tiposUsuarios = $tipoUserModel->list();
                                   }else{
                                       $tipoCertificado->save();
                                       echo "<div class='alert alert-success'><b>Tipo cadastrado!</b> Operação realizada com sucesso.</div>";
-                                      echo "<meta HTTP-EQUIV='refresh' CONTENT='10;URL=administrador.php?view=addCertificado&sub=part&item=add'>";
+                                      echo "<meta HTTP-EQUIV='refresh' CONTENT='3;URL=administrador.php?view=addCertificado&sub=part&item=add'>";
                                   }   
                               }
                               
@@ -243,7 +240,7 @@ $tiposUsuarios = $tipoUserModel->list();
                                 }else{
                                   echo "<div class='alert alert-success'><b>Tipo excluido!</b> Operação realizada com sucesso.</div>";
                                   $tipoD->delete($_POST['tipoDel']);
-                                  echo "<meta HTTP-EQUIV='refresh' CONTENT='0;URL=administrador.php?view=addCertificado&sub=part&item=add'>";
+                                  echo "<meta HTTP-EQUIV='refresh' CONTENT='1;URL=administrador.php?view=addCertificado&sub=part&item=add'>";
                                 }
                       
                           }

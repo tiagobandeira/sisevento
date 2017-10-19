@@ -23,6 +23,10 @@
 
     	function __construct($con = null)
 		{
+			$this->id = null;
+			$this->tipo = null;
+			$this->texto = null;	
+			$this->cortexto = null;
 			if ($con == null) {
 				$connect = new Connect();
 				$this->con = $connect->getConnect();	
@@ -118,7 +122,7 @@
 			$query = $this->con->prepare($sql);
 			$query->bindValue(":id", $id);
 			$query->execute();
-			$tipo = new TipoCertificadoModel($this->con);
+			$tipo = new TipoCertificadoModel();
 			foreach ($query as $value) {
 				$tipo->setId($value['id']);
 				$tipo->setTipo($value['tipo']);

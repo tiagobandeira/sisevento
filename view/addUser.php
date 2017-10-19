@@ -86,7 +86,7 @@ $tipos = $tipouser->list();
                           <div class="form-group">
                               <label class="col-sm-2 col-sm-2 control-label">SIAPE</label>
                               <div class="col-sm-10">
-                                  <input type="tel" name="siape" required="number" class="form-control">
+                                  <input type="tel" name="siape" pattern="^\d{8}$" class="form-control">
                               </div>
                           </div><!-- end dados -->
                     <?php  

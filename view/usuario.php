@@ -70,7 +70,8 @@
             </div>
             <div class="top-menu">
               <ul class="nav pull-right top-menu">
-                    <li><a class="logout" href="../view">Logout</a></li>
+                    <li><a class="logout visible-lg" href="../view">Logout</a></li>
+                    <li><a class="logout visible-md visible-xs visible-sm" href="../view"><span class="fa fa-sign-out"></span></a></li>
               </ul>
             </div>
         </header>
@@ -101,7 +102,7 @@
                           <span>Eventos</span>
                       </a>
                       <ul class="sub">
-                          <li><a  href="?view=listaEventos&sub=even&item=addE">Meus</a></li>
+                          <li><a  href="?view=meusEventos&sub=even&item=addE">Meus</a></li>
                       </ul>
                   </li>
                   <li class="sub-menu">
@@ -112,17 +113,17 @@
                       <ul class="sub">
                           <li><a  href="?view=certificado&sub=cert&item=addE">Todos</a></li>
                       </ul>
-                      <ul class="sub">
-                          <li><a  href="?view=certificadoTesteModal&sub=cert&item=addE">Teste</a></li>
-                      </ul>
                   </li>
                   <li class="sub-menu">
-                      <a href="javascript:;" class="<?php echo $_GET['sub'] == 'cog'?'active':'' ?>">
+                      <a href="javascript:;" class="<?php echo $_GET['sub'] == 'configConta'?'active':'' ?>">
                           <i class="fa fa-cogs"></i>
                           <span>Configuração</span>
                       </a>
                       <ul class="sub">
-                          <li><a  href="?view=certificado&sub=cog&item=addE">Conta</a></li>
+                          <li><a  href="?view=conta&sub=configConta">Conta</a></li>
+                      </ul>
+                       <ul class="sub">
+                          <li><a  href="?view=seguranca&sub=configConta">Segurança</a></li>
                       </ul>
                   </li>
               </ul>
@@ -140,7 +141,7 @@
           
             <!--<h3><i class="fa fa-angle-right"></i>Main</h3> -->
            
-            <div class="row mt">
+            <div class="row">
               <div class="col-lg-12">
               
                 <?php
@@ -167,7 +168,7 @@
       <footer class="site-footer">
           <div class="text-center">
               <?php print date('Y')?> - SisEvento
-              <a href="blank.html#" class="go-top">
+              <a href="usuario.php" class="go-top">
                   <i class="fa fa-angle-up"></i>
               </a>
           </div>

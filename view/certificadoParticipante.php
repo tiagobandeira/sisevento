@@ -72,7 +72,7 @@ $usuario = $user->readById($_SESSION['id']);
 <div class="showback">
 <h3><i class="fa fa-certificate"></i> Certificados disponíveis</h3>
 </div>
-<div class="row">
+<div class="row mt-default">
 
 	<?php  
 		foreach ($codigos as $valueCodigo) {
@@ -92,7 +92,7 @@ $usuario = $user->readById($_SESSION['id']);
 	?>
 							<! -- Spotify Panel -->
 					<!-- form -->
- 					<form method="post"  action="gerarCertificado2.php">
+ 					<form method="post"  action="gerarCertificado.php">
 						<div class="col-lg-4 col-md-4 col-sm-4 mb">
 							<div class="content-panel pn">
 								<div id="spotify" style="<?php echo 
@@ -144,7 +144,7 @@ $usuario = $user->readById($_SESSION['id']);
 		        </form>
 
 		         <!-- form Modal -->
-				  <form method="POST" action="gerarCertificado2.php">
+				  <form method="POST" action="gerarCertificado.php">
 		          <div aria-hidden="true" aria-labelledby="myModalLabel" 
 		          		role="dialog" tabindex="-1" id="<?php echo $valueCodigo->getId() ?>" class="modal fade">
 		              <div class="modal-dialog">

@@ -34,7 +34,7 @@ class CreateDB
 		$createTipoUsuario = "create table tipousuario(id int primary key auto_increment, tipo varchar(100))";
     	$createUsuario = "create table usuario( id int primary key auto_increment, nome varchar (100),nomecompleto varchar (100), senha varchar(60), email varchar(100), tipo int , fone int , cargo varchar(100), siape int (8),foreign key (tipo) references tipousuario (id) );";
 
-		$createEvento = "create table evento( id int primary key auto_increment, nome varchar(200), data_inicio date, data_fim date, tipo int, endereco varchar(200), usuario int, organizador1 int, organizador2 int, cargahoraria int, foreign key (tipo) references tipoevento (id), foreign key (usuario) references usuario (id))";
+		$createEvento = "create table evento( id int primary key auto_increment, nome varchar(200), data_inicio date, data_fim date, tipo int, endereco varchar(200), status varchar(1), usuario int, cargahoraria int, foreign key (tipo) references tipoevento (id), foreign key (usuario) references usuario (id))";
 		$createOrganizador = "create table organizador( id int primary key auto_increment, usuario int,evento int, foreign key (usuario) references usuario(id), foreign key (evento) references evento(id) );";
 		$createCodigoUsuario = "create table codigousuario(id int primary key auto_increment, codigo int, evento int, usuario int, foreign key (usuario) references usuario (id), status varchar(1), foreign key (evento) references evento (id) )";
 

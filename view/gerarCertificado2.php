@@ -53,8 +53,8 @@ session_start();
 	}
 	#fim verificação de usuario
 
-	if(isset($_POST['id']) or isset($_POST['codigoinput'])){
-		$id = $_POST['id'];
+	if(isset($_POST['idcodigo']) or isset($_POST['codigoinput'])){
+		$id = $_POST['idcodigo'];
 		$codigo = $_POST['codigo'];
 		$idtipo = $_POST['idtipo'];
 		$nomeEvento = $_POST['evento'];
@@ -71,12 +71,14 @@ session_start();
 		$tipo = new TipoCertificadoModel();
 		$tipocert = $tipo->readById($idtipo);
 		$texto = $tipocert->getTexto();
+		$corTexto = $tipocert->getCorTexto();
 		#usuario
 		
 		#evento
 		$eventoModel = new EventoModel();
 		$evento = $eventoModel->readById($certificado->getEvento());
 		$horas = $evento->getCargaHoraria();
+		$local = utf8_decode($evento->getEndereco()) ;
 		
 
 		#dados 
@@ -101,13 +103,14 @@ session_start();
 	$pdf2->AddPage('L');
    	$pdf2->Image('midia/'.$imagem.'',0,0,297);
    	$pdf2->SetFont('Helvetica','', 15);
-   	$pdf2->setTextColor(0,135, 77);
+   	$cor = convertHexa($corTexto);
+   	$pdf2->setTextColor($cor['red'], $cor['green'], $cor['blue']);
    	$pdf2->SetXY( 35, 98);
    	$pdf2->WriteHTML("<p align='justify'> ".$frase."</p>");
 
    	
    	$pdf2->SetFont('Helvetica','', 11);
-   	$pdf2->Text(200,135, "Parnaiba, $dia de $mes de $ano");
+   	$pdf2->Text(200,135, "$local, $dia de $mes de $ano");
    	
    	#rodapé
 	$pdf2->SetXY( 0, 155);
@@ -185,5 +188,20 @@ function dataExtenso($data){
 	$strData = $dia . " de " . $mes . " de " . $ano;
 	return $strData;
 }
+#converter a cor do texto que está em hexadecimal para decimal	
+ function convertHexa($hexadecimal)
+	{
+		$strHexadecimal = explode("#", $hexadecimal);
+		$colorVal = $strHexadecimal[1];
+		$rgbArray = array();
+		$seperator = ",";
+		if (strlen($colorVal) == 6) { 
+        	$colorVal = hexdec($colorVal);
+        	$rgbArray['red'] = 0xFF & ($colorVal >> 0x10);
+        	$rgbArray['green'] = 0xFF & ($colorVal >> 0x8);
+        	$rgbArray['blue'] = 0xFF & $colorVal;
+    	}
+		return $rgbArray;
+	}
 
 ?>

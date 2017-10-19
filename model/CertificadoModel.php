@@ -119,10 +119,11 @@
 			}
 			$query = $this->con->prepare($sql);
 			$query->execute();
+			
 		}
 		public function list($nome = null){
 			if(!empty($nome)){
-				$sql = "SELECT * FROM certificado WHERE nome LIKE '$nome%' or '%$nome'";
+				$sql = "SELECT * FROM certificado WHERE nome LIKE '%$nome%'";
 
 			}else{
 				$sql = "SELECT * FROM certificado";
@@ -153,7 +154,7 @@
 			$query = $this->con->prepare($sql);
 			$query->bindValue(":id", $id);
 			$query->execute();
-			$certificado = new CertificadoModel($this->con);
+			$certificado = new CertificadoModel();
 			foreach ($query as $value) {
 				$certificado->setId($value['id']);
 				$certificado->setNome($value['nome']);
@@ -182,7 +183,7 @@
 			$query = $this->con->prepare($sql);
 			$query->bindValue(":evento", $evento);
 			$query->execute();
-			$certificado = new CertificadoModel($this->con);
+			$certificado = new CertificadoModel();
 			foreach ($query as $value) {
 				$certificado->setId($value['id']);
 				$certificado->setNome($value['nome']);
@@ -205,7 +206,7 @@
 				$query->bindValue(":idevento", $idevento);
 				$query->execute();
 				foreach ($query as $value) {
-					$certificado = new CertificadoModel($this->con);
+					$certificado = new CertificadoModel();
 					$certificado->setId($value['id']);
 					$certificado->setNome($value['nome']);
 					$certificado->setEvento($value['evento']);

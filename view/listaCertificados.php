@@ -18,10 +18,8 @@ $cores = ['#f5f6f8', '#FFFFFF'];
 ?>
 
   <!--main content start-->
-     
-
-              
-                    <?php  
+<div class="row">
+       <?php  
                         if (isset($_POST['certificado'])) {
                             $certificado = $cert->readById($_POST['certificado']);
                             $certificado->delete();
@@ -35,16 +33,16 @@ $cores = ['#f5f6f8', '#FFFFFF'];
                     ?>
              
                       <section class="task-panel tasks-widget">
-	                	<div class="panel-heading">
-	                        <div class="pull-left"><h5><i class="fa fa-tasks"></i> Lista de Certificados</h5></div>
-	                        <br>
-	                 	</div>
+                    <div class="panel-heading">
+                          <div class="pull-left"><h5><i class="fa fa-tasks"></i> Lista de Certificados</h5></div>
+                          <br>
+                    </div>
                           
                           <div class="panel-body">
                               <div class="task-content">
                               <form method="POST">
                                   <ul id="sortable" class="task-list">
-                                  	<?php foreach ($lista as $value) {  
+                                    <?php foreach ($lista as $value) {  
                                           $linha++;
                                           if ($j <= $_SESSION['contCertificado']) {
                                               $j++;
@@ -55,7 +53,7 @@ $cores = ['#f5f6f8', '#FFFFFF'];
                                           <div class="task-title">
                                               <span class="task-title-sp"><?php echo $value->getNome() ?></span>
                                               <!--<span class="badge bg-theme">Done</span>-->
-                                              <div class="pull-right hidden-phone">
+                                              <div class="pull-right ">
                                                   <!--
                                                   <button class="btn btn-success btn-xs fa fa-check"></button>
                                                   <button class="btn btn-primary btn-xs fa fa-pencil"></button>
@@ -83,7 +81,7 @@ $cores = ['#f5f6f8', '#FFFFFF'];
                                <form method="POST">
                               
                               <div class=" add-task-row">
-                                  <a class="btn btn-success btn-sm pull-left" href="?view=addEvento&sub=part&item=addE">Novo Evento</a>
+                                  <a class="btn btn-success btn-sm pull-left" href="?view=addCertificado&sub=part&item=addE">Novo Certificado</a>
                                   <button class="btn btn-default btn-sm pull-right" type="submit" 
                                       name="mais" value="<?php ?>">
                                     <?php  
@@ -123,8 +121,13 @@ $cores = ['#f5f6f8', '#FFFFFF'];
               
 
 
-			
-		
+      
+    
       
 
 
+
+</div>
+
+              
+               

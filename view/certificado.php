@@ -68,10 +68,12 @@ $user = new UsuarioModel();
 $usuario = $user->readById($_SESSION['id']);
 
 ?>
-<div class="showback">
-<h3><i class="fa fa-certificate"></i> Certificados disponíveis</h3>
-</div>
-<div class="row">
+<div class="row mt-default">
+	<div class="col-lg-12 col-md-12 col-sm-12 ">
+		<div class="showback">
+			<h3><i class="fa fa-certificate"></i> Certificados</h3>
+		</div>
+	</div>
 
 	<?php  
 		foreach ($codigos as $valueCodigo) {
@@ -91,7 +93,7 @@ $usuario = $user->readById($_SESSION['id']);
 	?>
 							<! -- Spotify Panel -->
 					<!-- form -->
- 					<form method="post"  action="gerarCertificado2.php">
+ 					<form method="post"  action="gerarCertificado.php">
 						<div class="col-lg-4 col-md-4 col-sm-4 mb">
 							<div class="content-panel pn">
 								<div id="spotify" style="<?php echo 
@@ -117,7 +119,7 @@ $usuario = $user->readById($_SESSION['id']);
 											type="<?php echo $valueCodigo->getStatus() == 'B'?'button':'submit'; ?>" 
 											data-target="#<?php echo $valueCodigo->getStatus() == 'B'?$valueCodigo->getId():''; ?>" 
 											class="btn btn-sm btn-clear-g" 
-											name="id"  
+											name="idcodigo"  
 											value="<?php echo $valueCodigo->getId();?>">
 											<?php echo $valueCodigo->getStatus() == 'B'?'DESBLOQUEAR':'GERAR' ?>
 										</button>
@@ -142,7 +144,7 @@ $usuario = $user->readById($_SESSION['id']);
 		        </form>
 
 		         <!-- form Modal -->
-				  <form method="POST" action="gerarCertificado2.php">
+				  <form method="POST" action="gerarCertificado.php">
 		          <div aria-hidden="true" aria-labelledby="myModalLabel" 
 		          		role="dialog" tabindex="-1" id="<?php echo $valueCodigo->getId() ?>" class="modal fade">
 		              <div class="modal-dialog">
@@ -156,6 +158,7 @@ $usuario = $user->readById($_SESSION['id']);
 		                        	<p>Informe o código que você recebeu quando participou do evento 
 		                        		<?php echo $valueEvento->getNome() ?>.</p>
 		                        	<input type="number" name="codigoinput" placeholder="" autocomplete="off" class="form-control placeholder-no-fix">         
+
 		                          	<input type="hidden" name="codigo" value="<?php echo $valueCodigo->getCodigo();?>">
 		                          	<input type="hidden" name="idcodigo" value="<?php echo $valueCodigo->getId();?>">
 		                          	<input type="hidden" name="idevento" value="<?php echo $valueCodigo->getEvento();?>">

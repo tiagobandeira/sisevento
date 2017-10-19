@@ -5,15 +5,16 @@ require_once '../model/TipoUsuarioModel.php';
 require_once '../model/TipoEventoModel.php';
 require_once '../model/EventoModel.php';
 require_once '../model/OrganizadorModel.php';
+require_once '../model/CodigoUsuarioModel.php';
+require_once 'code.php';
 $eve = new EventoModel();
 
 $tipouser = new TipoEventoModel();
-$result = $tipouser->readById(2);
 
 $tipos = $tipouser->list();
 
 $userModel = new UsuarioModel();
-$usuarios = $userModel->list("");
+$usuarios = $userModel->list();
 #organizadores
 $organizador1 = new OrganizadorModel();
 $organizador2 = new OrganizadorModel();
@@ -30,6 +31,78 @@ $organizador2 = new OrganizadorModel();
 <div class="row ">
     <div class="col-lg-8  no-padding">
                   <div class="form-panel">
+                        <?php  
+                      if(isset($_POST['nome'])){
+                        if(empty($_POST['nome'])){
+                          echo "<div class='alert alert-danger'><b>Não salvou </b> Preencha os campos</div>";
+                        }else{
+                            #evento
+                            $eve->setNome($_POST['nome']);
+                            $eve->setEndereco($_POST['local']);
+                            $eve->setTipo($_POST['tipo']);
+                            $eve->setDataInicio($_POST['dataInicio']);
+                            $eve->setDataFim($_POST['dataFim']);
+                            $eve->setStatus("A");
+                            $eve->setCargaHoraria($_POST['cargahoraria']);
+                            $eve->setUsuario(1);
+
+                            $lista = $eve->list($_POST['nome']);
+                            $flag = true;
+                            foreach ($lista as $value) {
+                              if($value->getNome() == $eve->getNome()){
+                                $flag = false;
+                                break;
+                              }
+                            }
+
+                          if(!$flag){
+                            echo "<div class='alert alert-danger' ><b>Não salvou </b> Evento já existe.</div>";
+                          }else{
+                            $eve->save();
+                          
+                           
+                            if (isset($_POST['org1']) OR isset($_POST['org2'])) {
+                              $idEvento = null;
+                              $lista = $eve->list($_POST['nome']);
+                              #organizador
+                              foreach ($lista as $value) {
+                                  if($value->getNome() == $eve->getNome()){
+                                      $idEvento = $value->getId();
+                                      break;
+                                  }
+                              }
+                              if(!empty($_POST['org1'])){
+                                $organizador1->setUsuario($_POST['org1']);
+                                $organizador1->setEvento($idEvento);
+                                $organizador1->save();
+                                $codigoModel = new CodigoUsuarioModel();
+                                $codigoModel->setCodigo(cod($organizador1->getUsuario()));
+                                $codigoModel->setUsuario($organizador1->getUsuario());
+                                $codigoModel->setEvento($organizador1->getEvento());
+                                $codigoModel->setStatus("B");
+                                $codigoModel->save();
+                              }
+                              if(!empty($_POST['org2'])){
+                                $organizador2->setUsuario($_POST['org2']);
+                                $organizador2->setEvento($idEvento);
+                                $organizador2->save();
+                                $codigoModel = new CodigoUsuarioModel();
+                                $codigoModel->setCodigo(cod($organizador2->getUsuario()));
+                                $codigoModel->setUsuario($organizador2->getUsuario());
+                                $codigoModel->setEvento($organizador2->getEvento());
+                                $codigoModel->setStatus("B");
+                                $codigoModel->save();
+                              }
+                            }
+                           
+                           
+                            echo "<div class='alert alert-success' ><b>Evento cadastrado!</b> Operação realizada com sucesso.</div>";
+                            echo "<meta HTTP-EQUIV='refresh' CONTENT='3;URL=administrador.php?view=addEvento&sub=part&item=add'>";
+                          } 
+                        }
+                      }
+
+                    ?>
                       <h4 class="mb"> Evento</h4>
                       <form class="form-horizontal style-form"  method="POST">
                           <div class="form-group">
@@ -119,60 +192,7 @@ $organizador2 = new OrganizadorModel();
                                   <input type="number" name="cargahoraria" pattern="^d{2}$" maxlength="2"  placeholder="" class="form-control">
                               </div>
                           </div><!-- end dados -->
-                    <?php  
-                      if(isset($_POST['nome'])){
-                        if(empty($_POST['nome'])){
-                          echo "<div class='alert alert-danger'><b>Não salvou </b> Preencha os campos</div>";
-                        }else{
-                            #evento
-                            $eve->setNome($_POST['nome']);
-                            $eve->setEndereco($_POST['local']);
-                            $eve->setTipo($_POST['tipo']);
-                            $eve->setDataInicio($_POST['dataInicio']);
-                            $eve->setDataFim($_POST['dataFim']);
-                            $eve->setCargaHoraria($_POST['cargahoraria']);
-                            $eve->setUsuario(1);
-
-                            $lista = $eve->list($_POST['nome']);
-                            $flag = true;
-                            foreach ($lista as $value) {
-                              if($value->getNome() == $eve->getNome()){
-                                $flag = false;
-                                break;
-                              }
-                            }
-
-                          if(!$flag){
-                            echo "<div class='alert alert-danger' ><b>Não salvou </b> Evento já existe.</div>";
-                          }else{
-                            $eve->save();
-                            $idEvento = null;
-                            $lista = $eve->list($_POST['nome']);
-                            #organizador
-                            foreach ($lista as $value) {
-                                if($value->getNome() == $eve->getNome()){
-                                    $idEvento = $value->getId();
-                                    break;
-                                }
-                            }
-                            if(!empty($_POST['org1'])){
-                               $organizador1->setUsuario($_POST['org1']);
-                               $organizador1->setEvento($idEvento);
-                               $organizador1->save();
-                            }
-                            if(!empty($_POST['org2'])){
-                                $organizador2->setUsuario($_POST['org2']);
-                                $organizador2->setEvento($idEvento);
-                                $organizador2->save();
-                            }
-                           
-                            echo "<div class='alert alert-success' ><b>Evento cadastrado!</b> Operação realizada com sucesso.</div>";
-                            echo "<meta HTTP-EQUIV='refresh' CONTENT='0;URL=administrador.php?view=addEvento&sub=part&item=add'>";
-                          } 
-                        }
-                      }
-
-                    ?>
+                  <!-- php salva-->
                          <div align="right">
                            <button type="submit" class="btn btn-info" >Salvar</button>
                          </div>

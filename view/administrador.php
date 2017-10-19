@@ -70,8 +70,8 @@
             </div>
             <div class="top-menu">
               <ul class="nav pull-right top-menu">
-                    <li><a class="logout hidden-phone" href="../view">Logout</a></li>
-                    <li><a class="logout visible-xs" href="../view"><span class="fa fa-sign-out"></span></a></li>
+                    <li><a class="logout visible-lg" href="../view">Logout</a></li>
+                    <li><a class="logout visible-md visible-xs visible-sm" href="../view"><span class="fa fa-sign-out"></span></a></li>
               </ul>
             </div>
         </header>
@@ -125,6 +125,7 @@
                       </a>
                       <ul class="sub">
                           <li ><a  href="?view=listaEventos&sub=listeve&item=list">Todos</a></li>
+                          <li><a  href="?view=eventosDesativados&sub=listeve&item=listC">Desativados</a></li>
                           <li><a  href="?view=calendar&sub=listeve&item=listC">Calendário</a></li>
                       </ul>
                   </li>
@@ -140,12 +141,15 @@
                      
                   </li>
                   <li class="sub-menu">
-                      <a href="javascript:;" >
+                      <a href="javascript:;" class="<?php echo $_GET['sub'] == 'configConta'?'active':'' ?>">
                           <i class="fa fa-cogs"></i>
                           <span>Configuração</span>
                       </a>
                       <ul class="sub">
-                          <li><a  href="#">Conta</a></li>
+                          <li><a  href="?view=conta&sub=configConta">Conta</a></li>
+                      </ul>
+                       <ul class="sub">
+                          <li><a  href="?view=seguranca&sub=configConta">Segurança</a></li>
                       </ul>
                   </li>
               </ul>

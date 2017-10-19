@@ -23,7 +23,11 @@
 
     	function __construct($con = null)
 		{
-			
+			$this->id = null;
+			$this->codigo = null;	
+			$this->evento = null;
+			$this->usuario = null;
+			$this->status = null;
 			if ($con == null) {
 				$connect = new Connect();
 				$this->con = $connect->getConnect();	
@@ -149,8 +153,8 @@
 
 		}
 		public function listByUsuario($idusuario){
-			if(!empty($evento)){
-				$sql = "SELECT * FROM codigousuario WHERE usuario = $idusuario";
+			if(!empty($idusuario)){
+				$sql = "SELECT * FROM codigousuario WHERE usuario = :id";
 
 			}else{
 				$sql = "SELECT * FROM codigousuario";
@@ -158,6 +162,7 @@
 			$codigos = array();
 			try{
 				$query = $this->con->prepare($sql);
+				$query->bindValue(":id", $idusuario);
 				$query->execute();
 				foreach ($query as $value) {
 					$codigo = new CodigoUsuarioModel($this->con);

@@ -22,10 +22,21 @@
     	private $endereco;
     	private $usuario;
     	private $cargahoraria;
+    	private $status;
     	private $con;
 
-    	function __construct($con = null)
+    	function __construct($id = null, $nome = null, $dataInicio = null, $dataFim = null, $tipo = null, $endereco = null, $status = null, $usuario = 1, $cargahoraria = 0, $con = null)
 		{
+			$this->id = $id;
+			$this->nome = $nome;
+			$this->dataInicio = $dataInicio;
+			$this->dataFim = $dataFim;
+			$this->tipo = $tipo;
+			$this->endereco = $endereco;
+			$this->status = $status;
+			$this->usuario = $usuario;
+			$this->cargahoraria = $cargahoraria;
+
 			if ($con == null) {
 				$connect = new Connect();
 				$this->con = $connect->getConnect();	
@@ -83,6 +94,12 @@
 		public function getCargaHoraria(){
 			return $this->cargahoraria;
 		}
+		public function setStatus($status){
+			$this->status = $status;
+		}
+		public function getStatus(){
+			return $this->status;
+		}
 		public function getCon(){
 			return $this->con;
 		}
@@ -100,6 +117,7 @@
 							data_fim,
 							tipo,
 							endereco,
+							status,
 							usuario,
 							cargahoraria
 						)
@@ -111,6 +129,7 @@
 							'$this->dataFim',
 							'$this->tipo',
 							'$this->endereco',
+							'$this->status',
 							'$this->usuario',
 							'$this->cargahoraria'
 						)";
@@ -123,6 +142,7 @@
 							data_fim = '$this->dataFim',
 							tipo = '$this->tipo',
 							endereco = '$this->endereco',
+							status = '$this->status',
 							usuario = '$this->usuario',
 							cargahoraria = '$this->cargahoraria'
 						WHERE id = $this->id";
@@ -144,11 +164,12 @@
 				$query = $conexao->prepare($sql);
 				$query->execute();
 				foreach ($query as $value) {
-					$evento = new EventoModel($this->con);#ganbirra
+					$evento = new EventoModel(null,null,null,null,null, null,null,0, 0, $this->con);#ganbirra
 					$evento->setId($value['id']);
 					$evento->setNome($value['nome']);
 					$evento->setDataInicio($value['data_inicio']);
 					$evento->setDataFim($value['data_fim']);
+					$evento->setStatus($value['status']);
 					$evento->setTipo($value['tipo']);
 					$evento->setEndereco($value['endereco']);
 					$evento->setCargaHoraria($value['cargahoraria']);
@@ -166,12 +187,13 @@
 			$query = $this->con->prepare($sql);
 			$query->bindValue(":id", $id);
 			$query->execute();
-			$evento = new EventoModel($this->con);
+			$evento = new EventoModel();
 			foreach ($query as $value) {
 				$evento->setId($value['id']);
 				$evento->setNome($value['nome']);
 				$evento->setDataInicio($value['data_inicio']);
 				$evento->setDataFim($value['data_fim']);
+				$evento->setStatus($value['status']);
 				$evento->setTipo($value['tipo']);
 				$evento->setEndereco($value['endereco']);
 				$evento->setUsuario($value['usuario']);
@@ -197,7 +219,7 @@
 				$query->bindValue(":id", $id);
 				$query->execute();
 				foreach ($query as $value) {
-					$evento = new EventoModel($this->con);
+					$evento = new EventoModel(null,null,null,null,null,null, null,0, 0, $this->con);
 					$evento->setId($value['id']);
 					$evento->setNome($value['nome']);
 					$evento->setDataInicio($value['data_inicio']);
