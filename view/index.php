@@ -1,8 +1,8 @@
-<?php  
+<?php
 	require_once '../control/controllerIndex.php';
 	$ci = new ControllerIndex();
 	$ci->redirect();
-	
+
 ?>
 
 <!DOCTYPE html>
@@ -20,7 +20,7 @@
     <link href="componentes/assets/css/bootstrap.css" rel="stylesheet">
     <!--external css-->
     <link href="componentes/assets/font-awesome/css/font-awesome.css" rel="stylesheet" />
-        
+
     <!-- Custom styles for this template -->
     <link href="componentes/assets/css/style.css" rel="stylesheet">
     <link href="componentes/assets/css/style-responsive.css" rel="stylesheet">
@@ -40,15 +40,15 @@
 
 	  <div id="login-page">
 	  	<div class="container">
-	  	
+
 		      <form class="form-login" method="POST" action="processa.php">
 		        <h2 class="form-login-heading">Login</h2>
 		        <div class="login-wrap">
-		        	<?php  
+		        	<?php
 		        		session_start();
 		        		if (isset($_SESSION['error'])) {
 		        			echo "<p class='alert alert-danger'  align='center'>Nome de usuario ou senha incorretos</p>";
-		        		}	
+		        		}
 		        	?>
 		        	<label class="checkbox">
 		        		Nome de usuário
@@ -61,17 +61,17 @@
 		            <input type="password" name="password" class="form-control"  placeholder="Password">
 		          	<br>
 		            <button class="btn btn-theme btn-block" name="btn" value="entrar" type="submit"><i class="fa fa-lock"></i> SIGN IN</button>
-		            <button class="btn btn-theme btn-block" name="btn" value="cadastrar" type="submit"><i class="fa fa-user"></i> CADASTRAR</button>
-		           
-		
+		            <button class="btn btn-theme btn-block" name="btn" value="cadastrar" type="submit" disabled><i class="fa fa-user"></i> CADASTRAR</button>
+
+
 		        </div>
-		
+
 		          <!-- Modal -->
-		         
+
 		          <!-- modal -->
-		
-		      </form>	  	
-	  	
+
+		      </form>
+
 	  	</div>
 	  </div>
 

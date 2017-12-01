@@ -1,5 +1,5 @@
 
-<?php  
+<?php
 require_once '../model/UsuarioModel.php';
 require_once '../model/TipoUsuarioModel.php';
 require_once '../model/TipoEventoModel.php';
@@ -31,7 +31,7 @@ $organizador2 = new OrganizadorModel();
 <div class="row ">
     <div class="col-lg-8  no-padding">
                   <div class="form-panel">
-                        <?php  
+                        <?php
                       if(isset($_POST['nome'])){
                         if(empty($_POST['nome'])){
                           echo "<div class='alert alert-danger'><b>Não salvou </b> Preencha os campos</div>";
@@ -59,8 +59,8 @@ $organizador2 = new OrganizadorModel();
                             echo "<div class='alert alert-danger' ><b>Não salvou </b> Evento já existe.</div>";
                           }else{
                             $eve->save();
-                          
-                           
+
+
                             if (isset($_POST['org1']) OR isset($_POST['org2'])) {
                               $idEvento = null;
                               $lista = $eve->list($_POST['nome']);
@@ -72,6 +72,7 @@ $organizador2 = new OrganizadorModel();
                                   }
                               }
                               if(!empty($_POST['org1'])){
+                                echo "ORG1: " . $_POST['org1'];
                                 $organizador1->setUsuario($_POST['org1']);
                                 $organizador1->setEvento($idEvento);
                                 $organizador1->save();
@@ -94,11 +95,11 @@ $organizador2 = new OrganizadorModel();
                                 $codigoModel->save();
                               }
                             }
-                           
-                           
+
+
                             echo "<div class='alert alert-success' ><b>Evento cadastrado!</b> Operação realizada com sucesso.</div>";
                             echo "<meta HTTP-EQUIV='refresh' CONTENT='3;URL=administrador.php?view=addEvento&sub=part&item=add'>";
-                          } 
+                          }
                         }
                       }
 
@@ -115,14 +116,14 @@ $organizador2 = new OrganizadorModel();
                               <label class="col-sm-2 col-sm-2 control-label">Organizador 1</label>
                               <div class="col-sm-10">
                                   <select class="form-control" name="org1">
-                                        
-                                       <option>Selecione um organizador</option> 
-                                      <?php  
+
+                                       <option value="">Selecione um organizador</option>
+                                      <?php
                                         foreach ($usuarios as $value) {
                                           if ($value->getTipo() > 2) {
                                       ?>
                                       <option value="<?php echo $value->getId();?>">
-                                        <?php echo $value->getNomeCompleto();?>                                       
+                                        <?php echo $value->getNomeCompleto();?>
                                       </option>
                                       <?php
                                           }
@@ -136,13 +137,13 @@ $organizador2 = new OrganizadorModel();
                               <label class="col-sm-2 col-sm-2 control-label">Organizador 2</label>
                               <div class="col-sm-10">
                                   <select class="form-control" name="org2">
-                                      <option>Selecione um organizador</option>
-                                      <?php  
+                                      <option value="">Selecione um organizador</option>
+                                      <?php
                                         foreach ($usuarios as $value) {
                                           if ($value->getTipo() > 2) {
                                       ?>
                                       <option value="<?php echo $value->getId();?>">
-                                        <?php echo $value->getNomeCompleto();?>                                       
+                                        <?php echo $value->getNomeCompleto();?>
                                       </option>
                                       <?php
                                           }
@@ -150,7 +151,7 @@ $organizador2 = new OrganizadorModel();
 
                                       ?>
                                   </select>
-                                  
+
                               </div>
                           </div>
                           <div class="form-group">
@@ -159,7 +160,7 @@ $organizador2 = new OrganizadorModel();
                                   <input type="text" name="local" class="form-control">
                               </div>
                           </div>
-                         
+
                             <!-- funções -->
                           <h4 class="mb"> Tipo de Evento</h4>
                           <div class="form-group">
@@ -198,7 +199,7 @@ $organizador2 = new OrganizadorModel();
                          </div>
                        </form>
                   </div>
-                  
+
 </div>
 <div class="col-lg-4   no-padding" >
                   <div class="form-panel" >
@@ -212,7 +213,7 @@ $organizador2 = new OrganizadorModel();
                               </div>
 
                           </div>
-                          <?php  
+                          <?php
                               if (isset($_POST['tipoEvento'])) {
                             $tipoE = new TipoEventoModel();
                             $tipoE->setTipo($_POST['tipoEvento']);
@@ -233,16 +234,16 @@ $organizador2 = new OrganizadorModel();
                                 $tipoE->save();
                                 echo "<div class='alert alert-success'><b>Tipo cadastrado!</b> Operação realizada com sucesso.</div>";
                                 echo "<meta HTTP-EQUIV='refresh' CONTENT='0;URL=administrador.php?view=addEvento&sub=part&item=add'>";
-                              }   
+                              }
                             }
-                      
+
                           }
 
                           ?>
                          <div align="right">
                            <button type="submit" class="btn btn-info" >Salvar</button>
                          </div>
-                        
+
                        </form><!-- end forme add tipo evento -->
                        <hr style="border:0.1px solid #ccc;">
                        <!-- forme del tipo evento -->
@@ -258,7 +259,7 @@ $organizador2 = new OrganizadorModel();
                                     </select>
                                   </div>
                           </div>
-                           <?php  
+                           <?php
                             if (isset($_POST['tipoDel'])) {
                                 $tipoD = new TipoEventoModel();
                                 $tipoD->setId($_POST['tipoDel']);
@@ -271,14 +272,14 @@ $organizador2 = new OrganizadorModel();
                                   $tipoD->delete($_POST['tipoDel']);
                                   echo "<meta HTTP-EQUIV='refresh' CONTENT='0;URL=administrador.php?view=addEvento&sub=part&item=add'>";
                                 }
-                      
+
                           }
 
                           ?>
                           <div align="right">
                              <button type="submit" class="btn btn-danger" >Excluir</button>
                           </div>
-                         
+
                        </form> <!-- end forme del participante -->
                   </div>
 </div>

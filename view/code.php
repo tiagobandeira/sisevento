@@ -1,4 +1,4 @@
-<?php  
+<?php
 	require_once '../model/CodigoUsuarioModel.php';
 	require_once '../model/EventoModel.php';
 
@@ -10,7 +10,7 @@
 	}
 	function participar($POST){
 		$codigo = new CodigoUsuarioModel();
-		
+
 		if(status($POST)){
 			$codigo->setCodigo(cod($POST));
 			$codigo->setEvento($POST);
@@ -39,11 +39,11 @@
 				return false;
 			}
 		}
-		
+
 		return true;
 	}
-	
 
-	
+
+
 
 ?>

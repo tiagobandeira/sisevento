@@ -1,29 +1,80 @@
 
-<?php  
+<?php
 require_once '../model/TipoEventoModel.php';
-require_once '../model/EventoModel.php';
-require_once '../model/UsuarioModel.php';
-$evento = new EventoModel();
-$eventos = $evento->list("");
 
+require_once '../control/Controller/UsuarioController.php';
+require_once '../control/Controller/EventoController.php';
+
+$eventos = $Evento->listaEvento();
+$url_key = "year";
 
 ?>
 <!--<h3><i class="fa fa-angle-right"></i> Eventos Cadastrados</h3>-->
 
+<div class="showback" style="margin-top: 5px">
+	<div class="row">
+	<div class="col-lg-12 col-md-12 col-sm-12">
+
+			<div class="col-lg-6 col-md-6 col-sm-6">
+				<h3><i class="fa fa-calendar-o" ></i> Eventos Cadastrados</h3>
+			</div>
+			<div class="col-lg-6 col-md-6 col-sm-6  goright">
+				<!-- Single button -->
+						<div class="btn-group">
+						  <button type="button" class="btn btn-theme dropdown-toggle btn-lg" data-toggle="dropdown">
+
+							<?php
+								if(isset($_GET[$url_key])){
+									echo $_GET[$url_key];
+								}else{
+									echo date("Y");
+								}
+							?>
+							<span class="caret"></span>
+						  </button>
+						  <ul class="dropdown-menu" role="menu">
+								<?php
+								/*
+									$years = array();
+									foreach ($eventos as $value) {
+										$valueAno = date("Y", strtotime($value->getDataInicio()));
+										array_push($years, $valueAno);
+									}*/
+									$yearsOrder = $Evento->ordenarAno();
+
+									foreach ($yearsOrder as $value) {
+										if($value != $value - 1){
+											echo "<li><a href='?year=" . $value . "'> " . $value . "</a></li>";
+										}
+
+									}
+								?>
+						</div>
+			</div>
+
+	</div>
+</div>
+</div>
+
 <div class="row mt-default">
+	<!--
 	<div class="col-lg-12 col-md-12 col-sm-12 ">
 		<div class="showback" >
 			<h3><i class="fa fa-calendar-o" ></i> Eventos Cadastrados</h3>
 		</div>
 	</div>
-	<?php  
-		foreach ($eventos as $value) {
-			if ($value->getStatus() == "A") {
-			
-			
+	-->
 
+	<?php
+		$anoUrl = $_GET[$url_key];
+		$eventoAno = $Evento->selecionaAno($anoUrl);
+		//print_r($ano);
+		foreach ($eventoAno as $value) {
+			//$dataStr = $value->getDataInicio();
+			#$data = data('Y', strtotime($dataStr));
+			if ($value->getStatus() == "A") {
 	?>
-	
+
 	<div class="col-lg-4 col-md-4 col-sm-4 mb" >
 		<div class="product-panel-2 pn">
 		<!--<div class="badge badge-hot">HOT</div>-->
@@ -37,8 +88,8 @@ $eventos = $evento->list("");
 			<button class="btn btn-small btn-theme04" >Participantes</button>
 			<input type="hidden" name="id" value="<?php echo $value->getId();?>">
 		</form>
-		
 		</div>
 	</div><! --/col-md-4 -->
 	<?php } }?>
+
 </div>
