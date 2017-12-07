@@ -64,6 +64,10 @@
 
       return array_reverse($listaAno);
     }
+    public function get($codigoId = null)
+    {
+      return $this->eventoModel->readById($codigoId);
+    }
   }
 
   $Evento = new EventoController();

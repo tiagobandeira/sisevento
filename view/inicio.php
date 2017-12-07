@@ -2,8 +2,8 @@
 <?php
 require_once '../model/TipoEventoModel.php';
 
-require_once '../control/Controller/UsuarioController.php';
-require_once '../control/Controller/EventoController.php';
+require_once '../control/UsuarioController.php';
+require_once '../control/EventoController.php';
 
 $eventos = $Evento->listaEvento();
 $url_key = "year";
@@ -84,7 +84,7 @@ $url_key = "year";
 		<h6> <?php echo $value->getEndereco();  ?></h6>
 		<h6>Data Início: <?php echo $value->getDataInicio();  ?></h6>
 		<h6>Data Fim: <?php echo $value->getDataFim(); ?></h6>
-		<form method="POST" action="?view=listaParticipanteEvento&sub=part&item=addE">
+		<form method="POST" action="?view=listaParticipanteEvento&id=<?php echo $value->getId()?>">
 			<button class="btn btn-small btn-theme04" >Participantes</button>
 			<input type="hidden" name="id" value="<?php echo $value->getId();?>">
 		</form>

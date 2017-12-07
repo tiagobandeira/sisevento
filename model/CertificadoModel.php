@@ -1,16 +1,16 @@
 
-<?php  
+<?php
 /*
 	@About
 	Autor: Tiago Bandeira
-	SisEvento 
+	SisEvento
 	Versão: 1.0
 */
 	require_once '../lib/ConnectDBModel.php';
 	require_once '../database/executeQuery.php';
 
 	/**
-	* 
+	*
 	*/
 	class CertificadoModel
 	{
@@ -26,13 +26,13 @@
 
     	function __construct($con = null)
 		{
-			
+
 			if ($con == null) {
 				$connect = new Connect();
-				$this->con = $connect->getConnect();	
+				$this->con = $connect->getConnect();
 			}else{
 				$this->con = $con;
-			}		
+			}
 		}
 
 		public function getId(){
@@ -53,7 +53,7 @@
 		public function setEvento($evento){
 			$this->evento = $evento;
 		}
-		
+
 		public function getUsuario(){
 			return $this->usuario;
 		}
@@ -80,7 +80,7 @@
 		}
 
     	/*
-			Manipulação de dados 
+			Manipulação de dados
 		*/
 
 		public function  save(){
@@ -95,7 +95,7 @@
 							imagem,
 							tipousuario
 						)
-						VALUES 
+						VALUES
 						(
 							null,
 							'$this->nome',
@@ -106,9 +106,9 @@
 							'$this->tipousuario'
 						)";
 			}else{
-				$sql = "UPDATE 
+				$sql = "UPDATE
 							certificado
-						SET 
+						SET
 							nome = '$this->nome',
 							evento = '$this->evento',
 							usuario = '$this->usuario',
@@ -119,7 +119,7 @@
 			}
 			$query = $this->con->prepare($sql);
 			$query->execute();
-			
+
 		}
 		public function list($nome = null){
 			if(!empty($nome)){
@@ -141,7 +141,7 @@
 					$certificado->setTipo($value['tipo']);
 					$certificado->setImagem($value['imagem']);
 					$certificado->setTipoUsuario($value['tipousuario']);
-					
+
 					array_push($certificados, $certificado);
 				}
 				return $certificados;
@@ -196,10 +196,10 @@
 			return $certificado;
 		}
 		public function listByEvento($idevento){
-			
+
 			$sql = "SELECT * FROM certificado WHERE evento = :idevento";
 
-			
+
 			$certificados = array();
 			try{
 				$query = $this->con->prepare($sql);
@@ -214,7 +214,7 @@
 					$certificado->setTipo($value['tipo']);
 					$certificado->setImagem($value['imagem']);
 					$certificado->setTipoUsuario($value['tipousuario']);
-					
+
 					array_push($certificados, $certificado);
 				}
 				return $certificados;
@@ -224,5 +224,5 @@
 
 }
 	}
-	
+
 ?>

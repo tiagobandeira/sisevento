@@ -13,8 +13,6 @@
 		$user = "u599766642_tiago";
 		$password = "i6d3tUWfH5Ax";
 		
-		
-
 		$data = array();
 		array_push($data, $host);
 		array_push($data, $db);

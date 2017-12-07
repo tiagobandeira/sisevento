@@ -1,12 +1,12 @@
 
-<?php    
+<?php
 session_start();
 	require_once '../model/CodigoUsuarioModel.php';
 	require_once '../model/UsuarioModel.php';
 	require_once '../model/CertificadoModel.php';
 	require_once 'formataTextoCertFunction.php';
-	
-    
+
+
 
 	#include_once '../lib/mpdf60/mpdf.php';
 	include_once '../model/UsuarioModel.php';
@@ -26,7 +26,7 @@ session_start();
    	$ano = @date('Y');
 
 	#verificação de usuario
-	#form modal 
+	#form modal
 	if(isset($_POST['codigoinput'])){
 		$codigoModel = new CodigoUsuarioModel();
 		$codigoModel->setId($_POST['idcodigo']);
@@ -48,7 +48,7 @@ session_start();
 			}else{
 				header('Location: participante.php?view=certificado&sub=cert&item=addE');
 			}
-			
+
 		}
 	}
 	#fim verificação de usuario
@@ -73,15 +73,15 @@ session_start();
 		$texto = $tipocert->getTexto();
 		$corTexto = $tipocert->getCorTexto();
 		#usuario
-		
+
 		#evento
 		$eventoModel = new EventoModel();
 		$evento = $eventoModel->readById($certificado->getEvento());
 		$horas = $evento->getCargaHoraria();
 		$local = utf8_decode($evento->getEndereco()) ;
-		
 
-		#dados 
+
+		#dados
 		$antes = array('#nome', '#horas','#data');
    		$depois = array($nomeUser, $horas, $data);
    		$frase = str_replace($antes, $depois, $texto);
@@ -95,7 +95,7 @@ session_start();
    			$usuario = $usuarioModel->readById($value->getUsuario());
    			array_push($organizadores, $usuario);
    		}
-   		
+
 
 	}
 	#GERA PDF DO CERTIFICADO
@@ -108,10 +108,10 @@ session_start();
    	$pdf2->SetXY( 35, 98);
    	$pdf2->WriteHTML("<p align='justify'> ".$frase."</p>");
 
-   	
+
    	$pdf2->SetFont('Helvetica','', 11);
    	$pdf2->Text(200,135, "$local, $dia de $mes de $ano");
-   	
+
    	#rodapé
 	$pdf2->SetXY( 0, 155);
 	$position = 0;
@@ -120,12 +120,12 @@ session_start();
 			setRodape($position, $value->getNomeCompleto(), $value->getCargo(), "SIAPE " . $value->getSiape(), $pdf2);
 			$position += 130;
 		}
-		
+
 	}
 	#setRodape(0, "Athanio", "Coordenador do SEIFP", "SIAPE - 15805884", $pdf2);
    	#setRodape(130,"Organizador", "Diretor de Ensino", "SIAPE - 15805884", $pdf2);
 
-   	
+
 
 
    	 $pdf2->Output();
@@ -133,16 +133,16 @@ session_start();
 function setRodape($position,$organizador, $cargo, $siape, $pdfObject){
 	if ($siape != "SIAPE 0") {
 		$pdfObject->SetXY( $position, 155);
-   		$pdfObject->MultiCell(180, 5, 
+   		$pdfObject->MultiCell(180, 5,
       "_________________________________ \n$organizador\n$cargo\n$siape"
       ,0, 'C', false);
 	}else{
 		$pdfObject->SetXY( $position, 155);
-   		$pdfObject->MultiCell(180, 5, 
+   		$pdfObject->MultiCell(180, 5,
       "_________________________________ \n$organizador\n$cargo"
       ,0, 'C', false);
 	}
-	
+
 }
 function dataExtenso($data){
 	$ext = explode("-", $data);
@@ -187,7 +187,7 @@ function dataExtenso($data){
 		case 12:
 			$mes = "dezembro";
 			break;
-		
+
 		default:
 			# code...
 			break;
@@ -196,14 +196,14 @@ function dataExtenso($data){
 	$strData = $dia . " de " . $mes . " de " . $ano;
 	return $strData;
 }
-#converter a cor do texto que está em hexadecimal para decimal	
+#converter a cor do texto que está em hexadecimal para decimal
  function convertHexa($hexadecimal)
 	{
 		$strHexadecimal = explode("#", $hexadecimal);
 		$colorVal = $strHexadecimal[1];
 		$rgbArray = array();
 		$seperator = ",";
-		if (strlen($colorVal) == 6) { 
+		if (strlen($colorVal) == 6) {
         	$colorVal = hexdec($colorVal);
         	$rgbArray['red'] = 0xFF & ($colorVal >> 0x10);
         	$rgbArray['green'] = 0xFF & ($colorVal >> 0x8);

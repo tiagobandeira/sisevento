@@ -1,6 +1,6 @@
 
 <style type="text/css">
-	
+
 	/* Soptify Panel */
 /*#spotify {
 	background: url(midia/Certificado_Final_04_seifpi.png) no-repeat center top;
@@ -51,7 +51,7 @@
 }
 
 </style>
-<?php  
+<?php
 
 require_once '../model/TipoEventoModel.php';
 require_once '../model/EventoModel.php';
@@ -75,7 +75,7 @@ $usuario = $user->readById($_SESSION['id']);
 		</div>
 	</div>
 
-	<?php  
+	<?php
 		foreach ($codigos as $valueCodigo) {
 			$certificado = new CertificadoModel();
 			$evento = new EventoModel();
@@ -83,11 +83,11 @@ $usuario = $user->readById($_SESSION['id']);
 			$eve = $evento->listById($valueCodigo->getEvento());
 			foreach ($eve as $valueEvento) {
 				if($valueCodigo->getUsuario() == $_SESSION['id']){
-					
+
 					$cert = $certificado->listByEvento($valueEvento->getId());
-					$i = 1;	
+					$i = 1;
 					foreach ($cert as $valueCertificado) {
-						if($valueCertificado->getEvento() == $valueEvento->getId() 
+						if($valueCertificado->getEvento() == $valueEvento->getId()
 								&& $valueCertificado->getTipoUsuario() == $usuario->getTipo()){
 							#Codigo aqui
 	?>
@@ -96,7 +96,7 @@ $usuario = $user->readById($_SESSION['id']);
  					<form method="post"  action="gerarCertificado.php">
 						<div class="col-lg-4 col-md-4 col-sm-4 mb">
 							<div class="content-panel pn">
-								<div id="spotify" style="<?php echo 
+								<div id="spotify" style="<?php echo
 
 							"background: url(midia/". $valueCertificado->getImagem().") no-repeat center top;
 							margin-top: -15px;
@@ -111,41 +111,41 @@ $usuario = $user->readById($_SESSION['id']);
     						-webkit-background-size: cover;
     						-moz-background-size: cover;
     						-o-background-size: cover;
-    						background-size: cover;"?>";> 
+    						background-size: cover;"?>";>
 
 									<div class="col-xs-4 col-xs-offset-8">
-									
-										<button data-toggle="modal" 
-											type="<?php echo $valueCodigo->getStatus() == 'B'?'button':'submit'; ?>" 
-											data-target="#<?php echo $valueCodigo->getStatus() == 'B'?$valueCodigo->getId():''; ?>" 
-											class="btn btn-sm btn-clear-g" 
-											name="idcodigo"  
+
+										<button data-toggle="modal"
+											type="<?php echo $valueCodigo->getStatus() == 'B'?'button':'submit'; ?>"
+											data-target="#<?php echo $valueCodigo->getStatus() == 'B'?$valueCodigo->getId():''; ?>"
+											class="btn btn-sm btn-clear-g"
+											name="idcodigo"
 											value="<?php echo $valueCodigo->getId();?>">
 											<?php echo $valueCodigo->getStatus() == 'B'?'DESBLOQUEAR':'GERAR' ?>
 										</button>
 
-									
+
 									</div>
 								</div>
 								<p class="followers"><i class="fa fa-certificate"></i> <?php echo $valueEvento->getNome() ?></p>
 							</div>
 						</div><! --/col-md-4-->
-		
-				 
-				
+
+
+
 				  		<input type="hidden" name="evento" value="<?php echo $valueEvento->getNome();?>">
     					<input type="hidden" name="dataInicio" value="<?php echo $valueEvento->getDataInicio();?>">
     					<input type="hidden" name="dataFim" value="<?php echo $valueEvento->getDataFim();?>">
     					<input type="hidden" name="idcert" value="<?php echo $valueCertificado->getId();?>">
     					<input type="hidden" name="idtipo" value="<?php echo $valueCertificado->getTipo();?>">
     					<input type="hidden" name="codigo" value="<?php echo $valueCodigo->getCodigo();?>">
-    					<input type="hidden" name="nomeuser" value="<?php echo $usuario->getNomeCompleto();?>">	
+    					<input type="hidden" name="nomeuser" value="<?php echo $usuario->getNomeCompleto();?>">
     				<!-- form -->
 		        </form>
 
 		         <!-- form Modal -->
 				  <form method="POST" action="gerarCertificado.php">
-		          <div aria-hidden="true" aria-labelledby="myModalLabel" 
+		          <div aria-hidden="true" aria-labelledby="myModalLabel"
 		          		role="dialog" tabindex="-1" id="<?php echo $valueCodigo->getId() ?>" class="modal fade">
 		              <div class="modal-dialog">
 		                  <div class="modal-content">
@@ -153,55 +153,55 @@ $usuario = $user->readById($_SESSION['id']);
 		                          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 		                          <h4 class="modal-title"><i class="fa fa-lock"></i> Seu Código</h4>
 		                      </div>
-		                    
+
 		                      <div class="modal-body">
-		                        	<p>Informe o código que você recebeu quando participou do evento 
+		                        	<p>Informe o código que você recebeu quando participou do evento
 		                        		<?php echo $valueEvento->getNome() ?>.</p>
-		                        	<input type="number" name="codigoinput" placeholder="" autocomplete="off" class="form-control placeholder-no-fix">         
+		                        	<input type="number" name="codigoinput" placeholder="" autocomplete="off" class="form-control placeholder-no-fix">
 
-		                          	<input type="hidden" name="codigo" value="<?php echo $valueCodigo->getCodigo();?>">
-		                          	<input type="hidden" name="idcodigo" value="<?php echo $valueCodigo->getId();?>">
-		                          	<input type="hidden" name="idevento" value="<?php echo $valueCodigo->getEvento();?>">
-		                          	<input type="hidden" name="idusuario" value="<?php echo $valueCodigo->getUsuario();?>">
+	                          	<input type="hidden" name="codigo" value="<?php echo $valueCodigo->getCodigo();?>">
+	                          	<input type="hidden" name="idcodigo" value="<?php echo $valueCodigo->getId();?>">
+	                          	<input type="hidden" name="idevento" value="<?php echo $valueCodigo->getEvento();?>">
+	                          	<input type="hidden" name="idusuario" value="<?php echo $valueCodigo->getUsuario();?>">
 
-				  					<input type="hidden" name="evento" value="<?php echo $valueEvento->getNome();?>">
-    								<input type="hidden" name="dataInicio" value="<?php echo $valueEvento->getDataInicio();?>">
-    								<input type="hidden" name="dataFim" value="<?php echo $valueEvento->getDataFim();?>">
-    								<input type="hidden" name="idcert" value="<?php echo $valueCertificado->getId();?>">
-    								<input type="hidden" name="idtipo" value="<?php echo $valueCertificado->getTipo();?>">
-    								<input type="hidden" name="nomeuser" value="<?php echo $usuario->getNomeCompleto();?>">	
+									  					<input type="hidden" name="evento" value="<?php echo $valueEvento->getNome();?>">
+					    								<input type="hidden" name="dataInicio" value="<?php echo $valueEvento->getDataInicio();?>">
+					    								<input type="hidden" name="dataFim" value="<?php echo $valueEvento->getDataFim();?>">
+					    								<input type="hidden" name="idcert" value="<?php echo $valueCertificado->getId();?>">
+					    								<input type="hidden" name="idtipo" value="<?php echo $valueCertificado->getTipo();?>">
+					    								<input type="hidden" name="nomeuser" value="<?php echo $usuario->getNomeCompleto();?>">
 
 		                      </div>
-		                     
+
 		                      <div class="modal-footer">
 
 		                          <button  data-dismiss="modal" class="btn btn-default" type="button">Cancel</button>
-		                          <button class="btn btn-theme" type="submit">Submit</button>                        
+		                          <button class="btn btn-theme" type="submit">Submit</button>
 		                      </div>
-		                      
-		                     
+
+
 		                  </div>
 		              </div>
-		             	
+
 		          </div>
 		          </form><!--  end form Modal -->
-	<?php 
+	<?php
 						}
-						
+
 					}
-					
+
 				}
-				
+
 
 
 			}
 	 	}
-					
-	  
-	  ?>
-	<?php 
 
-		#form modal 
+
+	  ?>
+	<?php
+
+		#form modal
 		if(isset($_POST['codigoinput'])){
 			$codigoModel = new CodigoUsuarioModel();
 			$codigoModel->setId($_POST['idcodigo']);
@@ -216,12 +216,12 @@ $usuario = $user->readById($_SESSION['id']);
 			}
 		}
 
-						
+
 	 ?>
 
-	 
+
 </div>
-<?php  
+<?php
 	if(isset($_SESSION['error'])){
 		require_once 'popup.php';
 		echo "<meta HTTP-EQUIV='refresh' CONTENT='1;URL=?view=certificado&sub=cert&item=addE'>";

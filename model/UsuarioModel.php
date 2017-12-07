@@ -1,15 +1,15 @@
 
-<?php  
+<?php
 /*
 	@About
 	Autor: Tiago Bandeira
-	SisEvento 
+	SisEvento
 	Versão: 1.0
 */
 	require_once '../lib/ConnectDBModel.php';
 
 	/**
-	* 
+	*
 	*/
 	class UsuarioModel
 	{
@@ -30,14 +30,14 @@
 			$this->nome = null;
 			$this->nomeCompleto = null;
 			$this->senha = null;
-			$this->email = null;	
+			$this->email = null;
 			$this->tipo = null;
 			$this->fone = null;
 			$this->fone = 0;
 			$this->siape = 0;
 			if ($con == null) {
 				$connect = new Connect();
-				$this->con = $connect->getConnect();	
+				$this->con = $connect->getConnect();
 			}else{
 				$this->con = $con;
 			}
@@ -99,7 +99,7 @@
     	}
 
     	/*
-			Manipulação de dados 
+			Manipulação de dados
 		*/
 
 		public function  save(){
@@ -116,7 +116,7 @@
 							cargo,
 							siape
 						)
-						VALUES 
+						VALUES
 						(
 							null,
 							'$this->nome',
@@ -129,9 +129,9 @@
 							'$this->siape'
 						)";
 			}else{
-				$sql = "UPDATE 
+				$sql = "UPDATE
 							usuario
-						SET 
+						SET
 							nome = '$this->nome',
 							nomecompleto = '$this->nomeCompleto',
 							senha = '$this->senha',
@@ -166,7 +166,7 @@
 					$usuario->setFone($value['fone']);
 					$usuario->setCargo($value['cargo']);
 					$usuario->setSiape($value['siape']);
-					
+
 					array_push($usuarios, $usuario);
 				}
 				return $usuarios;
@@ -195,7 +195,7 @@
 					$usuario->setFone($value['fone']);
 					$usuario->setCargo($value['cargo']);
 					$usuario->setSiape($value['siape']);
-					
+
 					array_push($usuarios, $usuario);
 				}
 				return $usuarios;
@@ -228,11 +228,17 @@
 			$query->bindValue(":id", $this->getId());
 			$query->execute();
 		}
+		public function getUsuario()
+		{
+			session_start();
+			$usuario = new UsuarioModel();
+			return $usuario->readById($_SESSION['id']);
+		}
 		public function desabled(){
 
 		}
-		
-		
+
+
 	}
 
 ?>
