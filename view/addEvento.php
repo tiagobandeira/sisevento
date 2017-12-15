@@ -72,7 +72,6 @@ $organizador2 = new OrganizadorModel();
                                   }
                               }
                               if(!empty($_POST['org1'])){
-                                echo "ORG1: " . $_POST['org1'];
                                 $organizador1->setUsuario($_POST['org1']);
                                 $organizador1->setEvento($idEvento);
                                 $organizador1->save();
@@ -111,12 +110,63 @@ $organizador2 = new OrganizadorModel();
                               <div class="col-sm-8">
                                   <input type="text" name="nome" class="form-control">
                               </div>
+                          </div> 
+                          <div class="form-group">
+                            <div class="col-sm-2 col-sm-2 control-label">
+                              <label >Organizador 1</label>
+                            </div>
+                            <div class="col-sm-6 col-sm-6 control-label" >
+                                <select class="form-control" name="org1">
+                                      <option value="">Selecione um organizador</option>
+                                    <?php
+                                      foreach ($usuarios as $value) {
+                                        if ($value->getTipo() > 2) {
+                                    ?>
+                                    <option value="<?php echo $value->getId();?>">
+                                      <?php echo $value->getNomeCompleto();?>
+                                    </option>
+                                    <?php
+                                        }
+                                      }
+
+                                    ?>
+                                </select><br>
+                            </div>
+                            <div class="col-sm-4 col-sm-4 control-label">
+                            <label >Assinatura</label>
+                            </div>
                           </div>
+                          <div class="form-group">
+                            <div class="col-sm-2 col-sm-2 control-label">
+                              <label >Organizador 2</label>
+                            </div>
+                            <div class="col-sm-6 col-sm-6 control-label" >
+                                <select class="form-control" name="org2">
+                                      <option value="">Selecione um organizador</option>
+                                    <?php
+                                      foreach ($usuarios as $value) {
+                                        if ($value->getTipo() > 2) {
+                                    ?>
+                                    <option value="<?php echo $value->getId();?>">
+                                      <?php echo $value->getNomeCompleto();?>
+                                    </option>
+                                    <?php
+                                        }
+                                      }
+
+                                    ?>
+                                </select><br>
+                            </div>
+                            <div class="col-sm-4 col-sm-4 control-label">
+                            <label >Assinatura</label>
+                            </div>
+                          </div>
+
+                          <!--
                           <div class="form-group">
                               <label class="col-sm-2 col-sm-2 control-label">Organizador 1</label>
                               <div class="col-sm-10">
                                   <select class="form-control" name="org1">
-
                                        <option value="">Selecione um organizador</option>
                                       <?php
                                         foreach ($usuarios as $value) {
@@ -133,7 +183,8 @@ $organizador2 = new OrganizadorModel();
                                   </select><br>
 
                               </div>
-
+                              
+                                          
                               <label class="col-sm-2 col-sm-2 control-label">Organizador 2</label>
                               <div class="col-sm-10">
                                   <select class="form-control" name="org2">
@@ -153,7 +204,8 @@ $organizador2 = new OrganizadorModel();
                                   </select>
 
                               </div>
-                          </div>
+                          </div>-->
+
                           <div class="form-group">
                               <label class="col-sm-2 col-sm-2 control-label">Local</label>
                               <div class="col-sm-10">
