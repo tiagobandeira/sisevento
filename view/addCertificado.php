@@ -2,12 +2,11 @@
 require_once '../model/UsuarioModel.php';
 require_once '../model/TipoUsuarioModel.php';
 require_once '../model/TipoEventoModel.php';
-require_once '../model/EventoModel.php';
+require_once '../control/EventoController.php';
 require_once '../model/CertificadoModel.php';
 require_once '../model/TipoCertificadoModel.php';
 
-$eve = new EventoModel();
-$eves = $eve->list("");
+$eves = $Evento->listaEvento();
 #tipo
 $tipo = new TipoCertificadoModel();
 $tipos = $tipo->list();
