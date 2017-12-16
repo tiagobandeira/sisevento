@@ -25,8 +25,95 @@ $tipos = $tipouser->list();
 <div class="row">
     <div class="col-lg-8 no-padding">
                   <div class="form-panel">
-                      <h4 class="mb"> Participantes</h4>
-                      <form class="form-horizontal style-form"  method="POST">
+                    <!-- Nav tabs -->
+                    <ul class="nav nav-tabs" role="tablist" id="usuarioTab">
+                        <li role="presentation" class="active">
+                            <a href="#usuario" aria-controls="usuario" role="tab" data-toggle="tab">
+                                <h4 class="mb"> Usuario</h4>
+                            </a>
+                        </li>
+                        <li role="presentation" >
+                            <a href="#convidado" aria-controls="convidado" role="tab" data-toggle="tab">
+                                <h4 class="mb"> Convidado</h4>
+                            </a>
+                        </li>
+                    </ul>
+                    <!-- Tab panes -->
+                    <div class="tab-content">
+                        <div role="tabpanel" class="tab-pane active" id="usuario">
+                        <form class="" method="POST" style="background-color: #fff; padding: 3px; ">
+                                        <div class="login-wrap">
+                                    <?php  
+
+                                        if(isset($_POST['user']) && isset($_POST['password']) && isset($_POST['email'])){
+                                            require_once '../model/UsuarioModel.php';
+                                            require_once '../model/TipoUsuarioModel.php';
+                                            $nomeCompleto = $_POST['pNome'] . " " . $_POST['sNome'];
+
+                                            $user = new UsuarioModel();
+                                            $user->setNome($_POST['user']);
+                                            $user->setSenha($_POST['password']);
+                                            $user->setEmail($_POST['email']);
+                                            $user->setNomeCompleto($nomeCompleto);
+                                            $user->setTipo(2);
+                                            $flag = true;
+                                            $listaNome = $user->listByNameUser($user->getNome());
+                                            foreach ($listaNome as $value) {
+                                                if ($value->getNome() == $user->getNome() && $value->getSenha() == $user->getSenha()) {
+                                                    $flag = false;
+                                                }
+                                            }
+                                            if($flag){
+                                                $user->save();
+                                                $idUser = 0;
+                                                $listaNome = $user->listByNameUser($user->getNome());
+                                                foreach ($listaNome as $value) {
+                                                    if ($value->getNome() == $user->getNome() && $value->getSenha() == $user->getSenha()) {
+                                                        $idUser = $value->getId();
+                                                    }
+                                                }
+                                                $_SESSION['id'] = $idUser;
+                                                $_SESSION['type'] = $user->getTipo();
+                                                $_SESSION['user'] = $user->getNome();
+                                                $_SESSION['password'] = $user->getSenha();
+                                                header('Location: usuario.php');
+                                            }else{
+                                                echo "<p class='alert alert-danger'  align='center'>Nome de usuario já está sendo usado</p>";
+                                            }
+                                            
+
+                                    }
+                                    ?>
+                                    <label class="checkbox">
+                                        Nome de Usuario
+                                    </label>
+                                    <input type="text" name="user" class="form-control"  required="user" >
+                                    <br>
+                                    <label class="checkbox">
+                                        Primeiro Nome
+                                    </label>
+                                    <input type="text" name="pNome" class="form-control"  required="user" >
+                                    <br>
+                                    <label class="checkbox">
+                                        Sobrenome
+                                    </label>
+                                    <input type="text" name="sNome" class="form-control"  >
+                                    <br>
+                                    <label class="checkbox">
+                                        Senha
+                                    </label>
+                                    <input type="password" name="password" class="form-control"  required="password"><br>
+                                    <label class="checkbox">
+                                        Email
+                                    </label>
+                                    <input type="email" name="email" class="form-control"  required="email"><br>
+                                    <button class="btn btn-theme btn-block"  type="submit"><i class="fa fa-lock"></i> Entrar</button>
+                                </div>
+		                </form>	  
+                        </div>
+                        <div role="tabpanel" class="tab-pane" id="convidado">
+                        <br>
+                        <form class="form-horizontal style-form"  method="POST">
                           <div class="form-group">
                               <label class="col-sm-2 col-sm-2 control-label">Nome de Usuario</label>
                               <div class="col-sm-10">
@@ -71,8 +158,8 @@ $tipos = $tipouser->list();
                                   <select class="form-control" name="tipo">
                                       <?php foreach ($tipos as $value) { ?>
                         <option value="<?php echo $value->getId();?>"><?php echo $value->getTipo() ?></option>
-                     <?php } ?>
-                  </select>
+                        <?php } ?>
+                    </select>
                               </div>
                           </div><!-- end funções -->
                           <!-- dados pessoais -->
@@ -131,6 +218,10 @@ $tipos = $tipouser->list();
                          </div>
                        </form>
                   </div>
+                        </div>
+                    </div>
+                     
+                    
                   
 </div>
 <div class="col-lg-4 no-padding">
@@ -218,3 +309,9 @@ $tipos = $tipouser->list();
                   </div>
 </div>
 </div>
+<script>
+    $('#usuarioTab a').click(function (e) {
+        e.preventDefault()
+    $(this).tab('show')
+})
+</script>

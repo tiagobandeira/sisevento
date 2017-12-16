@@ -105,7 +105,7 @@
                       <ul class="sub">
                           <li><a  href="?view=addEvento&sub=part&item=addE">Evento</a></li>
                           <li><a  href="?view=addCertificado&sub=part&item=add">Certificado</a></li>
-                           <li><a  href="?view=addUser&sub=part&item=add">Participantes</a></li>
+                           <li><a  href="?view=addUser&sub=part&item=add">Usuarios</a></li>
                       </ul>
                   </li>
 
@@ -116,7 +116,7 @@
                       </a>
                       <ul class="sub">
                           <li><a  href="?view=listaUsuario&sub=listpart&item=list">Usuario</a></li>
-                          <li><a  href="?view=listaParticipante&sub=listpart&item=list">Participante</a></li>
+                          <li><a  href="?view=listaParticipante&sub=listpart&item=list">Convidados</a></li>
                       </ul>
                   </li>
                   <li class="sub-menu">
@@ -246,6 +246,7 @@
       });
 
   </script>
+  
 
   </body>
 </html>

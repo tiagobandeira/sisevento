@@ -42,7 +42,7 @@
 	  		<div class="row">
 	  			<div class="col-md-6 col-md-offset-3">
 	  				<h1 align="center"><span class="fa fa-calendar" style=""></span> SisEvento</h1>
-	  				<form class="" method="POST" style="background-color: #fff; padding: 3px; ">
+	  			<form class="" method="POST" style="background-color: #fff; padding: 3px; ">
 		        
 		        
 
