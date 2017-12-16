@@ -133,7 +133,7 @@ $organizador2 = new OrganizadorModel();
                                 </select><br>
                             </div>
                             <div class="col-sm-4 col-sm-4 control-label">
-                            <label >Assinatura</label>
+                              <input type="file" name="" id="">
                             </div>
                           </div>
                           <div class="form-group">
@@ -158,7 +158,7 @@ $organizador2 = new OrganizadorModel();
                                 </select><br>
                             </div>
                             <div class="col-sm-4 col-sm-4 control-label">
-                            <label >Assinatura</label>
+                              <input type="file" name="" id="">
                             </div>
                           </div>
 
