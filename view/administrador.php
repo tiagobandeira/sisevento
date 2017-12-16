@@ -16,7 +16,8 @@
   $username = $user->getNome();
   $usertype = $user->getTipo();
   $_SESSION[$username] = $username;
-  if($_SESSION['id'] == 1 && isset($_SESSION[$username]) && $usertype == 1){
+  if($_SESSION['id'] == 1 && isset($_SESSION[$username]) && 
+  $usertype == 1){
 
 ?>
 <!DOCTYPE html>

@@ -14,14 +14,14 @@
       $this->eventoModel = new EventoModel();
     }
     public function listaEvento(){
-      $eventoList = $this->eventoModel->list("");
+      $eventoList = $this->eventoModel->listAll("");
       return $eventoList;
     }
     //recebe o ano e retorna eventos daquele ano
     public function selecionaAno($ano = null){
       $eventos = array();
       if($ano){
-        $lista = $this->eventoModel->list();
+        $lista = $this->eventoModel->listAll();
         foreach ($lista as $value) {
           $anoEvento = date("Y", strtotime($value->getDataInicio()));
           if($anoEvento == $ano){
@@ -66,7 +66,10 @@
     }
     public function get($codigoId = null)
     {
-      return $this->eventoModel->readById($codigoId);
+      if($codigoId){
+        return $this->eventoModel->readById($codigoId);
+      }
+      return $this->eventoModel;
     }
   }
 

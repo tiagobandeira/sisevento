@@ -150,7 +150,7 @@
 			$query = $this->con->prepare($sql);
 			$query->execute();
 		}
-		public function list($nome = null){
+		public function listAll($nome = null){
 			if(!empty($nome)){
 				$sql = "SELECT * FROM evento WHERE nome LIKE '$nome%' or '%$nome'";
 

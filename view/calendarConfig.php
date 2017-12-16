@@ -1,4 +1,4 @@
-<?php require_once '../model/EventoModel.php'; ?>
+<?php require_once '../control/EventoController.php'; ?>
 <script type="text/javascript">
      var Script = function () {
 
@@ -69,8 +69,7 @@
         events: [
             <?php 
                 require_once 'formataTextoCertFunction.php';
-                $evento = new EventoModel();
-                $eventos = $evento->list();
+                $eventos = $Evento->listaEvento();
 
                 foreach ($eventos as $value) {
                     

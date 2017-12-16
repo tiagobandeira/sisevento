@@ -3,11 +3,11 @@
 require_once '../model/UsuarioModel.php';
 require_once '../model/TipoUsuarioModel.php';
 require_once '../model/TipoEventoModel.php';
-require_once '../model/EventoModel.php';
+require_once '../control/EventoController.php';
 require_once '../model/OrganizadorModel.php';
 require_once '../model/CodigoUsuarioModel.php';
 require_once 'code.php';
-$eve = new EventoModel();
+$eve = $Evento->get();
 
 $tipouser = new TipoEventoModel();
 
@@ -46,7 +46,7 @@ $organizador2 = new OrganizadorModel();
                             $eve->setCargaHoraria($_POST['cargahoraria']);
                             $eve->setUsuario(1);
 
-                            $lista = $eve->list($_POST['nome']);
+                            $lista = $eve->listAll($_POST['nome']);
                             $flag = true;
                             foreach ($lista as $value) {
                               if($value->getNome() == $eve->getNome()){
@@ -63,7 +63,7 @@ $organizador2 = new OrganizadorModel();
 
                             if (isset($_POST['org1']) OR isset($_POST['org2'])) {
                               $idEvento = null;
-                              $lista = $eve->list($_POST['nome']);
+                              $lista = $eve->listAll($_POST['nome']);
                               #organizador
                               foreach ($lista as $value) {
                                   if($value->getNome() == $eve->getNome()){

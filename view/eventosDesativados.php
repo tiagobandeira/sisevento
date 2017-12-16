@@ -1,9 +1,8 @@
 
 <?php  
 require_once '../model/UsuarioModel.php';
-require_once '../model/EventoModel.php';
-$eve = new EventoModel();
-$lista = $eve->list("");
+require_once '../control/EventoController.php';
+$lista = $Evento->listaEvento();
 $i = 0;
 $j = 0;
 $linha = 0;
