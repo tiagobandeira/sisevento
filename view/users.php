@@ -29,6 +29,7 @@ $tipos = $tipouser->list();
         <ul class="nav nav-tabs" role="tablist" id="usuarioTab">
             <li role="presentation" class="active">
                 <a href="#usuario" aria-controls="usuario" role="tab" data-toggle="tab">
+                
                     <h4> Usuario</h4>
                 </a>
             </li>
@@ -42,7 +43,7 @@ $tipos = $tipouser->list();
                     <h4 > Convidado</h4>
                 </a>
             </li>
-            <li role="presentation" >
+            <li role="presentation"  >
                 <a href="#lista" aria-controls="lista" role="tab" data-toggle="tab">
                     <h4 > Lista</h4>
                 </a>

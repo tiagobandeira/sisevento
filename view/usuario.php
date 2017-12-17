@@ -152,7 +152,7 @@
                         include_once $file; 
                     }else{
                         $file = "inicioUser.php";
-                        include_once $file; 
+                        @include_once $file; 
                     }
                 ?>
               </div>
@@ -188,10 +188,11 @@
 
     <script type="text/javascript" src="componentes/assets/js/gritter/js/jquery.gritter.js"></script>
     <script type="text/javascript" src="componentes/assets/js/gritter-conf.js"></script>
-
+   
 
     <!--common script for all pages-->
     <script src="componentes/assets/js/common-scripts.js"></script>
+
 
    
     <!--script for this page-->

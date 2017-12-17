@@ -105,12 +105,11 @@
                       <ul class="sub">
                           <li><a  href="?view=addEvento&sub=part&item=addE">Evento</a></li>
                           <li><a  href="?view=addCertificado&sub=part&item=add">Certificado</a></li>
-                           <li><a  href="?view=addUser&sub=part&item=add">Usuarios</a></li>
                       </ul>
                   </li>
 
                   <li class="sub-menu">
-                      <a href="?view=listaUsuario&sub=listpart" class="<?php echo $_GET['sub'] == 'listpart'?'active':'' ?>" >
+                      <a href="?view=users&sub=users" class="<?php echo $_GET['sub'] == 'users'?'active':'' ?>" >
                         <i class="fa fa-user"></i>
                         <span>Usuario</span>
                       </a>

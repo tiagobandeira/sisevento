@@ -13,21 +13,26 @@ $tipos = $tipoUsuarioModel->list();
 			padding: 0;
 			margin: 0;
 		}
+
 	}
 	.btnAction{
 		margin-left:3px;
 	}
+	.table > tbody > tr > td{
+		border: none;
+		padding:10;
+	}
 </style>
 <div class="row mt-list">
 	<div class="col-lg-12 col-md-12 no-padding">
-		<div class="content-panel">
+		<div class="content-panel" style="box-shadow: none">
 			
-			<div class="col-md-8" >
+			<div class="col-md-8 " >
 				<h4><i class="fa fa-user" ></i> <span>Lista de usuários</span></h4>
 			</div>
 			
-			<div class="col-md-4" class="form-group">
-				<form method="POST" style="display: flex; padding: 5px">
+			<div class="col-md-4 " class="form-group" >
+				<form method="POST" style="display: flex; padding: 5px" action="?view=users&sub=users">
 				<select name="tipos"  id="tipos" class="form-control" >
 					<option value="0">Todos</option>
 					<?php
@@ -40,10 +45,10 @@ $tipos = $tipoUsuarioModel->list();
 						}
 					?>
 				</select>
-
-				<button type="submit" class="btn btn-success btn-sm pull-right btnAction">Executar</button>
+					<input type="hidden" name="lista" value="lista">
+				<button type="submit" name="lista" class="btn btn-success btn-sm pull-right btnAction">Executar</button>
 			
-				<a class="btn btn-default btn-sm pull-right btnAction" href="?view=addUser&sub=part&item=add">Novo Usuario</a>
+			
 				</form>
 			
 				
@@ -59,7 +64,7 @@ $tipos = $tipoUsuarioModel->list();
 				    	<th>Tipo</th>
 					</tr>
 				</thead>
-				<tbody style="vibility: hidden">
+				<tbody style="vibility: hidden; ">
 					<?php 
 						$tipo = 0;
 						if(isset($_POST['tipos'])){
@@ -70,10 +75,10 @@ $tipos = $tipoUsuarioModel->list();
 							
 					?>
 					<tr>
-				    	<td><?php echo  $value->getid() ?></td>
-				    	<td><?php echo $value->getNome() ?></td>
-				    	<td class="hidden-phone"><?php echo $value->getEmail() ?></td>
-				    	<td><?php echo $tipoUsuarioModel->readById($value->getTipo())->getTipo()  ?></td>
+				    	<td ><?php echo  $value->getid() ?></td>
+				    	<td ><?php echo $value->getNome() ?></td>
+				    	<td class="hidden-phone "><?php echo $value->getEmail() ?></td>
+				    	<td ><?php echo $tipoUsuarioModel->readById($value->getTipo())->getTipo()  ?></td>
 					</tr>
 					<?php } }?>
 				</tbody>
