@@ -110,78 +110,68 @@ $tipos = $tipouser->list();
                 </form>	  
             </div>
             <div role="tabpanel" class="tab-pane" id="convidado">
-                <form action="../actions/usuarioAction.php" class="form-horizontal style-form " name="form2"  method="POST">
-                    <div class="col-md-6 login-wrap">
+                <form action="../actions/usuarioAction.php"  name="form2"  method="POST">
+               
+                    <div class="col-md-6 ">
                         <div class="form-group">
                             <label class="">Nome de Usuario</label>
-                            <div class="">
-                                <input type="text" name="nome" class="form-control">
-                            </div>
+                            <input type="text" name="nome" class="form-control">
                         </div>
                         <div class="form-group">
                             <label class="">Nome completo</label>
-                            <div class="">
-                                <input type="text" name="nomecompleto" class="form-control">
-                            </div>
+                            <input type="text" name="nomecompleto" class="form-control">
                         </div>
                         <div class="form-group">
                             <label class="">Cargo</label>
-                            <div class="">
-                                <input type="text" name="cargo" class="form-control">
-                            </div>
+                            <input type="text" name="cargo" class="form-control">
                         </div>
                         <div class="form-group">
                             <label class="">Senha Temporaria</label>
-                            <div class="">
-                                <input type="text" name="senha" class="form-control">
-                            </div>
+                            <input type="text" name="senha" class="form-control">
                         </div>
                         <div class="form-group">
-                            <label class="">Email</label>
-                            <div class="">
-                                <input type="text" name="email" class="form-control">
-                            </div>
+                            <label class="">Email</label><br>
+                            <input type="text" name="email" class="form-control">
                         </div>
-                        </div>
-                    <div class="col-md-6 login-wrap">
+                    </div>
+                    <div class="col-md-6 ">
                         <!-- funções -->
                         <h4 class="mb"> Função do convidado</h4>
                         <div class="form-group">
                             <label class="">Função</label>
-                            <div class="">
                                 <select class="form-control" name="tipo">
                                     <?php foreach ($tipos as $value) { ?>
                                     <option value="<?php echo $value->getId();?>"><?php echo $value->getTipo() ?></option>
                                     <?php } ?>
                                 </select>
-                            </div>
+                        
                         </div><!-- end funções -->
 
                          <!-- dados pessoais -->
                         <h4 class="mb"> Dados pessoais</h4>
                         <div class="form-group">
                             <label class="">Fone</label>
-                            <div class="">
-                                <input type="tel" name="fone" pattern="^\d{9}$"  placeholder="ex. 86981414089" class="form-control">
-                            </div>
+                            <input type="tel" name="fone" pattern="^\d{9}$"  placeholder="ex. 86981414089" class="form-control"><br>
                         </div><!-- end dados -->
                         <div class="form-group">
                             <label class="">SIAPE</label>
-                            <div class="">
-                                <input type="tel" name="siape" pattern="^\d{8}$" class="form-control">
-                            </div>
+                            <input type="tel" name="siape" pattern="^\d{8}$" class="form-control">
                         </div>
                         <!-- end dados -->
+                       
 
                     </div>
                     
                     <?php  
                     ?>
-                    <div align="right">
+                   
+                    <div align="right" style="margin-top: 10px"> 
                         <button class="btn btn-info"  type="submit"><i class="fa fa-save"></i> Salvar</button>
                     </div>
+               
                 </form>
             </div>
+               
             <div role="tabpanel" class="tab-pane" id="lista">
              <?php require_once 'listaUsuario.php' ?>
             </div>
