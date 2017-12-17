@@ -27,7 +27,7 @@
 			$this->codigo = null;	
 			$this->evento = null;
 			$this->usuario = null;
-			$this->status = null;
+			$this->status = "D";
 			if ($con == null) {
 				$connect = new Connect();
 				$this->con = $connect->getConnect();	
@@ -102,7 +102,7 @@
 			$query = $this->con->prepare($sql);
 			$query->execute();
 		}
-		public function list($evento = null){
+		public function listAll($evento = null){
 			if(!empty($evento)){
 				$sql = "SELECT * FROM codigousuario WHERE evento = $evento";
 

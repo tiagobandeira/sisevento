@@ -2,11 +2,12 @@
 	require_once '../model/CodigoUsuarioModel.php';
 	require_once '../model/EventoModel.php';
 
-	function cod($POST){
-		$id = $_SESSION['id'];
-		$K = $POST + 100;
-		$cod = 51 * $K + $id;
-		return $cod;
+	function cod($evento, $usuario = null){
+		$K = $evento + 100;
+		if(!isset($usuario)){
+			return 51 * $K + $usuario;
+		}
+		return 51 * $K + $usuario;
 	}
 	function participar($POST){
 		$codigo = new CodigoUsuarioModel();

@@ -19,7 +19,7 @@
 <div class="row mt-default">
 	<div class="col-lg-12 col-md-12 col-sm-12 ">
 		<div class="showback" >
-			<h3><i class="fa fa-lock"></i> Altenticação de certificados</h3>
+			<h3><i class="fa fa-lock"></i> Autenticação de certificados</h3>
 		</div>
 	</div>
 	
@@ -39,7 +39,7 @@
 				foreach ($listaUsuarios as $valueUsuario) {
 					
 					$codigoModel = new CodigoUsuarioModel();
-					$codigos = $codigoModel->list();
+					$codigos = $codigoModel->listAll();
 
 			?>
 					<div class="showback">

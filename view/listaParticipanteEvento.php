@@ -3,12 +3,12 @@ require_once '../model/UsuarioModel.php';
 require_once '../model/EventoModel.php';
 require_once '../model/CodigoUsuarioModel.php';
 require_once '../model/TipoUsuarioModel.php';
-
+require_once '../control/CodigoUsuarioController.php';
 $user = new UsuarioModel();
-$code = new CodigoUsuarioModel();
+$code = $Codigo->get();
 $even = new EventoModel();
 $code->setCodigo($_GET['id']);
-$lista = $code->list($code->getCodigo());
+$lista = $code->listAll($code->getCodigo());
 $tipoUsuarioModel = new TipoUsuarioModel();
 ?>
 

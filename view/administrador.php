@@ -132,7 +132,7 @@
                       </a>
                       <ul class="sub">
                           <li><a href="?view=listaCertificados&sub=listcert&item=listC">Todos</a></li>
-                            <li><a href="?view=altenticarCertificados&sub=listcert&item=listC">Altenticar</a></li>
+                            <li><a href="?view=autenticarCertificados&sub=listcert&item=listC">Autenticar</a></li>
                       </ul>
                      
                   </li>

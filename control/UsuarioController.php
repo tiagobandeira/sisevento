@@ -6,6 +6,7 @@
   */
   require_once '../model/UsuarioModel.php';
 
+
   class UsuarioController
   {
     private $usuarioModel;
@@ -52,9 +53,6 @@
         }
         if(!empty($value['siape'])){
           $usuario->setSiape($value['siape']);
-        }
-        if(isset($value['evento'])){
-          //criar codigo do usuario para aquele evento
         }
       }
       return $usuario;

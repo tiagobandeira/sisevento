@@ -1,7 +1,11 @@
 <?php  
 require_once '../model/UsuarioModel.php';
 require_once '../model/TipoUsuarioModel.php';
+require_once '../control/EventoController.php';
+
 $user = new UsuarioModel();
+
+$eventos = $Evento->listaEvento();
 
 $tipouser = new TipoUsuarioModel();
 $result = $tipouser->readById(2);
@@ -62,9 +66,16 @@ $tipos = $tipouser->list();
                         Selecione um evento para este participante
                     </label>
                     <div class="form-group">
-                        <select class="form-control" name="" id="">
-                            <option value="">Teste1</option>
-                            <option value="">Teste1</option>
+                        <select class="form-control" name="evento" id="">
+                            <?php 
+                            foreach ($eventos as $value) {
+                            ?>
+                            <option value="<?php echo $value->getId()?>">
+                                <?php echo $value->getNome()?>
+                            </option> 
+                            <?
+                            }
+                            ?>
                         </select>
                     </div>
                     <label class="checkbox">
@@ -267,5 +278,6 @@ $tipos = $tipouser->list();
     $('#usuarioTab a').click(function (e) {
         e.preventDefault()
     $(this).tab('show')
-})
+    });
+
 </script>
