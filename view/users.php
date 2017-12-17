@@ -28,14 +28,14 @@ $tipos = $tipouser->list();
         <!-- Nav tabs -->
         <ul class="nav nav-tabs" role="tablist" id="usuarioTab">
             <li role="presentation" class="active">
-                <a href="#usuario" aria-controls="usuario" role="tab" data-toggle="tab">
-                
-                    <h4> Usuario</h4>
+                <a href="#participante" aria-controls="participante" role="tab" data-toggle="tab">
+                    <h4 >Participante</h4>
                 </a>
             </li>
             <li role="presentation" >
-                <a href="#participante" aria-controls="participante" role="tab" data-toggle="tab">
-                    <h4 >Participante</h4>
+                <a href="#usuario" aria-controls="usuario" role="tab" data-toggle="tab">
+                
+                    <h4> Usuario</h4>
                 </a>
             </li>
             <li role="presentation" >
@@ -51,7 +51,34 @@ $tipos = $tipouser->list();
         </ul>
         <!-- Tab panes -->
         <div class="tab-content">
-            <div role="tabpanel" class="tab-pane active" id="usuario">
+            <div role="tabpanel" class="tab-pane active login-wrap" id="participante">
+                <form method="POST" action="../actions/usuarioAction.php">
+                    <label class="checkbox">
+                        Nome do Participante do evento
+                    </label>
+                    <input type="text" name="nome" class="form-control"  required="user" >
+                    <br>
+                    <label class="checkbox">
+                        Selecione um evento para este participante
+                    </label>
+                    <div class="form-group">
+                        <select class="form-control" name="" id="">
+                            <option value="">Teste1</option>
+                            <option value="">Teste1</option>
+                        </select>
+                    </div>
+                    <label class="checkbox">
+                        Email
+                    </label>
+                    <input type="email" name="email" class="form-control"  required="email"><br>
+                    <input type="hidden" name="tipo" value="5">
+
+                    <div align="right">
+                        <button class="btn btn-info"  type="submit"><i class="fa fa-save"></i> Salvar</button>
+                    </div>
+                </form>
+            </div>
+            <div role="tabpanel" class="tab-pane " id="usuario">
                 <form name="form1" class="" action="../actions/usuarioAction.php" method="POST" style="background-color: #fff; padding: 3px; ">
                     <div class="login-wrap">
                         <?php  
@@ -82,96 +109,76 @@ $tipos = $tipouser->list();
                     </div>
                 </form>	  
             </div>
-            <div role="tabpanel" class="tab-pane " id="participante">
-                <form method="POST" action="../actions/usuarioAction.php">
-                    <label class="checkbox">
-                        Nome do Participante do evento
-                    </label>
-                    <input type="text" name="nome" class="form-control"  required="user" >
-                    <br>
-                    
-                    <label class="checkbox">
-                        Email
-                    </label>
-                    <input type="email" name="email" class="form-control"  required="email"><br>
-                    <input type="hidden" name="tipo" value="5">
-
-                    <div align="right">
-                        <button class="btn btn-info"  type="submit"><i class="fa fa-save"></i> Salvar</button>
-                    </div>
-                </form>
-            </div>
             <div role="tabpanel" class="tab-pane" id="convidado">
-                    <br>
-                    <form action="../actions/usuarioAction.php" class="form-horizontal style-form" name="form2"  method="POST">
-                    <div class="form-group">
-                        <label class="col-sm-2 col-sm-2 control-label">Nome de Usuario</label>
-                        <div class="col-sm-10">
-                            <input type="text" name="nome" class="form-control">
+                <form action="../actions/usuarioAction.php" class="form-horizontal style-form " name="form2"  method="POST">
+                    <div class="col-md-6 login-wrap">
+                        <div class="form-group">
+                            <label class="">Nome de Usuario</label>
+                            <div class="">
+                                <input type="text" name="nome" class="form-control">
+                            </div>
                         </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-sm-2 col-sm-2 control-label">Primeiro Nome</label>
-                        <div class="col-sm-10">
-                            <input type="text" name="nomecompleto" class="form-control">
+                        <div class="form-group">
+                            <label class="">Nome completo</label>
+                            <div class="">
+                                <input type="text" name="nomecompleto" class="form-control">
+                            </div>
                         </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-sm-2 col-sm-2 control-label">Sobrenome</label>
-                        <div class="col-sm-10">
-                            <input type="text" name="sNome" class="form-control">
+                        <div class="form-group">
+                            <label class="">Cargo</label>
+                            <div class="">
+                                <input type="text" name="cargo" class="form-control">
+                            </div>
                         </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-sm-2 col-sm-2 control-label">Cargo</label>
-                        <div class="col-sm-10">
-                            <input type="text" name="cargo" class="form-control">
+                        <div class="form-group">
+                            <label class="">Senha Temporaria</label>
+                            <div class="">
+                                <input type="text" name="senha" class="form-control">
+                            </div>
                         </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-sm-2 col-sm-2 control-label">Senha Temporaria</label>
-                        <div class="col-sm-10">
-                            <input type="text" name="senha" class="form-control">
+                        <div class="form-group">
+                            <label class="">Email</label>
+                            <div class="">
+                                <input type="text" name="email" class="form-control">
+                            </div>
                         </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-sm-2 col-sm-2 control-label">Email</label>
-                        <div class="col-sm-10">
-                            <input type="text" name="email" class="form-control">
                         </div>
-                    </div>
+                    <div class="col-md-6 login-wrap">
                         <!-- funções -->
-                    <h4 class="mb"> Função do convidado</h4>
-                    <div class="form-group">
-                        <label class="col-sm-2 col-sm-2 control-label">Função</label>
-                        <div class="col-sm-10">
-                            <select class="form-control" name="tipo">
-                                <?php foreach ($tipos as $value) { ?>
-                                 <option value="<?php echo $value->getId();?>"><?php echo $value->getTipo() ?></option>
-                                <?php } ?>
-                            </select>
+                        <h4 class="mb"> Função do convidado</h4>
+                        <div class="form-group">
+                            <label class="">Função</label>
+                            <div class="">
+                                <select class="form-control" name="tipo">
+                                    <?php foreach ($tipos as $value) { ?>
+                                    <option value="<?php echo $value->getId();?>"><?php echo $value->getTipo() ?></option>
+                                    <?php } ?>
+                                </select>
+                            </div>
+                        </div><!-- end funções -->
+
+                         <!-- dados pessoais -->
+                        <h4 class="mb"> Dados pessoais</h4>
+                        <div class="form-group">
+                            <label class="">Fone</label>
+                            <div class="">
+                                <input type="tel" name="fone" pattern="^\d{9}$"  placeholder="ex. 86981414089" class="form-control">
+                            </div>
+                        </div><!-- end dados -->
+                        <div class="form-group">
+                            <label class="">SIAPE</label>
+                            <div class="">
+                                <input type="tel" name="siape" pattern="^\d{8}$" class="form-control">
+                            </div>
+                        </div>
+                        <!-- end dados -->
+
                     </div>
-                    </div><!-- end funções -->
-                    <!-- dados pessoais -->
-                    <h4 class="mb"> Dados pessoais</h4>
-                    <div class="form-group">
-                        <label class="col-sm-2 col-sm-2 control-label">Fone</label>
-                        <div class="col-sm-10">
-                            <input type="tel" name="fone" pattern="^\d{9}$"  placeholder="ex. 86981414089" class="form-control">
-                        </div>
-                    </div><!-- end dados -->
-                    <div class="form-group">
-                        <label class="col-sm-2 col-sm-2 control-label">SIAPE</label>
-                        <div class="col-sm-10">
-                            <input type="tel" name="siape" pattern="^\d{8}$" class="form-control">
-                        </div>
-                    </div><!-- end dados -->
+                    
                     <?php  
                     ?>
                     <div align="right">
-                    <div align="right">
                         <button class="btn btn-info"  type="submit"><i class="fa fa-save"></i> Salvar</button>
-                    </div>
                     </div>
                 </form>
             </div>
@@ -213,7 +220,7 @@ $tipos = $tipouser->list();
                                 $tipo->save();
                                 echo "<div class='alert alert-success'><b>Tipo cadastrado!</b> Operação realizada com sucesso.</div>";
                             
-                      echo "<meta HTTP-EQUIV='refresh' CONTENT='0;URL=administrador.php?view=addUser&sub=part&item=add'>";
+                                echo "<meta HTTP-EQUIV='refresh' CONTENT='0;URL=administrador.php?view=addUser&sub=part&item=add'>";
                     
                               }   
                             }
