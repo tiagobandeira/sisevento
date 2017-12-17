@@ -234,6 +234,9 @@
 			$usuario = new UsuarioModel();
 			return $usuario->readById($_SESSION['id']);
 		}
+		public function getLastId(){
+			return $this->con->lastInsertId();
+		}
 		public function desabled(){
 
 		}

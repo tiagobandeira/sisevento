@@ -8,7 +8,7 @@ $tipoUsuarioModel = new TipoUsuarioModel();
 <div class="row mt-default">
 	<div class="col-lg-12 col-md-12">
 		<div class="content-panel">
-			<h4><i class="fa fa-user"></i> Lista de Participantes</h4>
+			<h4><i class="fa fa-user"></i> Lista de Convidados</h4>
 			<table class="table table-striped  table-hover ">
 				<thead>
 					<tr>

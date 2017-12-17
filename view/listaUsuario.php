@@ -4,6 +4,7 @@ require_once '../model/TipoUsuarioModel.php';
 $user = new UsuarioModel();
 $lista = $user->list("");
 $tipoUsuarioModel = new TipoUsuarioModel();
+$tipos = $tipoUsuarioModel->list(); 
 ?>
 <style type="text/css">
 	@media (max-width: 410px){
@@ -12,13 +13,43 @@ $tipoUsuarioModel = new TipoUsuarioModel();
 			padding: 0;
 			margin: 0;
 		}
-		
+	}
+	.btnAction{
+		margin-left:3px;
 	}
 </style>
 <div class="row mt-list">
 	<div class="col-lg-12 col-md-12 no-padding">
 		<div class="content-panel">
-			<h4><i class="fa fa-user"></i> Lista de usuários</h4>
+			
+			<div class="col-md-8" >
+				<h4><i class="fa fa-user" ></i> <span>Lista de usuários</span></h4>
+			</div>
+			
+			<div class="col-md-4" class="form-group">
+				<form method="POST" style="display: flex; padding: 5px">
+				<select name="tipos"  id="tipos" class="form-control" >
+					<option value="0">Todos</option>
+					<?php
+						foreach ($tipos as $value) {
+					?>
+		
+					<option value="<?php echo $value->getId()?>" ><?php echo $value->getTipo()?></option>
+					
+					<?php
+						}
+					?>
+				</select>
+
+				<button type="submit" class="btn btn-success btn-sm pull-right btnAction">Executar</button>
+			
+				<a class="btn btn-default btn-sm pull-right btnAction" href="?view=addUser&sub=part&item=add">Novo Usuario</a>
+				</form>
+			
+				
+			</div>
+				
+				
 			<table class="table table-striped table-advance table-hover ">
 				<thead >
 					<tr >
@@ -28,9 +59,14 @@ $tipoUsuarioModel = new TipoUsuarioModel();
 				    	<th>Tipo</th>
 					</tr>
 				</thead>
-				<tbody>
-					<?php foreach ($lista as $value) { 
-						if ($value->getTipo() == 1 or $value->getTipo() == 2) {
+				<tbody style="vibility: hidden">
+					<?php 
+						$tipo = 0;
+						if(isset($_POST['tipos'])){
+							$tipo = $_POST['tipos'];
+						}
+						foreach ($lista as $value) { 
+							if ($value->getTipo() == $tipo OR $tipo == 0) {
 							
 					?>
 					<tr>
@@ -42,6 +78,7 @@ $tipoUsuarioModel = new TipoUsuarioModel();
 					<?php } }?>
 				</tbody>
 			</table>
+			<div id="texto"></div>
 		</div>
 	</div>
 	

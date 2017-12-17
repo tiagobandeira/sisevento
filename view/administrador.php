@@ -110,17 +110,13 @@
                   </li>
 
                   <li class="sub-menu">
-                      <a href="javascript:; " class="<?php echo $_GET['sub'] == 'listpart'?'active':'' ?>" >
-                          <i class="fa fa-user"></i>
-                          <span>Usuários</span>
+                      <a href="?view=listaUsuario&sub=listpart" class="<?php echo $_GET['sub'] == 'listpart'?'active':'' ?>" >
+                        <i class="fa fa-user"></i>
+                        <span>Usuario</span>
                       </a>
-                      <ul class="sub">
-                          <li><a  href="?view=listaUsuario&sub=listpart&item=list">Usuario</a></li>
-                          <li><a  href="?view=listaParticipante&sub=listpart&item=list">Convidados</a></li>
-                      </ul>
                   </li>
                   <li class="sub-menu">
-                      <a  href="javascript:;" class="<?php echo $_GET['sub'] == 'listeve'?'active':'' ?>">
+                      <a  href="" class="<?php echo $_GET['sub'] == 'listeve'?'active':'' ?>">
                           <i class="fa fa-calendar"></i>
                           <span>Eventos</span>
                       </a>
@@ -246,7 +242,6 @@
       });
 
   </script>
-  
 
   </body>
 </html>

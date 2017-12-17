@@ -24,211 +24,159 @@ $tipos = $tipouser->list();
 -->
 <div class="row">
     <div class="col-lg-8 no-padding">
-                  <div class="form-panel">
-                    <!-- Nav tabs -->
-                    <ul class="nav nav-tabs" role="tablist" id="usuarioTab">
-                        <li role="presentation" class="active">
-                            <a href="#usuario" aria-controls="usuario" role="tab" data-toggle="tab">
-                                <h4 class="mb"> Usuario</h4>
-                            </a>
-                        </li>
-                        <li role="presentation" >
-                            <a href="#convidado" aria-controls="convidado" role="tab" data-toggle="tab">
-                                <h4 class="mb"> Convidado</h4>
-                            </a>
-                        </li>
-                    </ul>
-                    <!-- Tab panes -->
-                    <div class="tab-content">
-                        <div role="tabpanel" class="tab-pane active" id="usuario">
-                        <form class="" method="POST" style="background-color: #fff; padding: 3px; ">
-                                        <div class="login-wrap">
-                                    <?php  
-
-                                        if(isset($_POST['user']) && isset($_POST['password']) && isset($_POST['email'])){
-                                            require_once '../model/UsuarioModel.php';
-                                            require_once '../model/TipoUsuarioModel.php';
-                                            $nomeCompleto = $_POST['pNome'] . " " . $_POST['sNome'];
-
-                                            $user = new UsuarioModel();
-                                            $user->setNome($_POST['user']);
-                                            $user->setSenha($_POST['password']);
-                                            $user->setEmail($_POST['email']);
-                                            $user->setNomeCompleto($nomeCompleto);
-                                            $user->setTipo(2);
-                                            $flag = true;
-                                            $listaNome = $user->listByNameUser($user->getNome());
-                                            foreach ($listaNome as $value) {
-                                                if ($value->getNome() == $user->getNome() && $value->getSenha() == $user->getSenha()) {
-                                                    $flag = false;
-                                                }
-                                            }
-                                            if($flag){
-                                                $user->save();
-                                                $idUser = 0;
-                                                $listaNome = $user->listByNameUser($user->getNome());
-                                                foreach ($listaNome as $value) {
-                                                    if ($value->getNome() == $user->getNome() && $value->getSenha() == $user->getSenha()) {
-                                                        $idUser = $value->getId();
-                                                    }
-                                                }
-                                                $_SESSION['id'] = $idUser;
-                                                $_SESSION['type'] = $user->getTipo();
-                                                $_SESSION['user'] = $user->getNome();
-                                                $_SESSION['password'] = $user->getSenha();
-                                                header('Location: usuario.php');
-                                            }else{
-                                                echo "<p class='alert alert-danger'  align='center'>Nome de usuario já está sendo usado</p>";
-                                            }
-                                            
-
-                                    }
-                                    ?>
-                                    <label class="checkbox">
-                                        Nome de Usuario
-                                    </label>
-                                    <input type="text" name="user" class="form-control"  required="user" >
-                                    <br>
-                                    <label class="checkbox">
-                                        Primeiro Nome
-                                    </label>
-                                    <input type="text" name="pNome" class="form-control"  required="user" >
-                                    <br>
-                                    <label class="checkbox">
-                                        Sobrenome
-                                    </label>
-                                    <input type="text" name="sNome" class="form-control"  >
-                                    <br>
-                                    <label class="checkbox">
-                                        Senha
-                                    </label>
-                                    <input type="password" name="password" class="form-control"  required="password"><br>
-                                    <label class="checkbox">
-                                        Email
-                                    </label>
-                                    <input type="email" name="email" class="form-control"  required="email"><br>
-                                    <button class="btn btn-theme btn-block"  type="submit"><i class="fa fa-lock"></i> Entrar</button>
-                                </div>
-		                </form>	  
-                        </div>
-                        <div role="tabpanel" class="tab-pane" id="convidado">
+        <div class="form-panel">
+        <!-- Nav tabs -->
+        <ul class="nav nav-tabs" role="tablist" id="usuarioTab">
+            <li role="presentation" class="active">
+                <a href="#usuario" aria-controls="usuario" role="tab" data-toggle="tab">
+                    <h4> Usuario</h4>
+                </a>
+            </li>
+            <li role="presentation" >
+                <a href="#participante" aria-controls="participante" role="tab" data-toggle="tab">
+                    <h4 >Participante</h4>
+                </a>
+            </li>
+            <li role="presentation" >
+                <a href="#convidado" aria-controls="convidado" role="tab" data-toggle="tab">
+                    <h4 > Convidado</h4>
+                </a>
+            </li>
+        </ul>
+        <!-- Tab panes -->
+        <div class="tab-content">
+            <div role="tabpanel" class="tab-pane active" id="usuario">
+                <form name="form1" class="" action="../actions/usuarioAction.php" method="POST" style="background-color: #fff; padding: 3px; ">
+                    <div class="login-wrap">
+                        <?php  
+                        //Aqui tem uma verificação  
+                        ?>
+                        <label class="checkbox">
+                            Nome de Usuario
+                        </label>
+                        <input type="text" name="nome" class="form-control"  required="user" >
                         <br>
-                        <form class="form-horizontal style-form"  method="POST">
-                          <div class="form-group">
-                              <label class="col-sm-2 col-sm-2 control-label">Nome de Usuario</label>
-                              <div class="col-sm-10">
-                                  <input type="text" name="nome" class="form-control">
-                              </div>
-                          </div>
-                          <div class="form-group">
-                              <label class="col-sm-2 col-sm-2 control-label">Primeiro Nome</label>
-                              <div class="col-sm-10">
-                                  <input type="text" name="pNome" class="form-control">
-                              </div>
-                          </div>
-                          <div class="form-group">
-                              <label class="col-sm-2 col-sm-2 control-label">Sobrenome</label>
-                              <div class="col-sm-10">
-                                  <input type="text" name="sNome" class="form-control">
-                              </div>
-                          </div>
-                           <div class="form-group">
-                              <label class="col-sm-2 col-sm-2 control-label">Cargo</label>
-                              <div class="col-sm-10">
-                                  <input type="text" name="cargo" class="form-control">
-                              </div>
-                          </div>
-                          <div class="form-group">
-                              <label class="col-sm-2 col-sm-2 control-label">Senha Temporaria</label>
-                              <div class="col-sm-10">
-                                  <input type="text" name="password" class="form-control">
-                              </div>
-                          </div>
-                          <div class="form-group">
-                              <label class="col-sm-2 col-sm-2 control-label">Email</label>
-                              <div class="col-sm-10">
-                                  <input type="text" name="email" class="form-control">
-                              </div>
-                          </div>
-                            <!-- funções -->
-                          <h4 class="mb"> Tipo de participante</h4>
-                          <div class="form-group">
-                              <label class="col-sm-2 col-sm-2 control-label">Tipo</label>
-                              <div class="col-sm-10">
-                                  <select class="form-control" name="tipo">
-                                      <?php foreach ($tipos as $value) { ?>
-                        <option value="<?php echo $value->getId();?>"><?php echo $value->getTipo() ?></option>
-                        <?php } ?>
-                    </select>
-                              </div>
-                          </div><!-- end funções -->
-                          <!-- dados pessoais -->
-                          <h4 class="mb"> Dados pessoais</h4>
-                          <div class="form-group">
-                              <label class="col-sm-2 col-sm-2 control-label">Fone</label>
-                              <div class="col-sm-10">
-                                  <input type="tel" name="fone" pattern="^\d{9}$" placeholder="ex. 86981414089" class="form-control">
-                              </div>
-                          </div><!-- end dados -->
-                          <div class="form-group">
-                              <label class="col-sm-2 col-sm-2 control-label">SIAPE</label>
-                              <div class="col-sm-10">
-                                  <input type="tel" name="siape" pattern="^\d{8}$" class="form-control">
-                              </div>
-                          </div><!-- end dados -->
-                    <?php  
-                      if(isset($_POST['nome']) && isset($_POST['email'])){
-                        if(empty($_POST['nome']) && empty($_POST['email'])){
-                          echo "<div class='alert alert-danger'><b>Não salvou </b> Preencha os campos</div>";
-                        }else{
-                        $nomeCompleto = $_POST['pNome'] . " " . $_POST['sNome'];
-                        $user->setNome($_POST['nome']);
-                        $user->setNomeCompleto($nomeCompleto);
-                        $user->setSenha($_POST['password']);
-                        $user->setEmail($_POST['email']);
-                        $user->setTipo($_POST['tipo']);
-                        if(!empty($_POST['fone'])){
-                          $user->setFone($_POST['fone']);
-                        }
-                        if (!empty($_POST['siape'])) {
-                          $user->setSiape($_POST['siape']);
-                        }
-                        $user->setCargo($_POST['cargo']);
-
-                        $lista = $user->list($_POST['nome']);
-                        $flag = true;
-                        foreach ($lista as $value) {
-                          if($value->getNome() == $user->getNome() && $value->getEmail() == $user->getEmail()){
-                            $flag = false;
-                            break;
-                          }
-                        }
-                        if(!$flag){
-                            echo "<div class='alert alert-danger'><b>Não salvou </b> Usuario já existe.</div>";
-                          }else{
-                            $user->save();
-                            echo "<div class='alert alert-success'><b>Particepante cadastrado!</b> Operação realizada com sucesso.</div>";
-                          } 
-                        }
-                      }
-
-                    ?>
-                         <div align="right">
-                           <button type="submit" class="btn btn-info" >Salvar</button>
-                         </div>
-                       </form>
-                  </div>
+                        <label class="checkbox">
+                            Nome
+                        </label>
+                        <input type="text" name="nomecompleto" class="form-control"  required="user" >
+                        <br>
+                        <label class="checkbox">
+                            Senha
+                        </label>
+                        <input type="password" name="senha" class="form-control"  required="password"><br>
+                        <label class="checkbox">
+                            Email
+                        </label>
+                        <input type="email" name="email" class="form-control"  required="email"><br>
+                        <input type="hidden" name="tipo" value="2"><br>
+                        <div align="right">
+                            <button class="btn btn-info"  type="submit"><i class="fa fa-save"></i> Salvar</button>
                         </div>
                     </div>
-                     
+                </form>	  
+            </div>
+            <div role="tabpanel" class="tab-pane " id="participante">
+                <form method="POST" action="../actions/usuarioAction.php">
+                    <label class="checkbox">
+                        Nome do Participante do evento
+                    </label>
+                    <input type="text" name="nome" class="form-control"  required="user" >
+                    <br>
                     
-                  
+                    <label class="checkbox">
+                        Email
+                    </label>
+                    <input type="email" name="email" class="form-control"  required="email"><br>
+                    <input type="hidden" name="tipo" value="5">
+
+                    <div align="right">
+                        <button class="btn btn-info"  type="submit"><i class="fa fa-save"></i> Salvar</button>
+                    </div>
+                </form>
+            </div>
+            <div role="tabpanel" class="tab-pane" id="convidado">
+                    <br>
+                    <form action="../actions/usuarioAction.php" class="form-horizontal style-form" name="form2"  method="POST">
+                    <div class="form-group">
+                        <label class="col-sm-2 col-sm-2 control-label">Nome de Usuario</label>
+                        <div class="col-sm-10">
+                            <input type="text" name="nome" class="form-control">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 col-sm-2 control-label">Primeiro Nome</label>
+                        <div class="col-sm-10">
+                            <input type="text" name="nomecompleto" class="form-control">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 col-sm-2 control-label">Sobrenome</label>
+                        <div class="col-sm-10">
+                            <input type="text" name="sNome" class="form-control">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 col-sm-2 control-label">Cargo</label>
+                        <div class="col-sm-10">
+                            <input type="text" name="cargo" class="form-control">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 col-sm-2 control-label">Senha Temporaria</label>
+                        <div class="col-sm-10">
+                            <input type="text" name="senha" class="form-control">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 col-sm-2 control-label">Email</label>
+                        <div class="col-sm-10">
+                            <input type="text" name="email" class="form-control">
+                        </div>
+                    </div>
+                        <!-- funções -->
+                    <h4 class="mb"> Função do convidado</h4>
+                    <div class="form-group">
+                        <label class="col-sm-2 col-sm-2 control-label">Função</label>
+                        <div class="col-sm-10">
+                            <select class="form-control" name="tipo">
+                                <?php foreach ($tipos as $value) { ?>
+                                 <option value="<?php echo $value->getId();?>"><?php echo $value->getTipo() ?></option>
+                                <?php } ?>
+                            </select>
+                    </div>
+                    </div><!-- end funções -->
+                    <!-- dados pessoais -->
+                    <h4 class="mb"> Dados pessoais</h4>
+                    <div class="form-group">
+                        <label class="col-sm-2 col-sm-2 control-label">Fone</label>
+                        <div class="col-sm-10">
+                            <input type="tel" name="fone" pattern="^\d{9}$"  placeholder="ex. 86981414089" class="form-control">
+                        </div>
+                    </div><!-- end dados -->
+                    <div class="form-group">
+                        <label class="col-sm-2 col-sm-2 control-label">SIAPE</label>
+                        <div class="col-sm-10">
+                            <input type="tel" name="siape" pattern="^\d{8}$" class="form-control">
+                        </div>
+                    </div><!-- end dados -->
+                    <?php  
+                    ?>
+                    <div align="right">
+                    <div align="right">
+                        <button class="btn btn-info"  type="submit"><i class="fa fa-save"></i> Salvar</button>
+                    </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>               
 </div>
 <div class="col-lg-4 no-padding">
                   <div class="form-panel" >
                       <!-- forme add participante -->
                       <form class="form-horizontal style-form" method="POST">
-                           <h4 class="mb"><i class="fa fa-user"> </i> Criar um tipo de participante</h4>
+                           <h4 class="mb"><i class="fa fa-user"> </i> Criar um tipo de Convidado</h4>
                            <div class="form-group">
                               <label class="col-sm-2 col-sm-2 control-label">Tipo</label>
                               <div class="col-sm-10">

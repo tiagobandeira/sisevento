@@ -2,7 +2,7 @@
 require_once '../model/EventoModel.php';
 require_once '../model/CodigoUsuarioModel.php';
 $eventoModel = new EventoModel();
-$listaEvento = $eventoModel->list("");
+$listaEvento = $eventoModel->listAll("");
 $codigoModel = new CodigoUsuarioModel();
 $listaCodigo = $codigoModel->listByUsuario($_SESSION['id']);
 ?>
