@@ -172,6 +172,7 @@
 					$evento->setStatus($value['status']);
 					$evento->setTipo($value['tipo']);
 					$evento->setEndereco($value['endereco']);
+					$evento->setUsuario($value['usuario']);
 					$evento->setCargaHoraria($value['cargahoraria']);
 					
 					array_push($eventos, $evento);
