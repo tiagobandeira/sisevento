@@ -23,7 +23,7 @@
         if(!isset($value)){
           $value = $this->error;
         }
-        $message = "<div class='alert alert-success' >" . $value . "</div>";
+        $message = "<div class='alert alert-danger' >" . $value . "</div>";
         echo $message;
     }
   }
