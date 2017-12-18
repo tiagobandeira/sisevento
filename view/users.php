@@ -2,6 +2,9 @@
 require_once '../model/UsuarioModel.php';
 require_once '../model/TipoUsuarioModel.php';
 require_once '../control/EventoController.php';
+require_once 'message/Message.php';
+
+$Print = new Message('administrador.php?view=users&sub=users');
 
 $user = new UsuarioModel();
 
@@ -31,23 +34,23 @@ $tipos = $tipouser->list();
         <div class="form-panel">
         <!-- Nav tabs -->
         <ul class="nav nav-tabs" role="tablist" id="usuarioTab">
-            <li role="presentation" class="active">
+            <li role="presentation" class="<?php echo $_GET['tab'] == 1 || $_GET['tab'] == null && $_POST['tab'] == null ?' active ':'' ?>">
                 <a href="#participante" aria-controls="participante" role="tab" data-toggle="tab">
                     <h4 >Participante</h4>
                 </a>
             </li>
-            <li role="presentation" >
+            <li role="presentation" class="<?php echo $_GET['tab'] == 2?' active ':'' ?>">
                 <a href="#usuario" aria-controls="usuario" role="tab" data-toggle="tab">
                 
                     <h4> Usuario</h4>
                 </a>
             </li>
-            <li role="presentation" >
+            <li role="presentation" class="<?php echo $_GET['tab'] == 3?' active ':'' ?>">
                 <a href="#convidado" aria-controls="convidado" role="tab" data-toggle="tab">
                     <h4 > Convidado</h4>
                 </a>
             </li>
-            <li role="presentation"  >
+            <li role="presentation" class="<?php echo $_POST['tab'] == 'lista'?' active ':'' ?>">
                 <a href="#lista" aria-controls="lista" role="tab" data-toggle="tab">
                     <h4 > Lista</h4>
                 </a>
@@ -55,8 +58,15 @@ $tipos = $tipouser->list();
         </ul>
         <!-- Tab panes -->
         <div class="tab-content">
-            <div role="tabpanel" class="tab-pane active login-wrap" id="participante">
-                <form method="POST" action="../actions/usuarioAction.php">
+            <div role="tabpanel" class="tab-pane <?php echo $_GET['tab'] == 1 || $_GET['tab'] == null && $_POST['tab'] == null  ?' active ':'' ?> login-wrap" id="participante">
+                <?php
+                   if(isset($_GET['message'])){
+                       if($_GET['message'] == 1 && $_GET['tab'] == 1){
+                            $Print->success('Usuario cadastrado.', null, "&tab=1");
+                       }
+                   }
+                ?>
+                <form method="POST" action="../actions/usuarioAction.php" class="">
                     <label class="checkbox">
                         Nome do Participante do evento
                     </label>
@@ -81,17 +91,26 @@ $tipos = $tipouser->list();
                     <label class="checkbox">
                         Email
                     </label>
-                    <input type="email" name="email" class="form-control"  required="email"><br>
+                    <input type="email" name="email" class="form-control"  ><br>
                     <input type="hidden" name="tipo" value="5">
 
                     <div align="right">
-                        <button class="btn btn-info"  type="submit"><i class="fa fa-save"></i> Salvar</button>
+                        <button class="btn btn-info" name="tab" value="1"  type="submit"><i class="fa fa-save"></i> Salvar</button>
                     </div>
                 </form>
             </div>
-            <div role="tabpanel" class="tab-pane " id="usuario">
-                <form name="form1" class="" action="../actions/usuarioAction.php" method="POST" style="background-color: #fff; padding: 3px; ">
-                    <div class="login-wrap">
+            <div role="tabpanel" class="tab-pane login-wrap  <?php echo $_GET['tab'] == 2?' active ':'' ?> " id="usuario">
+                
+                <?php
+                   if(isset($_GET['message'])){
+                       if($_GET['message'] == 1 && $_GET['tab'] == 2){
+                            $Print->success('Usuario cadastrado.', null, "&tab=2");
+                       }
+                   }
+                ?>
+
+                <form class="" action="../actions/usuarioAction.php" method="POST" style="background-color: #fff; padding: 3px; ">
+                    <div class="">
                         <?php  
                         //Aqui tem uma verificação  
                         ?>
@@ -115,13 +134,20 @@ $tipos = $tipouser->list();
                         <input type="email" name="email" class="form-control"  required="email"><br>
                         <input type="hidden" name="tipo" value="2"><br>
                         <div align="right">
-                            <button class="btn btn-info"  type="submit"><i class="fa fa-save"></i> Salvar</button>
+                            <button class="btn btn-info" name="tab" value="2"  type="submit"><i class="fa fa-save"></i> Salvar</button>
                         </div>
                     </div>
                 </form>	  
             </div>
-            <div role="tabpanel" class="tab-pane" id="convidado">
-                <form action="../actions/usuarioAction.php"  name="form2"  method="POST">
+            <div role="tabpanel" class="tab-pane login-wrap <?php echo $_GET['tab'] == 3?' active ':'' ?>" id="convidado">
+                <?php
+                   if(isset($_GET['message'])){
+                       if($_GET['message'] == 1 && $_GET['tab'] == 3){
+                            $Print->success('Usuario cadastrado.', null, "&tab=3");
+                       }
+                   }
+                ?>
+                <form action="../actions/usuarioAction.php"   method="POST">
     
                     <div class="col-md-6 ">
                         <div class="form-group">
@@ -177,13 +203,13 @@ $tipos = $tipouser->list();
                     ?>
                    
                     <div align="right" style="margin-top: 10px"> 
-                        <button class="btn btn-info"  type="submit"><i class="fa fa-save"></i> Salvar</button>
+                        <button class="btn btn-info" name="tab" value="3"  type="submit"><i class="fa fa-save"></i> Salvar</button>
                     </div>
                
                 </form>
             </div>
                
-            <div role="tabpanel" class="tab-pane" id="lista">
+            <div role="tabpanel" class="tab-pane <?php echo $_POST['tab'] == 'lista'?' active ':'' ?>" id="lista">
              <?php require_once 'listaUsuario.php' ?>
             </div>
         </div>
@@ -237,7 +263,7 @@ $tipos = $tipouser->list();
                        <hr style="border:0.1px solid #ccc;">
                        <!-- forme del participante -->
                        <form class="form-horizontal style-form" method="POST">
-                           <h4 class="mb"><i class="fa fa-trash-o"></i> Exlcuir Tipo</h4>
+                           <h4 class="mb"><i class="fa fa-trash-o"></i> Excluir Tipo</h4>
                            <div class="form-group">
                               <label class="col-sm-2 col-sm-2 control-label">Nome</label>
                               

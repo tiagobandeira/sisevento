@@ -45,7 +45,7 @@ $tipos = $tipoUsuarioModel->list();
 						}
 					?>
 				</select>
-					<input type="hidden" name="lista" value="lista">
+				<input type="hidden" name="tab" value="lista">
 				<button type="submit" name="lista" class="btn btn-success btn-sm pull-right btnAction">Executar</button>
 			
 			

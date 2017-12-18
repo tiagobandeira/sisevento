@@ -166,8 +166,8 @@
               <div class="col-lg-12 ">
 
                 <?php
-                    require_once 'message/Message.php';
-
+                   
+                  
                     if(isset($_GET['view'])){
                         $file = $_GET["view"] . ".php";
                         if(file_exists($file) == false){
