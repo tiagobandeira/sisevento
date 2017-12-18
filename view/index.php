@@ -50,18 +50,20 @@
 		        			echo "<p class='alert alert-danger'  align='center'>Nome de usuario ou senha incorretos</p>";
 		        		}
 		        	?>
-		        	<label class="checkbox">
+		        	<label class="checkbox" id="labelNome">
 		        		Nome de usuário
 		        	</label>
-		            <input type="text" name="user" class="form-control" placeholder="Nome de Usuario"  autofocus>
+		            <input type="text" id="campoNome" name="user" class="form-control" placeholder="Nome de Usuario"  autofocus>
+                <input type="text" id="campoCodigo" name="user" class="form-control hidden" placeholder="xxxx xxxx xxxx"  autofocus>
 		            <br>
-		            <label class="checkbox">
+		            <label class="checkbox" id="labelSenha">
 		        		Senha
 		        	</label>
-		            <input type="password" name="password" class="form-control"  placeholder="Password">
+		            <input type="password" id="campoSenha" name="password" class="form-control"  placeholder="Password">
 		          	<br>
-		            <button class="btn btn-theme btn-block" name="btn" value="entrar" type="submit"><i class="fa fa-lock"></i> SIGN IN</button>
-		            <button class="btn btn-theme btn-block" name="btn" value="cadastrar" type="submit" disabled><i class="fa fa-user"></i> CADASTRAR</button>
+		            <button class="btn btn-theme btn-block" id="btnSubmit" name="btn" value="entrar" type="submit"><i class="fa fa-lock"></i> SIGN IN</button>
+		            <a class="btn btn-theme btn-block"id="validar" name="btn" value="cadastrar"  ><i class="fa fa-key"></i> VALIDAR CERTIFICADO</a>
+                <a class="btn btn-theme btn-block hidden" id="voltar" name="btn" value="cadastrar"  ><i class="fa fa-back"></i> VOLTAR</a>
 
 
 		        </div>
@@ -78,7 +80,7 @@
     <!-- js placed at the end of the document so the pages load faster -->
     <script src="componentes/assets/js/jquery.js"></script>
     <script src="componentes/assets/js/bootstrap.min.js"></script>
-
+    
     <!--BACKSTRETCH-->
     <!-- You can use an image of whatever size. This script will stretch to fit in any screen size.-->
     <script type="text/javascript" src="componentes/assets/js/jquery.backstretch.min.js"></script>
@@ -87,6 +89,27 @@
         $.backstretch("componentes/assets/img/bbg-sisevento6.jpg", {speed: 500});
     </script>
     -->
+    <script>
+      $('#validar').click(function(){
+        $('#btnSubmit').addClass("hidden");
+        $('#campoNome').addClass("hidden");
+        $('#campoSenha').addClass("hidden");
+        $('#labelNome').text("Validar certificado");
+        $('#campoCodigo').removeClass('hidden');
+        $('#voltar').removeClass('hidden');
+        $('#labelSenha').addClass("hidden");
+        
+      });
+      $('#voltar').click(function(){
+        $('#btnSubmit').removeClass("hidden");
+        $('#campoNome').removeClass("hidden");
+        $('#campoSenha').removeClass("hidden");
+        $('#labelNome').text("Nome");
+        $('#campoCodigo').addClass('hidden');
+        $('#voltar').addClass('hidden');
+        $('#labelSenha').removeClass("hidden");
+      });
+    </script>
 
 
   </body>
