@@ -77,7 +77,7 @@
 			$query = $this->con->prepare($sql);
 			$query->execute();
 		}
-		public function list($id = null){
+		public function listAll($id = null){
 			if(!empty($id)){
 				$sql = "SELECT * FROM organizador WHERE evento = :id";
 

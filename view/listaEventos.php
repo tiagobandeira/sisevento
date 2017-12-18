@@ -1,4 +1,9 @@
 
+<style>
+.task-panel{
+    box-shadow: none;
+}
+</style>
 <?php  
 require_once '../model/UsuarioModel.php';
 require_once '../control/EventoController.php';
@@ -32,7 +37,7 @@ $cores = ['#f5f6f8', '#FFFFFF'];
                       <section class="task-panel tasks-widget">
                     <div class="panel-heading">
                           <div class="pull-left"><h5><i class="fa fa-tasks"></i> Lista de eventos</h5></div>
-                            <a class="btn btn-success btn-sm pull-right" href="?view=addEvento&sub=part&item=addE">Novo Evento</a>
+                            
                             <br>
                           
                     </div>
@@ -96,7 +101,7 @@ $cores = ['#f5f6f8', '#FFFFFF'];
                               <form method="POST">
                               
                               <div class=" add-task-row">
-                                  <a class="btn btn-success btn-sm pull-left" href="?view=addEvento&sub=part&item=addE">Novo Evento</a>
+                                 
                                   <button class="btn btn-default btn-sm pull-right" type="submit" 
                                       name="mais" value="<?php ?>">
                                     <?php  

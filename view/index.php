@@ -98,7 +98,6 @@
         $('#campoCodigo').removeClass('hidden');
         $('#voltar').removeClass('hidden');
         $('#labelSenha').addClass("hidden");
-        
       });
       $('#voltar').click(function(){
         $('#btnSubmit').removeClass("hidden");
