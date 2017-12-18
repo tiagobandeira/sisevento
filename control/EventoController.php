@@ -17,6 +17,10 @@
       $eventoList = $this->eventoModel->listAll("");
       return $eventoList;
     }
+    public function eventosUsuario($id = null){
+      $eventoList = $this->eventoModel->listaPorUsuario($id);
+      return $eventoList;
+    }
     //recebe o ano e retorna eventos daquele ano
     public function selecionaAno($ano = null){
       $eventos = array();

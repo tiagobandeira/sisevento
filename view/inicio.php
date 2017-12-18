@@ -5,7 +5,7 @@ require_once '../model/TipoEventoModel.php';
 require_once '../control/UsuarioController.php';
 require_once '../control/EventoController.php';
 
-$eventos = $Evento->listaEvento();
+$eventos = $Evento->eventosUsuario($_SESSION['id']);
 $url_key = "year";
 
 ?>

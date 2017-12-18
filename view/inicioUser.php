@@ -5,7 +5,7 @@ require_once '../model/TipoEventoModel.php';
 require_once '../control/UsuarioController.php';
 require_once '../control/EventoController.php';
 
-$eventos = $Evento->listaEvento();
+$eventos = $Evento->eventosUsuario($_SESSION['id']);
 $url_key = "year";
 
 ?>
@@ -78,7 +78,7 @@ $url_key = "year";
 		foreach ($eventoAno as $value) {
 			//$dataStr = $value->getDataInicio();
 			#$data = data('Y', strtotime($dataStr));
-			if ($value->getStatus() == "A") {
+			if ($value->getStatus() == "A" && $value->getUsuario() == $_SESSION['id']) {
 	?>
 
 	<div class="col-lg-4 col-md-4 col-sm-4 mb" >

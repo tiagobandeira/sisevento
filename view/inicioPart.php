@@ -3,9 +3,14 @@
 require_once '../model/TipoEventoModel.php';
 require_once '../model/EventoModel.php';
 require_once '../model/CodigoUsuarioModel.php';
+
+require_once '../control/EventoController.php';
+
+$eventos = $Evento->eventosUsuario($_SESSION['id']);
+
 require_once 'code.php';
 $evento = new EventoModel();
-$eventos = $evento->list("");
+$eventos = $Evento->eventosUsuario($_SESSION['id']);
 
 ?>
 <!--<h3><i class="fa fa-angle-right"></i> Eventos</h3>-->

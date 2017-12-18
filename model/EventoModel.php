@@ -235,7 +235,31 @@
 				echo "Não foi possível listar" . $e->getMesage();
 			}
 		}
+		public function listaPorUsuario($id){
+			$sql = "SELECT * FROM evento WHERE usuario = :id";
+			$eventos = array();
+			try{
 
+				$query = $this->con->prepare($sql);
+				$query->bindValue(":id", $id);
+				$query->execute();
+				foreach ($query as $value) {
+					$evento = new EventoModel(null,null,null,null,null,null, null,0, 0, $this->con);
+					$evento->setId($value['id']);
+					$evento->setNome($value['nome']);
+					$evento->setDataInicio($value['data_inicio']);
+					$evento->setDataFim($value['data_fim']);
+					$evento->setTipo($value['tipo']);
+					$evento->setEndereco($value['endereco']);
+					$evento->setUsuario($value['usuario']);
+					
+					array_push($eventos, $evento);
+				}
+				return $eventos;
+			}catch(PDOEcxeption $e){
+				echo "Não foi possível listar" . $e->getMesage();
+			}
+		}
 		public function init(){
 			
 		}
