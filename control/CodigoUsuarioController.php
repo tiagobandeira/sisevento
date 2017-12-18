@@ -19,12 +19,12 @@
     }
     public function add($post = null){
         if($post){
-        $codigo = $this->getRequestData($post);
-        //logica para adicionar o codigo do evento
-        $codigo->save();
-        return "Adicionou";
+            $codigo = $this->getRequestData($post);
+            //logica para adicionar o codigo do evento
+            $codigo->save();
+            return true;
         }
-        return "Não adicionou";
+        return false;
     }
     public function getRequestData($value = null, $data = null){
         $codigo = $this->codigoUsuarioModel;

@@ -18,6 +18,7 @@
   $_SESSION[$username] = $username;
   if($_SESSION['id'] == 1 && isset($_SESSION[$username]) && 
   $usertype == 1){
+      
 
 ?>
 <!DOCTYPE html>
@@ -165,7 +166,7 @@
               <div class="col-lg-12 ">
 
                 <?php
-                    
+                    require_once 'message/Message.php';
 
                     if(isset($_GET['view'])){
                         $file = $_GET["view"] . ".php";

@@ -122,7 +122,7 @@ $tipos = $tipouser->list();
             </div>
             <div role="tabpanel" class="tab-pane" id="convidado">
                 <form action="../actions/usuarioAction.php"  name="form2"  method="POST">
-               
+    
                     <div class="col-md-6 ">
                         <div class="form-group">
                             <label class="">Nome de Usuario</label>
