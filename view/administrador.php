@@ -116,15 +116,10 @@
                       </a>
                   </li>
                   <li class="sub-menu">
-                      <a  href="" class="<?php echo $_GET['sub'] == 'listeve'?'active':'' ?>">
+                      <a  href="?view=event&sub=event" class="<?php echo $_GET['sub'] == 'event'?'active':'' ?>">
                           <i class="fa fa-calendar"></i>
                           <span>Eventos</span>
                       </a>
-                      <ul class="sub">
-                          <li ><a  href="?view=listaEventos&sub=listeve&item=list">Todos</a></li>
-                          <li><a  href="?view=eventosDesativados&sub=listeve&item=listC">Desativados</a></li>
-                          <li><a  href="?view=calendar&sub=listeve&item=listC">Calendário</a></li>
-                      </ul>
                   </li>
                   <li class="sub-menu">
                       <a href="javascript:;" class="<?php echo $_GET['sub'] == 'listcert'?'active':'' ?>">

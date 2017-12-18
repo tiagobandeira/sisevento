@@ -261,6 +261,9 @@
 				echo "Não foi possível listar" . $e->getMesage();
 			}
 		}
+		public function getLastId(){
+			return $this->con->lastInsertId();
+		}
 		public function init(){
 			
 		}

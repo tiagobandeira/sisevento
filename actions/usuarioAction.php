@@ -6,7 +6,11 @@ require_once '../view/code.php';
 if(isset($_POST)){
     $tab = $_POST['tab'] != null ? $_POST['tab'] : 1;
     $usuario = $Usuario->get();
+   
     if($Usuario->add($_POST)){
+      if($_POST['btn'] == 'event'){
+        header("Location: http://localhost/projetos/IPW/SiseventoGit/view/administrador.php?view=event&sub=event&message=1");
+      }
       header("Location: http://localhost/projetos/IPW/SiseventoGit/view/administrador.php?view=users&sub=users&message=1&tab=". $tab ."");
     }
     print_r($usuario->getLastId());

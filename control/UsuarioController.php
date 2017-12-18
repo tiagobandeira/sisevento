@@ -23,9 +23,9 @@
         $usuario = $this->getRequestData($post);
         //logica para adicionar o codigo do evento
         $usuario->save();
-        return "Adicionou";
+        return true;
       }
-      return "Não adicionou";
+      return false;
     }
     public function getRequestData($value = null){
       $usuario = $this->usuarioModel;

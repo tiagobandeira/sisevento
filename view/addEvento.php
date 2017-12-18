@@ -254,86 +254,86 @@ $organizador2 = new OrganizadorModel();
 
 </div>
 <div class="col-lg-4   no-padding" >
-                  <div class="form-panel" >
-                      <!-- forme add tipo evento -->
-                      <form class="form-horizontal style-form" method="POST">
-                           <h4 class="mb"><i class="fa fa-calendar"> </i> Criar um tipo de Evento</h4>
-                           <div class="form-group">
-                              <label class="col-sm-2 col-sm-2 control-label">Tipo</label>
-                              <div class="col-sm-10">
-                                  <input type="text" name="tipoEvento" class="form-control">
-                              </div>
-
-                          </div>
-                          <?php
-                              if (isset($_POST['tipoEvento'])) {
-                            $tipoE = new TipoEventoModel();
-                            $tipoE->setTipo($_POST['tipoEvento']);
-                            $tipos = $tipoE->list($_POST['tipoEvento']);
-                            if (empty($_POST['tipoEvento'])) {
-                              echo "<div class='alert alert-danger'><b>Não salvou </b> Preencha os campos</div>";
-                            }else{
-                              $flag = true;
-                              foreach ($tipos as $value) {
-                                if ($value->getTipo() == $tipoE->getTipo()) {
-                                  $flag = false;
-                                  break;
-                                }
-                              }
-                              if(!$flag){
-                                echo "<div class='alert alert-danger'><b>Não salvou! </b> Tipo já existe.</div>";
-                              }else{
-                                $tipoE->save();
-                                echo "<div class='alert alert-success'><b>Tipo cadastrado!</b> Operação realizada com sucesso.</div>";
-                                echo "<meta HTTP-EQUIV='refresh' CONTENT='0;URL=administrador.php?view=addEvento&sub=part&item=add'>";
-                              }
-                            }
-
-                          }
-
-                          ?>
-                         <div align="right">
-                           <button type="submit" class="btn btn-info" >Salvar</button>
-                         </div>
-
-                       </form><!-- end forme add tipo evento -->
-                       <hr style="border:0.1px solid #ccc;">
-                       <!-- forme del tipo evento -->
-                       <form class="form-horizontal style-form" method="POST">
-                           <h4 class="mb"><i class="fa fa-trash-o"></i> Exlcuir tipo</h4>
-                           <div class="form-group">
-                                <label class="col-sm-2 col-sm-2 control-label">Nome</label>
-                                  <div class="col-sm-10">
-                                    <select class="form-control" name="tipoDel">
-                                        <?php foreach ($tipos as $value) { ?>
-                                            <option value="<?php echo $value->getId() ?>"><?php echo $value->getTipo() ?></option>
-                                        <?php } ?>
-                                    </select>
-                                  </div>
-                          </div>
-                           <?php
-                            if (isset($_POST['tipoDel'])) {
-                                $tipoD = new TipoEventoModel();
-                                $tipoD->setId($_POST['tipoDel']);
-                                if (empty($_POST['tipoDel'])) {
-                                  echo "<div class='alert alert-danger'><b>Não excluiodo </b> Selecione um item </div>";
-
-
-                                }else{
-                                  echo "<div class='alert alert-success'><b>Tipo cadastrado!</b> Operação realizada com sucesso.</div>";
-                                  $tipoD->delete($_POST['tipoDel']);
-                                  echo "<meta HTTP-EQUIV='refresh' CONTENT='0;URL=administrador.php?view=addEvento&sub=part&item=add'>";
-                                }
-
-                          }
-
-                          ?>
-                          <div align="right">
-                             <button type="submit" class="btn btn-danger" >Excluir</button>
-                          </div>
-
-                       </form> <!-- end forme del participante -->
+      <div class="form-panel" >
+          <!-- forme add tipo evento -->
+          <form class="form-horizontal style-form" method="POST">
+                <h4 class="mb"><i class="fa fa-calendar"> </i> Criar um tipo de Evento</h4>
+                <div class="form-group">
+                  <label class="col-sm-2 col-sm-2 control-label">Tipo</label>
+                  <div class="col-sm-10">
+                      <input type="text" name="tipoEvento" class="form-control">
                   </div>
+
+              </div>
+              <?php
+                  if (isset($_POST['tipoEvento'])) {
+                $tipoE = new TipoEventoModel();
+                $tipoE->setTipo($_POST['tipoEvento']);
+                $tipos = $tipoE->list($_POST['tipoEvento']);
+                if (empty($_POST['tipoEvento'])) {
+                  echo "<div class='alert alert-danger'><b>Não salvou </b> Preencha os campos</div>";
+                }else{
+                  $flag = true;
+                  foreach ($tipos as $value) {
+                    if ($value->getTipo() == $tipoE->getTipo()) {
+                      $flag = false;
+                      break;
+                    }
+                  }
+                  if(!$flag){
+                    echo "<div class='alert alert-danger'><b>Não salvou! </b> Tipo já existe.</div>";
+                  }else{
+                    $tipoE->save();
+                    echo "<div class='alert alert-success'><b>Tipo cadastrado!</b> Operação realizada com sucesso.</div>";
+                    echo "<meta HTTP-EQUIV='refresh' CONTENT='0;URL=administrador.php?view=addEvento&sub=part&item=add'>";
+                  }
+                }
+
+              }
+
+              ?>
+              <div align="right">
+                <button type="submit" class="btn btn-info" >Salvar</button>
+              </div>
+
+            </form><!-- end forme add tipo evento -->
+            <hr style="border:0.1px solid #ccc;">
+            <!-- forme del tipo evento -->
+            <form class="form-horizontal style-form" method="POST">
+                <h4 class="mb"><i class="fa fa-trash-o"></i> Exlcuir tipo</h4>
+                <div class="form-group">
+                    <label class="col-sm-2 col-sm-2 control-label">Nome</label>
+                      <div class="col-sm-10">
+                        <select class="form-control" name="tipoDel">
+                            <?php foreach ($tipos as $value) { ?>
+                                <option value="<?php echo $value->getId() ?>"><?php echo $value->getTipo() ?></option>
+                            <?php } ?>
+                        </select>
+                      </div>
+              </div>
+                <?php
+                if (isset($_POST['tipoDel'])) {
+                    $tipoD = new TipoEventoModel();
+                    $tipoD->setId($_POST['tipoDel']);
+                    if (empty($_POST['tipoDel'])) {
+                      echo "<div class='alert alert-danger'><b>Não excluiodo </b> Selecione um item </div>";
+
+
+                    }else{
+                      echo "<div class='alert alert-success'><b>Tipo cadastrado!</b> Operação realizada com sucesso.</div>";
+                      $tipoD->delete($_POST['tipoDel']);
+                      echo "<meta HTTP-EQUIV='refresh' CONTENT='0;URL=administrador.php?view=addEvento&sub=part&item=add'>";
+                    }
+
+              }
+
+              ?>
+              <div align="right">
+                  <button type="submit" class="btn btn-danger" >Excluir</button>
+              </div>
+
+            </form> <!-- end forme del participante -->
+      </div>
 </div>
 
 </div>
